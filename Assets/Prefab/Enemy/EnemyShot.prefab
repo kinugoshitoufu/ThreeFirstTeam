@@ -12,10 +12,10 @@ GameObject:
   - component: {fileID: 6760951134171009068}
   - component: {fileID: 344734782192226987}
   - component: {fileID: 8795625212199313689}
-  - component: {fileID: 4604371694848807348}
+  - component: {fileID: 7025248340290575607}
   m_Layer: 0
   m_Name: EnemyShot
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -124,7 +124,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -167,7 +167,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4604371694848807348
+--- !u!114 &7025248340290575607
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -176,7 +176,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 459942376683718103}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c9da25dc30b25142b54f11794e1f92c, type: 3}
+  m_Script: {fileID: 11500000, guid: e4943476aacfd3541a4169682fa54c6e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyShot
   speed: 3
+  shotData:
+    frame: 140
+    type: 1
+    bullet: {fileID: 7339847894137258478, guid: 48b4784766d5f7143b0638828af487f5, type: 3}

@@ -18,8 +18,8 @@ public class EnemySpawner1 : MonoBehaviour
 
     //public float spawnWidth = 4f;
     [Header("スポーン範囲")]
-    public Vector2 spawnRangeX = new Vector2(-2f,0);
-    public Vector2 spawnRangeY = new Vector2(0, 2f);
+    public Vector2 Maxrange = new Vector2(5f,5f);
+    public Vector2 Minrange = new Vector2(1f, 1f);
     public int maxEnemiesInScene = 10;
     private static int currentEnemies = 0;
 
@@ -87,8 +87,8 @@ public class EnemySpawner1 : MonoBehaviour
 
             Vector3 pos = transform.position;
             //pos.x += Random.Range(-2f, 2f);
-            pos.x += Random.Range(spawnRangeX.x, spawnRangeX.y);
-            pos.y += Random.Range(spawnRangeY.x, spawnRangeY.y);
+            pos.x += Random.Range(Maxrange.x, Maxrange.y);
+            pos.y += Random.Range(Minrange.x, Minrange.y);
             pos.z = 0f;
 
             GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
