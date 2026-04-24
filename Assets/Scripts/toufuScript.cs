@@ -13,6 +13,6 @@ public class toufuScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = PlayerScript.instance.HoriVert().ToString();
+        text.text = PlayerScript.instance.HoriVert().ToString() + "  " + PlayerScript.instance.shotCount.ToString();
     }
 }
