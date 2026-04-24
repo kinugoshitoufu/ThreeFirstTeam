@@ -11,6 +11,9 @@ public class SpawnOption
     public int spawnCount = 1;
     [Header("確率")]
     public float weight = 1;
+    [Header("スポーン範囲")]
+    public Vector2 spawnRangeX = new Vector2(-2f, 2f);
+    public Vector2 spawnRangeY = new Vector2(-2f, 2f);
 }
 public class EnemySpawner1 : MonoBehaviour
 {
@@ -53,6 +56,7 @@ public class EnemySpawner1 : MonoBehaviour
     // ★種類はここで抽選（追尾 or ショット）
     SpawnOption GetRandomOption()
     {
+        Debug.Log("敵の抽選が開始したよ！！");
         float total = 0f;
 
         foreach (var opt in spawnOptions)
@@ -76,6 +80,8 @@ public class EnemySpawner1 : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
+            Debug.Log("Spawn呼ばれたよ！！");
+
             if (currentEnemies >= maxEnemiesInScene)
                 break;
 
@@ -87,6 +93,7 @@ public class EnemySpawner1 : MonoBehaviour
             GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
 
             Enemy enemy = obj.GetComponent<Enemy>();
+            
             Register(enemy);
         }
     }
