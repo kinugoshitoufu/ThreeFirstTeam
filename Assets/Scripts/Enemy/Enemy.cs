@@ -26,7 +26,14 @@ public class Enemy : MonoBehaviour
             );
         }
     }
-public void Die()
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Player"))
+        {
+            Die();
+        }
+    }
+    public void Die()
     {
         // 死亡処理
         OnDeath?.Invoke(this);
