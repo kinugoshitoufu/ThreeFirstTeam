@@ -1,19 +1,32 @@
+using System;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public System.Action<Enemy> OnDeath;
+    public Action<Enemy> OnDeath;
+
+    public float speed = 3f; // 敵の移動速度
+    private Transform player;
+
     void Start()
     {
-        
+        // プレイヤーのTransformを取得
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (player != null)
+        {
+            // プレイヤーの方向へ移動
+            transform.position = Vector2.MoveTowards(
+                transform.position,
+                player.position,
+                speed * Time.deltaTime
+            );
+        }
     }
-    public void Die()
+public void Die()
     {
         // 死亡処理
         OnDeath?.Invoke(this);

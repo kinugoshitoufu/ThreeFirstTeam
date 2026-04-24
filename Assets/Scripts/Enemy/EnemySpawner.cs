@@ -1,64 +1,101 @@
+using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class SpawnOption
+{
+    public GameObject enemyPrefab; // ★追加
+
+    [Header("出現数")]
+    public int spawnCount = 1;
+    [Header("確率")]
+    public float weight = 1;
+}
 public class EnemySpawner : MonoBehaviour
 {
     [Header("スポーン設定")]
-    public GameObject enemyPrefab;
-    public float spawnChance = 0.5f;
+    public List<SpawnOption> spawnOptions = new List<SpawnOption>();
     public float spawnWidth = 4f;
 
-    [Header("複数スポーン")]
-    public int minSpawnCount = 1;
-    public int maxSpawnCount = 3;
-
     [Header("制限")]
-    public int maxEnemies = 10;
-    private int currentEnemies = 0;
+    public int maxEnemiesInScene = 10;
+    private static int currentEnemiesInScene = 0;//敵がシーンに何体いるか？
+    // =========================
+    // 初期スポーンなどで使うなら
+    // =========================
+    private void Start()
+    {
+        Spawn(); // 初期1回
+    }
 
+    // =========================
+    // 敵登録（重要）
+    // =========================
     public void RegisterEnemy(Enemy enemy)
     {
-        currentEnemies++;
+        currentEnemiesInScene++;
         enemy.OnDeath += OnEnemyDeath;
     }
 
+    // =========================
+    // 死亡通知
+    // =========================
     private void OnEnemyDeath(Enemy enemy)
     {
-        currentEnemies--;
+        currentEnemiesInScene--;
 
-        // 上限なら何もしない
-        if (currentEnemies >= maxEnemies)
+        if (currentEnemiesInScene >= maxEnemiesInScene)
             return;
 
-        // ★ここが「確率で追加生成」の本体
-        if (Random.value <= spawnChance)
-        {
-            int spawnCount = Random.Range(minSpawnCount, maxSpawnCount + 1);
-            SpawnMultiple(spawnCount);
-        }
+        Spawn();
     }
 
-    private void SpawnMultiple(int count)
+    // =========================
+    // スポーン本体
+    // =========================
+    public void Spawn()
     {
-        for (int i = 0; i < count; i++)
+        SpawnOption option = GetRandomOption();
+
+        for (int i = 0; i < option.spawnCount; i++)
         {
-            // 最大数チェック
-            if (currentEnemies >= maxEnemies)
+            if (currentEnemiesInScene >= maxEnemiesInScene)
                 return;
 
-            SpawnEnemy();
+            Vector3 pos = transform.position;
+
+            float offsetX = Random.Range(-spawnWidth / 2f, spawnWidth / 2f);
+            pos.x += offsetX;
+
+            GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
+
+            Enemy enemy = obj.GetComponent<Enemy>();
+            RegisterEnemy(enemy);
         }
     }
 
-    private void SpawnEnemy()
+    // =========================
+    // 重み抽選
+    // =========================
+    private SpawnOption GetRandomOption()
     {
-        Vector3 pos = transform.position;
+        float total = 0f;
 
-        float offsetX = Random.Range(-spawnWidth / 2f, spawnWidth / 2f);
-        pos.x += offsetX;
+        foreach (var opt in spawnOptions)
+            total += opt.weight;
 
-        GameObject obj = Instantiate(enemyPrefab, pos, Quaternion.identity);
+        float rand = Random.Range(0, total);
 
-        Enemy enemy = obj.GetComponent<Enemy>();
-        RegisterEnemy(enemy);
+        float current = 0f;
+
+        foreach (var opt in spawnOptions)
+        {
+            current += opt.weight;
+
+            if (rand <= current)
+                return opt;
+        }
+
+        return spawnOptions[0];
     }
 }
