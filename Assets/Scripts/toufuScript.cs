@@ -13,6 +13,8 @@ public class toufuScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        text.text = PlayerScript.instance.HoriVert().ToString() + "  " + PlayerScript.instance.shotCount.ToString();
+        text.text = PlayerScript.instance.GetHoriVert().ToString() + "  (" + PlayerScript.instance.shotCount.ToString() + ")  ("
+            + PlayerScript.instance.GetComboCount().ToString() + ")  (" + PlayerScript.instance.GetMaxComboCount().ToString() + ")  ("
+            + PlayerScript.instance.GetScore().ToString() + ")";
     }
 }

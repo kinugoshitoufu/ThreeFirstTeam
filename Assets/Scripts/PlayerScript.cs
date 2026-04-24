@@ -1,12 +1,14 @@
 using Unity.Mathematics;
+using Unity.VectorGraphics;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerScript : MonoBehaviour
 {
-　　//最低限必須なもの
+　　//パラメーターなど
     public static PlayerScript instance;
     public GameObject Arrow;
     public float movespeed = 3.0f;
@@ -14,19 +16,29 @@ public class PlayerScript : MonoBehaviour
     public float shottime = 3.0f;
     public float gravity = 1.0f;
     public int shotCount = 1;
+    public float combotime = 1.2f;
+    public int scorecount = 200;
+    public float timeup = 1.0f;
+    public int downfallspeed = 30;
 
     //操作によって変更
 
-    //フラグ等
+    //フラグ・カウント系など
     private Vector3 PlayerPos;
+    private BoxCollider2D box;
+    private int combocount = 0;
+    private int score = 0;
     private bool shotFlag;
-    public float shottimecount = 0.0f;
+    private int maxcombo = 0;
+    private float shottimecount = 0.0f;
+    private float combotimecount = 0.0f;
     private int control = 0;//操作方法の変更
     private Rigidbody2D rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         instance = this;
+        box = GetComponent<BoxCollider2D>();
         PlayerPos = GetComponent<Transform>().position;
         rb = GetComponent<Rigidbody2D>();
         shotFlag = false;
@@ -35,6 +47,10 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
         if (!shotFlag)
         {
             Move();
@@ -56,6 +72,25 @@ public class PlayerScript : MonoBehaviour
             rb.linearVelocity = Vector3.zero;
             rb.gravityScale = gravity;
             shottimecount = 0.0f;
+        }
+        if (maxcombo < combocount)
+        {
+            maxcombo = combocount;
+        }
+        if (combocount > 0)
+        {
+            combotimecount += Time.deltaTime;            
+        }
+        if (combotime < combotimecount)
+        {
+            gravity = 1.0f;
+            rb.gravityScale = gravity;
+            combocount = 0;
+            combotimecount = 0.0f;
+        }
+        if (combocount > 30)
+        {
+            gravity = 0.5f;
         }
     }
 
@@ -92,7 +127,8 @@ public class PlayerScript : MonoBehaviour
         shotCount--;
     }
     
-    public Vector2 HoriVert()
+
+    public Vector2 GetHoriVert()
     {
         Vector2 vec = new Vector2(0, 0);
         vec.x = Input.GetAxisRaw("Horizontal");
@@ -100,17 +136,30 @@ public class PlayerScript : MonoBehaviour
         return vec;
     }
     
-    private void OnCollisionEnter2D(Collision2D collision)
+    public int GetComboCount()
     {
-        if (collision.collider.CompareTag("Ground"))
-        {
-            //if (shotCount < 1)
-            //{
-            //    shotCount = 1;
-            //}
-        }        
+        return combocount;
     }
-    private void OnCollisionStay2D(Collision2D collision)
+    public void SetComboCount(int c)
+    {
+        combocount = c;
+    }
+
+    public int GetMaxComboCount()
+    {
+        return maxcombo;
+    }
+
+    public int GetScore()
+    {
+        return score;
+    }
+    public void SetScore(int s)
+    {
+        score = s;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Ground"))
         {
@@ -118,6 +167,16 @@ public class PlayerScript : MonoBehaviour
             {
                 shotCount = 1;
             }
+        }        
+    }
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Ground"))
+        {
+            //if (shotCount < 1)
+            //{
+            //    shotCount = 1;
+            //}
         }
     }
     private void OnCollisionExit2D(Collision2D collision)
@@ -134,7 +193,12 @@ public class PlayerScript : MonoBehaviour
             if (shotFlag)
             {
                 Destroy(collision.gameObject);
+                combocount++;
                 shotCount++;
+                combotimecount = 0.0f;
+                score += scorecount * combocount;
+                gravity -= 0.016666666666666f;
+                //TimeScript.instance.LimitTime += timeup;
             }
             else
             {
