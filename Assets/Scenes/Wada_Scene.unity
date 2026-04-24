@@ -291,7 +291,10 @@ MonoBehaviour:
   Arrow: {fileID: 1929976833}
   movespeed: 3
   Shotspeed: 10
+  shottime: 3
+  gravity: 1
   shotCount: 1
+  shottimecount: 0
 --- !u!212 &427614675
 SpriteRenderer:
   serializedVersion: 2
@@ -538,7 +541,8 @@ MonoBehaviour:
   - enemyPrefab: {fileID: 459942376683718103, guid: 815445face620214b89adeed80cb31aa, type: 3}
     spawnCount: 1
     weight: 100
-  spawnWidth: 4
+  spawnRangeX: {x: -4, y: 4}
+  spawnRangeY: {x: 0, y: 2}
   maxEnemiesInScene: 10
   spawnCountOne: 70
   spawnCountTwo: 20

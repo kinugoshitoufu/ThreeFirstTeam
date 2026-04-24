@@ -11,23 +11,21 @@ public class SpawnOption
     public int spawnCount = 1;
     [Header("確率")]
     public float weight = 1;
-    [Header("スポーン範囲")]
-    public Vector2 spawnRangeX = new Vector2(-2f, 2f);
-    public Vector2 spawnRangeY = new Vector2(-2f, 2f);
 }
 public class EnemySpawner1 : MonoBehaviour
 {
     public List<SpawnOption> spawnOptions;
 
-    public float spawnWidth = 4f;
-
+    //public float spawnWidth = 4f;
+    [Header("スポーン範囲")]
+    public Vector2 spawnRangeX = new Vector2(-2f,0);
+    public Vector2 spawnRangeY = new Vector2(0, 2f);
     public int maxEnemiesInScene = 10;
     private static int currentEnemies = 0;
 
     public float spawnCountOne = 70f;
     public float spawnCountTwo = 20f;
     public float spawnCountThree = 10f;
-
 
     private void Start()
     {
@@ -88,7 +86,10 @@ public class EnemySpawner1 : MonoBehaviour
             SpawnOption option = GetRandomOption();
 
             Vector3 pos = transform.position;
-            pos.x += Random.Range(-2f, 2f);
+            //pos.x += Random.Range(-2f, 2f);
+            pos.x += Random.Range(spawnRangeX.x, spawnRangeX.y);
+            pos.y += Random.Range(spawnRangeY.x, spawnRangeY.y);
+            pos.z = 0f;
 
             GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
 
