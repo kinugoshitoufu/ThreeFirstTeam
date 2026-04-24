@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class SpawnOption
+public class SpawnOption2
 {
     public GameObject enemyPrefab; // ★追加
 

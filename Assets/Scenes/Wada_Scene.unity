@@ -449,7 +449,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 716227961}
-  - component: {fileID: 716227960}
+  - component: {fileID: 716227962}
   m_Layer: 0
   m_Name: EnemySpawner
   m_TagString: Untagged
@@ -457,24 +457,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &716227960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 716227959}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec0f86886d1d05041b78b3f811c67fc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  spawnOptions:
-  - enemyPrefab: {fileID: 459942376683718103, guid: 815445face620214b89adeed80cb31aa, type: 3}
-    spawnCount: 1
-    weight: 100
-  spawnWidth: 4
-  maxEnemiesInScene: 10
 --- !u!4 &716227961
 Transform:
   m_ObjectHideFlags: 0
@@ -490,6 +472,77 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &716227962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716227959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ec0f86886d1d05041b78b3f811c67fc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
+  spawnOptions:
+  - enemyPrefab: {fileID: 9089360760857115792}
+    spawnCount: 1
+    weight: 100
+  spawnWidth: 4
+  maxEnemiesInScene: 10
+--- !u!1 &1326815054
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1326815056}
+  - component: {fileID: 1326815057}
+  m_Layer: 0
+  m_Name: EnemySpawner (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &1326815056
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326815054}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.57932, y: 1.39226, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1326815057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326815054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5630883e98619ab42baf21f9146af4e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner1
+  spawnOptions:
+  - enemyPrefab: {fileID: 9089360760857115792}
+    spawnCount: 1
+    weight: 100
+  spawnWidth: 4
+  maxEnemiesInScene: 10
+  spawnCountOne: 70
+  spawnCountTwo: 20
+  spawnCountThree: 10
 --- !u!1 &1929976833
 GameObject:
   m_ObjectHideFlags: 0
@@ -595,7 +648,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 459942376683718103, guid: 815445face620214b89adeed80cb31aa, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2115067789482829911, guid: 815445face620214b89adeed80cb31aa, type: 3}
       propertyPath: m_LocalPosition.x
@@ -642,11 +695,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 815445face620214b89adeed80cb31aa, type: 3}
+--- !u!1 &9089360760857115792 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 459942376683718103, guid: 815445face620214b89adeed80cb31aa, type: 3}
+  m_PrefabInstance: {fileID: 1058646732380412797}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 391374040}
   - {fileID: 716227961}
+  - {fileID: 1326815056}
   - {fileID: 1058646732380412797}
   - {fileID: 427614676}
