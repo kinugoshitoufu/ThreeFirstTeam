@@ -267,7 +267,6 @@ GameObject:
   - component: {fileID: 753527294}
   - component: {fileID: 753527293}
   - component: {fileID: 753527292}
-  - component: {fileID: 753527291}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -275,21 +274,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &753527291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 753527290}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 337acf6f15f17b947998c115f675e5cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TimeScript
-  LimitTime: 30
-  Downspeed: 1
-  timeText: {fileID: 0}
 --- !u!114 &753527292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -380,7 +364,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 337acf6f15f17b947998c115f675e5cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimeScript
-  LimitTime: 5
+  LimitTime: 100
   Downspeed: 1
   timeText: {fileID: 1028307029}
 --- !u!4 &992837259
