@@ -36,7 +36,7 @@ public class EnemyShot : Enemy
 
     void Shot()
     {
-        ++shotFrame;
+        shotFrame++;
         if (shotFrame > shotData.frame)
         {
             switch (shotData.type)
@@ -55,9 +55,8 @@ public class EnemyShot : Enemy
                     break;
             }
             shotFrame = 0;
-        }
-    }
-    // Update is called once per frame
+        }    }
+    
     void Update()
     {
         Shot();
@@ -69,12 +68,4 @@ public class EnemyShot : Enemy
             Die();
         }
     }
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if (collision.CompareTag("Player"))
-    //    {
-    //        Die();
-    //    }
-    //}
-    
 }

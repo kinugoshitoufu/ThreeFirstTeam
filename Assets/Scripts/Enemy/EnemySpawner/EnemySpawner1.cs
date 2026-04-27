@@ -20,9 +20,10 @@ public class EnemySpawner1 : MonoBehaviour
     [Header("スポーン範囲")]
     public Vector2 Maxrange = new Vector2(5f,5f);
     public Vector2 Minrange = new Vector2(1f, 1f);
+    [Header("シーン上に存在できる敵数")]
     public int maxEnemiesInScene = 10;
     private static int currentEnemies = 0;
-
+    [Header("追加で出てくる敵の確率")]
     public float spawnCountOne = 70f;
     public float spawnCountTwo = 20f;
     public float spawnCountThree = 10f;

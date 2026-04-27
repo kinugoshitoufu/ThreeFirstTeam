@@ -7,7 +7,6 @@ public class Enemy : MonoBehaviour
 
     public float speed = 3f; // 敵の移動速度
     private Transform player;
-
     void Start()
     {
         // プレイヤーのTransformを取得
