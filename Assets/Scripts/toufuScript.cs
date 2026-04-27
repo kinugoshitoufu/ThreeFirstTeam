@@ -15,6 +15,7 @@ public class toufuScript : MonoBehaviour
     {
         text.text = PlayerScript.instance.GetHoriVert().ToString() + "  (" + PlayerScript.instance.shotCount.ToString() + ")  ("
             + PlayerScript.instance.GetComboCount().ToString() + ")  (" + PlayerScript.instance.GetMaxComboCount().ToString() + ")  ("
-            + PlayerScript.instance.GetScore().ToString() + ")";
+            + PlayerScript.instance.GetScore().ToString() + ")  (" + PlayerScript.instance.GetRank().ToString() + ")  ("
+            + PlayerScript.instance.gravity.ToString() + ")";
     }
 }

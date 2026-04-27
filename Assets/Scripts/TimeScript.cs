@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class TimeScript : MonoBehaviour
 {
+    public static TimeScript instance;
     public float LimitTime = 30f;        // 残り時間
     public float Downspeed = 1f;        // 減少速度
     private float elapsedTime = 0f; // 経過時間

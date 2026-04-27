@@ -20,10 +20,13 @@ public class PlayerScript : MonoBehaviour
     public int scorecount = 200;
     public float timeup = 1.0f;
     public int downfallspeed = 30;
+    public float fallspeed = 0.5f;
+    public TimeScript Timescript;
 
     //操作によって変更
 
     //フラグ・カウント系など
+    [SerializeField] private string rank = "none";
     private Vector3 PlayerPos;
     private BoxCollider2D box;
     private int combocount = 0;
@@ -51,12 +54,17 @@ public class PlayerScript : MonoBehaviour
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            combocount++;
+            combotimecount = 0.0f;
+        }
         if (!shotFlag)
         {
             Move();
         }
         PlayerPos = transform.position;
-        if (Input.GetKeyDown("joystick button 0") && shotCount > 0 && !shotFlag)
+        if (shotCount > 0 && !shotFlag && Input.GetKeyDown("joystick button 2"))
         {
             Debug.Log("aaaaaajump");
             shot();
@@ -88,10 +96,11 @@ public class PlayerScript : MonoBehaviour
             combocount = 0;
             combotimecount = 0.0f;
         }
-        if (combocount > 30)
+        if (combocount > downfallspeed)
         {
-            gravity = 0.5f;
+            gravity = fallspeed;
         }
+        comborank();
     }
 
     void Move()
@@ -127,6 +136,33 @@ public class PlayerScript : MonoBehaviour
         shotCount--;
     }
     
+    void comborank()
+    {
+        if (combocount > 49)
+        {
+            rank = "S";
+        }
+        else if (combocount > 39)
+        {
+            rank = "A";
+        }
+        else if (combocount > 29)
+        {
+            rank = "B";
+        }
+        else if (combocount > 19)
+        {
+            rank = "C";
+        }
+        else if (combocount > 9)
+        {
+            rank = "D";
+        }
+        else
+        {
+            rank = "none";
+        }
+    }
 
     public Vector2 GetHoriVert()
     {
@@ -158,6 +194,10 @@ public class PlayerScript : MonoBehaviour
     {
         score = s;
     }
+    public string GetRank()
+    {
+        return rank;
+    } 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -197,8 +237,8 @@ public class PlayerScript : MonoBehaviour
                 shotCount++;
                 combotimecount = 0.0f;
                 score += scorecount * combocount;
-                gravity -= 0.016666666666666f;
-                //TimeScript.instance.LimitTime += timeup;
+                gravity -= fallspeed / downfallspeed;
+                Timescript.LimitTime += timeup;
             }
             else
             {
