@@ -861,12 +861,13 @@ MonoBehaviour:
   shottime: 0.4
   gravity: 1
   shotCount: 1
-  combotime: 1.2
+  combotime: 12
   scorecount: 200
   timeup: 1
   downfallspeed: 30
   fallspeed: 0.5
   Timescript: {fileID: 1001300662}
+  shotcollider: 0.1
   rank: 
 --- !u!1 &1087385177
 GameObject:
@@ -916,7 +917,7 @@ Transform:
   m_GameObject: {fileID: 1087385177}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.68, y: 2.61, z: 0}
+  m_LocalPosition: {x: -8.05, y: 2.07, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

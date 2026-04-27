@@ -2,6 +2,7 @@ using Unity.Mathematics;
 using Unity.VectorGraphics;
 using Unity.VisualScripting;
 using Unity.VisualScripting.Dependencies.NCalc;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -22,6 +23,7 @@ public class PlayerScript : MonoBehaviour
     public int downfallspeed = 30;
     public float fallspeed = 0.5f;
     public TimeScript Timescript;
+    public float shotcollider = 0.1f;
 
     //操作によって変更
 
@@ -30,11 +32,12 @@ public class PlayerScript : MonoBehaviour
     private Vector3 PlayerPos;
     private BoxCollider2D box;
     private int combocount = 0;
+    private bool shotboxflag = true;
     private int score = 0;
     private bool shotFlag;
     private int maxcombo = 0;
-    private float shottimecount = 0.0f;
-    private float combotimecount = 0.0f;
+    [SerializeField] private float shottimecount = 0.0f;
+    [SerializeField] private float combotimecount = 0.0f;
     private int control = 0;//操作方法の変更
     private Rigidbody2D rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -45,6 +48,7 @@ public class PlayerScript : MonoBehaviour
         PlayerPos = GetComponent<Transform>().position;
         rb = GetComponent<Rigidbody2D>();
         shotFlag = false;
+        shotboxflag = true;
     }
 
     // Update is called once per frame
@@ -99,6 +103,14 @@ public class PlayerScript : MonoBehaviour
         if (combocount > downfallspeed)
         {
             gravity = fallspeed;
+        }
+        if (shotboxflag)
+        {
+            rankbox();
+        }
+        else
+        {
+            box.size = Vector2.one;
         }
         comborank();
     }
@@ -164,6 +176,34 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
+    void rankbox()
+    {
+        if (rank == "S")
+        {
+            box.size = new Vector2(1.0f + (shotcollider * 5), 1.0f + (shotcollider * 5));
+        }
+        else if (rank == "A")
+        {
+            box.size = new Vector2(1.0f + (shotcollider * 4), 1.0f + (shotcollider * 4));
+        }
+        else if (rank == "B")
+        {
+            box.size = new Vector2(1.0f + (shotcollider * 3), 1.0f + (shotcollider * 3));
+        }
+        else if (rank == "C")
+        {
+            box.size = new Vector2(1.0f + (shotcollider * 2), 1.0f + (shotcollider * 2));
+        }
+        else if (rank == "D")
+        {
+            box.size = new Vector2(1.0f + (shotcollider * 1), 1.0f + (shotcollider * 1));
+        }
+        else
+        {
+            box.size = new Vector2(1.0f, 1.0f);
+        }
+    }
+
     public Vector2 GetHoriVert()
     {
         Vector2 vec = new Vector2(0, 0);
@@ -207,6 +247,8 @@ public class PlayerScript : MonoBehaviour
             {
                 shotCount = 1;
             }
+            shotboxflag = false;
+            //transform.position = new Vector3(transform.position.x,transform.position.y - (box.size.y - 1.0f));
         }        
     }
     private void OnCollisionStay2D(Collision2D collision)
@@ -223,7 +265,8 @@ public class PlayerScript : MonoBehaviour
     {
         if (collision.collider.CompareTag("Ground"))
         {
-            
+
+            shotboxflag = true;
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
