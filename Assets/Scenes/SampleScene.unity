@@ -861,7 +861,7 @@ MonoBehaviour:
   shottime: 0.4
   gravity: 1
   shotCount: 1
-  combotime: 12
+  combotime: 1.2
   scorecount: 200
   timeup: 1
   downfallspeed: 30
@@ -869,6 +869,8 @@ MonoBehaviour:
   Timescript: {fileID: 1001300662}
   shotcollider: 0.1
   rank: 
+  shottimecount: 0
+  combotimecount: 0
 --- !u!1 &1087385177
 GameObject:
   m_ObjectHideFlags: 0

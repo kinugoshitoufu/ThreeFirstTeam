@@ -25,8 +25,9 @@ public class PlayerScript : MonoBehaviour
     public TimeScript Timescript;
     public float shotcollider = 0.1f;
 
-    
+
     //操作によって変更
+    private int control = 0;//操作方法の変更
 
     //フラグ・カウント系など
     [SerializeField] private string rank = "none";
@@ -39,7 +40,6 @@ public class PlayerScript : MonoBehaviour
     private int maxcombo = 0;
     [SerializeField] private float shottimecount = 0.0f;
     [SerializeField] private float combotimecount = 0.0f;
-    private int control = 0;//操作方法の変更
     private Rigidbody2D rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
@@ -69,15 +69,33 @@ public class PlayerScript : MonoBehaviour
             combocount++;
             combotimecount = 0.0f;
         }
+        if (Input.GetKeyDown(KeyCode.Y))
+        {
+            control = 0;
+            Debug.Log("コントローラー操作に変更しました");
+        }
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            control = 1;
+            Debug.Log("キーボード操作に変更しました");
+        }
         if (!shotFlag)
         {
             Move();
         }
         PlayerPos = transform.position;
-        if (shotCount > 0 && !shotFlag && Input.GetKeyDown("joystick button 2"))
+        if (shotCount > 0 && !shotFlag)
         {
-            Debug.Log("aaaaaajump");
-            shot();
+            if (control == 0 && Input.GetKeyDown("joystick button 2"))
+            {
+                Debug.Log("コントローラー突撃");
+                shot();
+            }
+            if (control == 1 && Input.GetKeyDown(KeyCode.Z))
+            {
+                Debug.Log("キーボード突撃");
+                shot();
+            }
         }
         if (shotFlag)
         {
