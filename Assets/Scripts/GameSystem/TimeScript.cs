@@ -8,7 +8,7 @@ public class TimeScript : MonoBehaviour
     public float LimitTime = 30f;     // 残り時間
     public float Downspeed = 1f;     // 減少速度
     private static float elapsedTime = 0f;  // 経過時間
-    private float ReduceLimit=5f;   //減らす時間
+    private float ReduceLimit=30f;   //減らす時間
 
     public static float resultTime;    //リザルト用
     public static int resultScore;//リザルト用
@@ -46,6 +46,11 @@ public class TimeScript : MonoBehaviour
             SceneChanger.instance.sceneChanger();
             return;
         }
+        if (LimitTime < 0)
+        {
+            LimitTime = 0f;//０以下にならないように
+        }
+
 
         // 整数表示（秒）
         timeText.text = Mathf.FloorToInt(LimitTime).ToString("F0");
