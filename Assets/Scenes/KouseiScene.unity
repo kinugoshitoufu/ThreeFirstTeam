@@ -335,6 +335,7 @@ GameObject:
   m_Component:
   - component: {fileID: 198030425}
   - component: {fileID: 198030424}
+  - component: {fileID: 198030426}
   m_Layer: 0
   m_Name: kariBGM
   m_TagString: Untagged
@@ -355,7 +356,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -454,6 +455,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &198030426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 198030423}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2a076df810a60c4ab844490461bd9a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KariBGM
 --- !u!82 &298682702 stripped
 AudioSource:
   m_CorrespondingSourceObject: {fileID: 6452594643229116003, guid: 48b4784766d5f7143b0638828af487f5, type: 3}
@@ -502,7 +515,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.187
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1018,14 +1031,14 @@ MonoBehaviour:
   - clip: {fileID: 8300000, guid: e8904c9f86974da4fb3e67506d518a91, type: 3}
     SEvolume: 1
   - clip: {fileID: 8300000, guid: 249f8e533d6fd804eb1df4fbee9fb7e7, type: 3}
-    SEvolume: 1
+    SEvolume: 0.1
   bgmSource:
   - {fileID: 198030424}
   bgmList:
   - clip: {fileID: 8300000, guid: a789c11f5bab012409d05ac9b9c4d352, type: 3}
-    BGMvolume: 1
+    BGMvolume: 0.206
   - clip: {fileID: 8300000, guid: 11ac7e83ebb7cab49af2ba9e60c201c4, type: 3}
-    BGMvolume: 0
+    BGMvolume: 1
 --- !u!1001 &1918276379
 PrefabInstance:
   m_ObjectHideFlags: 0
