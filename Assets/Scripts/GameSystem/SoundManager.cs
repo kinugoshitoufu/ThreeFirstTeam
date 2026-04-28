@@ -4,17 +4,29 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
 
+    public AudioSource[] seSources;
+    public SEData[] seList;
+
+    public AudioSource[] bgmSource;
+    public BGMData[] bgmList;
+
     [System.Serializable]
     public class SEData
     {
         public AudioClip clip;
 
         [Range(0f, 1f)]
-        public float volume = 1f; // ← インスペクターで調整できる
+        public float SEvolume = 1f;
     }
 
-    public AudioSource[] seSources;
-    public SEData[] seList; // ← 変更ポイント
+    [System.Serializable]
+    public class BGMData
+    {
+        public AudioClip clip;
+
+        [Range(0f, 1f)]
+        public float BGMvolume = 1f;
+    }
 
     void Awake()
     {
@@ -29,7 +41,21 @@ public class SoundManager : MonoBehaviour
         {
             if (!source.isPlaying)
             {
-                source.PlayOneShot(seList[index].clip, seList[index].volume);
+                source.PlayOneShot(seList[index].clip, seList[index].SEvolume);
+                return;
+            }
+        }
+    }
+
+    public void GAMEBGM(int index)
+    {
+        if (index < 0 || index >= bgmList.Length) return;
+
+        foreach (var source in seSources)
+        {
+            if (!source.isPlaying)
+            {
+                source.PlayOneShot(bgmList[index].clip, bgmList[index].BGMvolume);
                 return;
             }
         }
