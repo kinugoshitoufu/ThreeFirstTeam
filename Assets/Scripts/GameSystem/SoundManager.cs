@@ -4,8 +4,17 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
 
-    public AudioSource[] seSources; 
-    public AudioClip[] seClips;
+    [System.Serializable]
+    public class SEData
+    {
+        public AudioClip clip;
+
+        [Range(0f, 1f)]
+        public float volume = 1f; // ← インスペクターで調整できる
+    }
+
+    public AudioSource[] seSources;
+    public SEData[] seList; // ← 変更ポイント
 
     void Awake()
     {
@@ -14,14 +23,13 @@ public class SoundManager : MonoBehaviour
 
     public void GAMESE(int index)
     {
-        if (index < 0 || index >= seClips.Length) return;
+        if (index < 0 || index >= seList.Length) return;
 
-        // 空いてるAudioSourceを探す
         foreach (var source in seSources)
         {
             if (!source.isPlaying)
             {
-                source.PlayOneShot(seClips[index]);
+                source.PlayOneShot(seList[index].clip, seList[index].volume);
                 return;
             }
         }

@@ -13,7 +13,7 @@ public class KariSound : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SoundManager.Instance.GAMESE(0); // 0番のSE再生
+            SoundManager.Instance.GAMESE(1); // 0番のSE再生
         }
     }
 }
