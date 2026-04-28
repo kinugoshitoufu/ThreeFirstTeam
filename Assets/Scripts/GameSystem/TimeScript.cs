@@ -11,6 +11,7 @@ public class TimeScript : MonoBehaviour
     private float ReduceLimit=30f;   //減らす時間
 
     public static float resultTime;    //リザルト用
+    public static int resultScore;//リザルト用
 
     public TMP_Text timeText;
     void Update()
@@ -30,8 +31,11 @@ public class TimeScript : MonoBehaviour
         }
         if(LimitTime < 0f) 
         {
+            
+            resultScore = PlayerScript.instance.GetScore();
             resultTime = Mathf.Max(0f, elapsedTime);
-            Debug.Log(elapsedTime + ("秒"));
+            Debug.Log("保存スコア：" + PlayerScript.instance.GetScore());
+            Debug.Log("resultScore：" + resultScore);
             SceneChanger.instance.sceneChanger();
         }
 

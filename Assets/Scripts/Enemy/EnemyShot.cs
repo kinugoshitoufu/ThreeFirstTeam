@@ -64,7 +64,6 @@ public class EnemyShot : Enemy
         lifeTimer += Time.deltaTime;
         if (lifeTimer > 5f)
         {
-            Debug.Log("エネミーショット死んだよ！！");
             Die();
         }
     }

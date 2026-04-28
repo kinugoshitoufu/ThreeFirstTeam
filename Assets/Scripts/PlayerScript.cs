@@ -25,6 +25,7 @@ public class PlayerScript : MonoBehaviour
     public TimeScript Timescript;
     public float shotcollider = 0.1f;
 
+    
     //操作によって変更
 
     //フラグ・カウント系など
