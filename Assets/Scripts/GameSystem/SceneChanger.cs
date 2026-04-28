@@ -13,7 +13,7 @@ public class SceneChanger : MonoBehaviour
     
     void Update()
     {
-        //sceneChange();
+        
     }
     public void SpacesceneChange()
     {
@@ -25,5 +25,14 @@ public class SceneChanger : MonoBehaviour
     public void sceneChanger()
     {
         SceneManager.LoadScene(SceneName);
+    }
+    public void TitleScene()
+    {
+        SceneManager.LoadScene("TitleScene");
+    }
+    public void Retry()
+    {
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Wada_Scene");//名前を変えればいいよ！！！
     }
 }
