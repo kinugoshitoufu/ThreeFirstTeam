@@ -6,6 +6,7 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -13,6 +14,7 @@ public class PlayerScript : MonoBehaviour
     public static PlayerScript instance;
     public GameObject Arrow;
     public float movespeed = 3.0f;
+    public Vector2 moveArea = new(8.0f, 4.5f);//動ける範囲
     public float Shotspeed = 10.0f;
     public float shottime = 3.0f;
     public float gravity = 1.0f;
@@ -24,6 +26,7 @@ public class PlayerScript : MonoBehaviour
     public float fallspeed = 0.5f;
     public TimeScript Timescript;
     public float shotcollider = 0.1f;
+    public float knockback = 10.0f;
 
 
     //操作によって変更
@@ -31,6 +34,7 @@ public class PlayerScript : MonoBehaviour
 
     //フラグ・カウント系など
     [SerializeField] private string rank = "none";
+    private Animator animator;
     private Vector3 PlayerPos;
     private BoxCollider2D box;
     private int combocount = 0;
@@ -55,6 +59,7 @@ public class PlayerScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         shotFlag = false;
         shotboxflag = true;
+        animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -79,12 +84,13 @@ public class PlayerScript : MonoBehaviour
             control = 1;
             Debug.Log("キーボード操作に変更しました");
         }
+        MoveAreaCheck();
         if (!shotFlag)
         {
             Move();
         }
         PlayerPos = transform.position;
-        if (shotCount > 0 && !shotFlag)
+        if (shotCount > 0 && !shotFlag && !animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerDamage"))
         {
             if (control == 0 && Input.GetKeyDown("joystick button 2"))
             {
@@ -128,7 +134,7 @@ public class PlayerScript : MonoBehaviour
         {
             gravity = fallspeed;
         }
-        if (shotboxflag)
+        if (shotboxflag && shotFlag)
         {
             rankbox();
         }
@@ -137,19 +143,26 @@ public class PlayerScript : MonoBehaviour
             box.size = Vector2.one;
         }
         comborank();
+
+        //if (animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerDamage"))
+        //{
+        //    Debug.Log("Damage再生中");
+        //}
+        //else
+        //{
+        //    Debug.Log("Damage終了");
+        //}
     }
 
     void Move()
     {
         //スティック入力をVecter2型に代入
-        Vector2 vec = new Vector2(0, 0);
+        Vector2 vec;
         vec.x = Input.GetAxisRaw("Horizontal");
         vec.y = Input.GetAxisRaw("Vertical");
         // ベクトルの長さが１を超えていたら長さを１にする
-        //if (vec.sqrMagnitude > 1)
-        //{
-        //    vec.Normalize();
-        //}
+        
+
         //移動量を算出する
         vec *= movespeed * Time.deltaTime;
         //実際にプレイヤーを動かす
@@ -158,6 +171,15 @@ public class PlayerScript : MonoBehaviour
         // 入力方向を向く角度を計算 (2DなのでZ軸回転)
         float angle = Mathf.Atan2(vec.x, vec.y) * Mathf.Rad2Deg;
 
+        if (Mathf.Abs(vec.x) <= 0.01f)
+        {
+            animator.SetBool("WalkAnim", false);
+        }
+        else
+        {
+            animator.SetBool("WalkAnim", true);
+        }
+        
         // 現在の回転から、計算した角度へ徐々に回転させる
         Arrow.transform.rotation = Quaternion.Euler(0, 0, -angle);
         //Vector2 arrowangletemp = new Vector2 (vec.x - Arrow.transform.position.x,vec.y - Arrow.transform.position.y);
@@ -167,11 +189,65 @@ public class PlayerScript : MonoBehaviour
 
     void shot()
     {
+        rb.linearVelocity *= 0.0f;
         rb.AddForce(Arrow.transform.up * Shotspeed, ForceMode2D.Impulse);
         shotFlag = true;
+        animator.Play("PlayerShot", 0, 0.0f);
         shotCount--;
     }
-    
+
+    void MoveAreaCheck()
+    {
+        Vector3 pos = transform.position;
+        //Vector3 vec = rb.linearVelocity;
+        if (pos.x > moveArea.x)
+        {
+            pos.x = moveArea.x;
+            Debug.Log("どれ");
+            //vec.x = -vec.x;
+            //vec *= 0.0f;
+        }
+        if (pos.x < -moveArea.x)
+        {
+            pos.x = -moveArea.x;
+            Debug.Log("それ");
+            //vec.x = -vec.x;
+            //vec *= 0.0f;
+        }
+        if (pos.y > moveArea.y)
+        {
+            pos.y = moveArea.y;
+            Debug.Log("あれ");
+            //vec.y = -vec.y;
+            //vec *= 0.0f;
+        }
+        if (pos.y < -moveArea.y)
+        {
+            pos.y = -moveArea.y;
+            //if (rb.linearVelocityY < 0)
+            //{
+            //    rb.linearVelocityY = 0.0f;
+            //}
+            if (shotCount < 1)
+            {
+                shotCount = 1;
+            }
+            animator.SetBool("FallAnim", false);
+            shotboxflag = false;
+            Debug.Log("これ");
+            //vec.y = -vec.y;
+            //vec *= 0.0f;
+        }
+        else
+        {
+            animator.SetBool("FallAnim", true);
+            shotboxflag = true;
+        }
+        transform.position = pos;
+        //rb.linearVelocity = vec;
+
+    }
+
     void comborank()
     {
         if (combocount > 49)
@@ -271,6 +347,7 @@ public class PlayerScript : MonoBehaviour
             {
                 shotCount = 1;
             }
+            animator.SetBool("FallAnim",false);
             shotboxflag = false;
             //transform.position = new Vector3(transform.position.x,transform.position.y - (box.size.y - 1.0f));
         }        
@@ -289,7 +366,7 @@ public class PlayerScript : MonoBehaviour
     {
         if (collision.collider.CompareTag("Ground"))
         {
-
+            animator.SetBool("FallAnim", true);
             shotboxflag = true;
         }
     }
@@ -309,7 +386,27 @@ public class PlayerScript : MonoBehaviour
             }
             else
             {
-                //rb.AddForce(-transform.right * 10, ForceMode2D.Impulse);
+                //rb.AddForce(-Arrow.transform.up * knockback, ForceMode2D.Impulse);
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerDamage"))
+                {
+                    animator.Play("PlayerDamage", 0, 0);
+                }
+                
+            }
+        }
+        if (collision.CompareTag("EnemyBullet"))
+        {
+            if (shotFlag)
+            {
+                Destroy(collision.gameObject);
+            }
+            else
+            {
+                //rb.AddForce(-Arrow.transform.up * knockback, ForceMode2D.Impulse);
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerDamage"))
+                {
+                    animator.Play("PlayerDamage", 0, 0);
+                }
             }
         }
     }
