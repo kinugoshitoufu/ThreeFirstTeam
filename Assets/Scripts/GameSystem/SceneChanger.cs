@@ -13,7 +13,7 @@ public class SceneChanger : MonoBehaviour
     
     void Update()
     {
-        //sceneChange();
+        
     }
     public void SpacesceneChange()
     {
