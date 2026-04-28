@@ -26,4 +26,13 @@ public class SceneChanger : MonoBehaviour
     {
         SceneManager.LoadScene(SceneName);
     }
+    public void TitleScene()
+    {
+        SceneManager.LoadScene("TitleScene");
+    }
+    public void Retry()
+    {
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("Wada_Scene");//名前を変えればいいよ！！！
+    }
 }

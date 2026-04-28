@@ -27,10 +27,10 @@ public class ManualUICursor : MonoBehaviour
         float vertical = 0f;
 
         // ■ キーボード
-        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
             vertical = -1;
 
-        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
             vertical = 1;
 
         // ■ コントローラー
@@ -55,7 +55,7 @@ public class ManualUICursor : MonoBehaviour
         }
 
         // ■ 決定ボタン（Enter / Z / コントローラーA）
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Z) || Input.GetButtonDown("Submit"))
+        if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Submit"))
         {
             Execute();
         }

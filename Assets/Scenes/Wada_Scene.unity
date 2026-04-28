@@ -602,6 +602,7 @@ GameObject:
   - component: {fileID: 427614674}
   - component: {fileID: 427614678}
   - component: {fileID: 427614677}
+  - component: {fileID: 427614679}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -623,6 +624,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerScript
   Arrow: {fileID: 1929976833}
   movespeed: 3
+  moveArea: {x: 8, y: 4.5}
   Shotspeed: 3
   shottime: 3
   gravity: 1
@@ -634,7 +636,9 @@ MonoBehaviour:
   fallspeed: 0.5
   Timescript: {fileID: 1723090255}
   shotcollider: 0.1
+  knockback: 10
   rank: none
+  maxcombo: 0
   shottimecount: 0
   combotimecount: 0
 --- !u!212 &427614675
@@ -785,6 +789,28 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!95 &427614679
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 427614673}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 12b7e9aff7cbbfd4b941070fad294935, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1006366004
 GameObject:
   m_ObjectHideFlags: 0
@@ -1072,7 +1098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner1
   spawnOptions:
-  - enemyPrefab: {fileID: 459942376683718103, guid: 48ed62e6d5a6c8940b9dafc132321f5b, type: 3}
+  - enemyPrefab: {fileID: 459942376683718103, guid: 815445face620214b89adeed80cb31aa, type: 3}
     spawnCount: 1
     weight: 0
   Maxrange: {x: -9, y: 0}

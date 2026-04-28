@@ -41,7 +41,7 @@ public class PlayerScript : MonoBehaviour
     private bool shotboxflag = true;
     private int score = 0;
     private bool shotFlag;
-    private int maxcombo = 0;
+    public int maxcombo = 0;
     [SerializeField] private float shottimecount = 0.0f;
     [SerializeField] private float combotimecount = 0.0f;
     private Rigidbody2D rb;
