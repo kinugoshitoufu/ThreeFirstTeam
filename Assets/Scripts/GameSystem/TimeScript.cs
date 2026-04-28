@@ -14,6 +14,8 @@ public class TimeScript : MonoBehaviour
     public static int resultScore;//リザルト用
 
     public TMP_Text timeText;
+
+    private bool isFinished = false;
     void Update()
     {
         // 時間の減少
@@ -29,14 +31,20 @@ public class TimeScript : MonoBehaviour
             //elapsedTime = 0f;
             Debug.Log(Downspeed.ToString("F1"));
         }
-        if(LimitTime < 0f) 
+        if(LimitTime <= 0f && !isFinished) 
         {
-            
-            resultScore = PlayerScript.instance.GetScore();
+            isFinished = true;
+
+            LimitTime = 0;//変更点
+
+            int finalScore = PlayerScript.instance.GetScore();//変更点
+            Debug.Log("終了時スコア：" + finalScore);
+
+            resultScore = finalScore;
             resultTime = Mathf.Max(0f, elapsedTime);
-            Debug.Log("保存スコア：" + PlayerScript.instance.GetScore());
-            Debug.Log("resultScore：" + resultScore);
+
             SceneChanger.instance.sceneChanger();
+            return;
         }
 
         // 整数表示（秒）

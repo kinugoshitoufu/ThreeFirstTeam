@@ -9,7 +9,7 @@ public class ResultScript : MonoBehaviour
     {
         timeText.text = TimeScript.resultTime.ToString("F0") + "sec";
         scoreText.text = TimeScript.resultScore.ToString() + "point";
-        Debug.Log("リザルトスコア："+ TimeScript.resultScore);
+
     }
 
     

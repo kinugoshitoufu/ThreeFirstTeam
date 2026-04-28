@@ -481,7 +481,7 @@ MonoBehaviour:
   timeup: 1
   downfallspeed: 30
   fallspeed: 0.5
-  Timescript: {fileID: 0}
+  Timescript: {fileID: 1723090255}
   shotcollider: 0.1
   rank: none
   shottimecount: 0

@@ -42,9 +42,14 @@ public class PlayerScript : MonoBehaviour
     private int control = 0;//操作方法の変更
     private Rigidbody2D rb;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private void Awake()
+    {
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
+    }
     void Start()
     {
-        instance = this;
+        
         box = GetComponent<BoxCollider2D>();
         PlayerPos = GetComponent<Transform>().position;
         rb = GetComponent<Rigidbody2D>();
