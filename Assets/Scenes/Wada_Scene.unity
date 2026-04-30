@@ -285,7 +285,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a7f69e2a7a93d479085c8fd23f0ae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneChanger
-  SceneName: ResultScene
 --- !u!4 &51978858
 Transform:
   m_ObjectHideFlags: 0
@@ -938,10 +937,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner1
   spawnOptions:
   - enemyPrefab: {fileID: 459942376683718103, guid: 815445face620214b89adeed80cb31aa, type: 3}
-    spawnCount: 1
-    weight: 0
-  Maxrange: {x: -9, y: 0}
-  Minrange: {x: 9, y: 0}
+    spawnCount: 3
+    weight: 100
+    spawnDelay: 1
+  - enemyPrefab: {fileID: 459942376683718103, guid: 48ed62e6d5a6c8940b9dafc132321f5b, type: 3}
+    spawnCount: 3
+    weight: 100
+    spawnDelay: 2
+  Maxrange: {x: 5, y: 5}
+  Minrange: {x: 1, y: 1}
   maxEnemiesInScene: 10
   spawnCountOne: 0
   spawnCountTwo: 0

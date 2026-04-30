@@ -1,4 +1,6 @@
+using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -11,6 +13,8 @@ public class SpawnOption
     public int spawnCount = 1;
     [Header("確率")]
     public float weight = 1;
+    [Header("スポーン遅延時間")]
+    public float spawnDelay = 0f;
 }
 public class EnemySpawner1 : MonoBehaviour
 {
@@ -27,7 +31,6 @@ public class EnemySpawner1 : MonoBehaviour
     public float spawnCountOne = 70f;
     public float spawnCountTwo = 20f;
     public float spawnCountThree = 10f;
-
     private void Start()
     {
         Spawn(GetSpawnCount());
@@ -35,9 +38,12 @@ public class EnemySpawner1 : MonoBehaviour
     public void OnEnemyDeath(Enemy enemy)
     {
         currentEnemies--;
+        SpawnOption option = GetRandomOption();//種類抽選
 
         int count = GetSpawnCount();
-        Spawn(count);
+
+        StartCoroutine(SpawnAfterDelay(option, count));
+        //Spawn(count);
     }
 
     // ★何体出すか
@@ -100,6 +106,26 @@ public class EnemySpawner1 : MonoBehaviour
         }
     }
 
+    IEnumerator SpawnAfterDelay(SpawnOption option, int count)
+    {
+        yield return new WaitForSeconds(option.spawnDelay);
+
+        for (int i = 0; i < count; i++)
+        {
+            if (currentEnemies >= maxEnemiesInScene)
+                yield break;
+
+            Vector3 pos = transform.position;
+            pos.x += Random.Range(Maxrange.x, Maxrange.y);
+            pos.y += Random.Range(Minrange.x, Minrange.y);
+            pos.z = 0f;
+
+            GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
+
+            Enemy newEnemy = obj.GetComponent<Enemy>();
+            Register(newEnemy);
+        }
+    }
     public void Register(Enemy enemy)
     {
         currentEnemies++;

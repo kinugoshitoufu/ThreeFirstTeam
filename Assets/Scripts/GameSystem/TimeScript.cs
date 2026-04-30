@@ -8,11 +8,8 @@ public class TimeScript : MonoBehaviour
     public float LimitTime = 30f;     // 残り時間
     public float Downspeed = 1f;     // 減少速度
     private float elapsedTime = 0f;  // 経過時間
-    private float ReduceLimit=30f;   //減らす時間
+    private float ReduceLimit = 30f;   //減らす時間
 
-    public static float resultTime;    //リザルト用
-    public static int resultScore;     //リザルト用
-    public static int resultCombo;        //リザルト用
 
     public TMP_Text timeText;
 
@@ -40,11 +37,11 @@ public class TimeScript : MonoBehaviour
             int finalScore = PlayerScript.instance.GetScore();
             Debug.Log("終了時スコア：" + finalScore);
 
-            resultScore = finalScore;
-            resultTime = Mathf.Max(0f, elapsedTime);
-            resultCombo = PlayerScript.instance.maxcombo;
+            ResultScript.resultScore = finalScore;
+            ResultScript.resultTime = Mathf.Max(0f, elapsedTime);
+            ResultScript.resultCombo = PlayerScript.instance.maxcombo;
 
-            SceneChanger.instance.sceneChanger();
+            SceneChanger.instance.sceneChanger("ResultScene");
             return;
         }
         if (LimitTime < 0)

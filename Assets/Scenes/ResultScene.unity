@@ -131,7 +131,6 @@ GameObject:
   - component: {fileID: 80725589}
   - component: {fileID: 80725588}
   - component: {fileID: 80725587}
-  - component: {fileID: 80725590}
   m_Layer: 5
   m_Name: Retry
   m_TagString: Untagged
@@ -203,9 +202,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 967430830}
-        m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: Retry
+      - m_Target: {fileID: 146869214}
+        m_TargetAssemblyTypeName: OnButtonScript, Assembly-CSharp
+        m_MethodName: ClickRetry
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -253,18 +252,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 80725585}
   m_CullTransparentMesh: 1
---- !u!114 &80725590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 80725585}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a846ddae2e45c524a9a04af4a68679c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TestClick
 --- !u!1 &146869209
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,6 +264,7 @@ GameObject:
   - component: {fileID: 146869211}
   - component: {fileID: 146869210}
   - component: {fileID: 146869213}
+  - component: {fileID: 146869214}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -363,6 +351,18 @@ MonoBehaviour:
   - {fileID: 80725586}
   stickThreshold: 0.5
   inputDelay: 0.2
+--- !u!114 &146869214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 146869209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54cf9942d6e8a5445b57aaa2cc9f93c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::OnButtonScript
 --- !u!1 &277092430
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,7 +376,7 @@ GameObject:
   - component: {fileID: 277092433}
   - component: {fileID: 277092432}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -446,9 +446,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 967430830}
-        m_TargetAssemblyTypeName: SceneChanger, Assembly-CSharp
-        m_MethodName: TitleScene
+      - m_Target: {fileID: 146869214}
+        m_TargetAssemblyTypeName: OnButtonScript, Assembly-CSharp
+        m_MethodName: ClickTitleScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -630,7 +630,7 @@ GameObject:
   - component: {fileID: 856006874}
   - component: {fileID: 856006873}
   m_Layer: 5
-  m_Name: Title
+  m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -688,7 +688,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Title
 --- !u!222 &856006874
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -726,7 +726,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86a7f69e2a7a93d479085c8fd23f0ae1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneChanger
-  SceneName: 
 --- !u!4 &967430831
 Transform:
   m_ObjectHideFlags: 0
@@ -1362,7 +1361,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Retly
 --- !u!222 &1618732852
 CanvasRenderer:
   m_ObjectHideFlags: 0

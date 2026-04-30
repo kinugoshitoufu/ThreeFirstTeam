@@ -2,37 +2,43 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SceneChanger : MonoBehaviour
 {
-    public string SceneName;
+    private string SceneName;
     public static SceneChanger instance;
+
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else Destroy(gameObject);
+    }
     void Start()
     {
-        if (instance == null) instance = this;
-        else Destroy(gameObject);
+        
     }
 
     
     void Update()
     {
-        SpacesceneChange();
+        //SpacesceneChange();
     }
     public void SpacesceneChange()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("Submit"))
         {
             SceneManager.LoadScene(SceneName);
         }
     }
-    public void sceneChanger()
+    public void sceneChanger(string SceneName)
     {
         SceneManager.LoadScene(SceneName);
+        if(SceneName == null)
+        {
+            Debug.Log("SceneName に何も入ってません");
+        }
     }
-    public void TitleScene()
-    {
-        SceneManager.LoadScene("TitleScene");
-    }
-    public void Retry()
-    {
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        SceneManager.LoadScene("Wada_Scene");//名前を変えればいいよ！！！
-    }
+    
 }
