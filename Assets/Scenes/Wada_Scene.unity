@@ -710,11 +710,11 @@ PrefabInstance:
       objectReference: {fileID: 1504003667}
     - target: {fileID: 2779351467933887824, guid: acae5471ef2593e4fbe08264ae80f0f8, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.8449
+      value: -6.8449
       objectReference: {fileID: 0}
     - target: {fileID: 2779351467933887824, guid: acae5471ef2593e4fbe08264ae80f0f8, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.34591
+      value: -2.34591
       objectReference: {fileID: 0}
     - target: {fileID: 2779351467933887824, guid: acae5471ef2593e4fbe08264ae80f0f8, type: 3}
       propertyPath: m_LocalPosition.z
@@ -937,13 +937,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner1
   spawnOptions:
   - enemyPrefab: {fileID: 459942376683718103, guid: 815445face620214b89adeed80cb31aa, type: 3}
-    spawnCount: 3
-    weight: 100
-    spawnDelay: 1
+    spawnCount: 5
+    weight: 80
+    spawnTime: 1
   - enemyPrefab: {fileID: 459942376683718103, guid: 48ed62e6d5a6c8940b9dafc132321f5b, type: 3}
-    spawnCount: 3
-    weight: 100
-    spawnDelay: 2
+    spawnCount: 1
+    weight: 20
+    spawnTime: 20
   Maxrange: {x: 5, y: 5}
   Minrange: {x: 1, y: 1}
   maxEnemiesInScene: 10

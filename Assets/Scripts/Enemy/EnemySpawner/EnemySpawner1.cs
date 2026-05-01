@@ -14,13 +14,11 @@ public class SpawnOption
     [Header("確率")]
     public float weight = 1;
     [Header("スポーン遅延時間")]
-    public float spawnDelay = 0f;
+    public float spawnTime = 0f;
 }
 public class EnemySpawner1 : MonoBehaviour
 {
     public List<SpawnOption> spawnOptions;
-
-    //public float spawnWidth = 4f;
     [Header("スポーン範囲")]
     public Vector2 Maxrange = new Vector2(5f,5f);
     public Vector2 Minrange = new Vector2(1f, 1f);
@@ -31,22 +29,22 @@ public class EnemySpawner1 : MonoBehaviour
     public float spawnCountOne = 70f;
     public float spawnCountTwo = 20f;
     public float spawnCountThree = 10f;
+    public void OnEnemyDeath(Enemy enemy)
+    {
+        currentEnemies--;
+        
+        int count = GetSpawnCount();
+
+        //StartCoroutine(SpawnAfterDelay(option, count));
+        Spawn(GetSpawnCount());
+    }
+
     private void Start()
     {
         Spawn(GetSpawnCount());
     }
-    public void OnEnemyDeath(Enemy enemy)
-    {
-        currentEnemies--;
-        SpawnOption option = GetRandomOption();//種類抽選
 
-        int count = GetSpawnCount();
-
-        StartCoroutine(SpawnAfterDelay(option, count));
-        //Spawn(count);
-    }
-
-    // ★何体出すか
+    // 追加で何体出すか
     int GetSpawnCount()
     {
         float total = spawnCountOne + spawnCountTwo + spawnCountThree;
@@ -81,51 +79,95 @@ public class EnemySpawner1 : MonoBehaviour
         return spawnOptions[0];
     }
 
+    //スポーンと抽選処理
+
+    /*単独用
     void Spawn(int count)
     {
-        for (int i = 0; i < count; i++)
+        SpawnOption option = GetRandomOption();//種類抽選
+
+        for (int i = 0; i < option.spawnCount; i++)
         {
             Debug.Log("Spawn呼ばれたよ！！");
 
             if (currentEnemies >= maxEnemiesInScene)
                 break;
 
-            SpawnOption option = GetRandomOption();
-
             Vector3 pos = transform.position;
-            //pos.x += Random.Range(-2f, 2f);
             pos.x += Random.Range(Maxrange.x, Maxrange.y);
             pos.y += Random.Range(Minrange.x, Minrange.y);
             pos.z = 0f;
 
             GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
 
-            Enemy enemy = obj.GetComponent<Enemy>();
-            
+            Enemy enemy = obj.GetComponent<Enemy>();//敵を登録
+          
             Register(enemy);
         }
-    }
+    }*/
 
-    IEnumerator SpawnAfterDelay(SpawnOption option, int count)
+    //コルーチン化
+    void Spawn(int count)
     {
-        yield return new WaitForSeconds(option.spawnDelay);
-
-        for (int i = 0; i < count; i++)
-        {
-            if (currentEnemies >= maxEnemiesInScene)
-                yield break;
-
-            Vector3 pos = transform.position;
-            pos.x += Random.Range(Maxrange.x, Maxrange.y);
-            pos.y += Random.Range(Minrange.x, Minrange.y);
-            pos.z = 0f;
-
-            GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
-
-            Enemy newEnemy = obj.GetComponent<Enemy>();
-            Register(newEnemy);
-        }
+        StartCoroutine(SpawnRoutine(count));
     }
+    IEnumerator SpawnRoutine(int count)
+    {
+
+        while(true)
+        {
+            Debug.Log("Spawn呼ばれたよ！！");
+
+            if (currentEnemies < maxEnemiesInScene) 
+            {
+                SpawnOption option = GetRandomOption();//種類抽選
+                for (int i = 0; i < option.spawnCount; i++)
+                {
+                    if (currentEnemies >= maxEnemiesInScene) break;
+                    Vector3 pos = transform.position;
+                    pos.x += Random.Range(-Minrange.x, Maxrange.x);
+                    pos.y += Random.Range(-Minrange.y, Minrange.y);
+                    pos.z = 0f;
+
+                    GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
+
+                    Enemy enemy = obj.GetComponent<Enemy>();//敵を登録
+
+                    Register(enemy);
+                }
+                //次の種類まで待つ
+                yield return new WaitForSeconds(option.spawnTime);
+            }
+            else
+            {
+                // 敵が多いときは少し待つ
+                yield return new WaitForSeconds(0.5f);
+            }
+            
+        }
+        
+    }
+
+    //IEnumerator SpawnAfterDelay(SpawnOption option, int count)
+    //{
+    //    yield return new WaitForSeconds(option.spawnDelay);
+    //
+    //    for (int i = 0; i < count; i++)
+    //    {
+    //        if (currentEnemies >= maxEnemiesInScene)
+    //            yield break;
+    //
+    //        Vector3 pos = transform.position;
+    //        pos.x += Random.Range(Maxrange.x, Maxrange.y);
+    //        pos.y += Random.Range(Minrange.x, Minrange.y);
+    //        pos.z = 0f;
+    //
+    //        GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
+    //
+    //        Enemy newEnemy = obj.GetComponent<Enemy>();
+    //        Register(newEnemy);
+    //    }
+    //}
     public void Register(Enemy enemy)
     {
         currentEnemies++;
