@@ -415,6 +415,7 @@ public class PlayerScript : MonoBehaviour
         }
         if (collision.CompareTag("EnemyBullet"))
         {
+            Timescript.LimitTime -= 5;
             if (shotFlag)
             {
                 Destroy(collision.gameObject);
