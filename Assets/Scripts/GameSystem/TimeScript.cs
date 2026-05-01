@@ -22,17 +22,20 @@ public class TimeScript : MonoBehaviour
     private bool isFinished = false;
     void Update()
     {
-        if (Input.GetKey(KeyCode.T))
+        if(Input.GetKey(KeyCode.Return)) 
         {
-            LimitTime = 130;
-        }
-        if (Input.GetKey(KeyCode.Y))
-        {
-            LimitTime = 70;
-        }
-        if (Input.GetKey(KeyCode.U))
-        {
-            LimitTime = 2;
+            if (Input.GetKey(KeyCode.K))
+            {
+                LimitTime = 130;
+            }
+            if (Input.GetKey(KeyCode.Y))
+            {
+                LimitTime = 70;
+            }
+            if (Input.GetKey(KeyCode.U))
+            {
+                LimitTime = 2;
+            }
         }
 
         // 時間の減少
