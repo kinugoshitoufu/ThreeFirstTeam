@@ -16,7 +16,7 @@ public class RankUIScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PlayerScript.instance.GetComboCount() > 9)
+        if (PlayerScript.instance.GetComboCount() >= PlayerScript.instance.combocountRank)
         {
             comboUI.SetActive(true);
             rankUI.SetActive(true);

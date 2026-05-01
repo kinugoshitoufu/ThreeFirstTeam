@@ -28,6 +28,7 @@ public class PlayerScript : MonoBehaviour
     public TimeScript Timescript;
     public float shotcollider = 0.1f;
     public float knockback = 10.0f;
+    public int combocountRank = 10;
 
 
     //操作によって変更
@@ -66,25 +67,29 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                combocount++;
+                combotimecount = 0.0f;
+            }
+            if (Input.GetKeyDown(KeyCode.Y))
+            {
+                control = 0;
+                Debug.Log("コントローラー操作に変更しました");
+            }
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                control = 1;
+                Debug.Log("キーボード操作に変更しました");
+            }
         }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            combocount++;
-            combotimecount = 0.0f;
-        }
-        if (Input.GetKeyDown(KeyCode.Y))
-        {
-            control = 0;
-            Debug.Log("コントローラー操作に変更しました");
-        }
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            control = 1;
-            Debug.Log("キーボード操作に変更しました");
-        }
+        
         
         MoveAreaCheck();
         if (!shotFlag)
@@ -115,6 +120,7 @@ public class PlayerScript : MonoBehaviour
             shotFlag = false;
             rb.linearVelocity = Vector3.zero;
             rb.gravityScale = gravity;
+            transform.rotation = Quaternion.identity;
             shottimecount = 0.0f;
         }
         if (maxcombo < combocount)
@@ -203,6 +209,8 @@ public class PlayerScript : MonoBehaviour
         rb.linearVelocity *= 0.0f;
         rb.AddForce(Arrow.transform.up * Shotspeed, ForceMode2D.Impulse);
         shotFlag = true;
+        transform.rotation = Arrow.transform.rotation;
+        Arrow.transform.rotation = quaternion.identity;
         animator.Play("PlayerShot", 0, 0.0f);
         shotCount--;
     }
@@ -261,23 +269,23 @@ public class PlayerScript : MonoBehaviour
 
     void comborank()
     {
-        if (combocount > 49)
+        if (combocount >= combocountRank * 5)
         {
             rank = "A";
         }
-        else if (combocount > 39)
+        else if (combocount >= combocountRank * 4)
         {
             rank = "B";
         }
-        else if (combocount > 29)
+        else if (combocount >= combocountRank * 3)
         {
             rank = "C";
         }
-        else if (combocount > 19)
+        else if (combocount >= combocountRank * 2)
         {
             rank = "D";
         }
-        else if (combocount > 9)
+        else if (combocount >= combocountRank)
         {
             rank = "E";
         }
