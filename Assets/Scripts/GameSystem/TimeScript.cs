@@ -17,8 +17,6 @@ public class TimeScript : MonoBehaviour
     public Image yellowImage; //61～120
     public Image blueImage;   //121～180
 
-    public TMP_Text timeText;
-
     private bool isFinished = false;
     void Update()
     {
@@ -74,10 +72,7 @@ public class TimeScript : MonoBehaviour
             LimitTime = 0f;//０以下にならないように
         }
 
-        // 整数表示（秒）
-        timeText.text = Mathf.FloorToInt(LimitTime).ToString("F0");
-
-        // 一旦全部OFF
+        // 表示
         redImage.gameObject.SetActive(true);
         yellowImage.gameObject.SetActive(true);
         blueImage.gameObject.SetActive(true);
