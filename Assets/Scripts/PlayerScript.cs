@@ -1,3 +1,4 @@
+using System;
 using Unity.Mathematics;
 using Unity.VectorGraphics;
 using Unity.VisualScripting;
@@ -84,6 +85,7 @@ public class PlayerScript : MonoBehaviour
             control = 1;
             Debug.Log("キーボード操作に変更しました");
         }
+        
         MoveAreaCheck();
         if (!shotFlag)
         {
@@ -143,7 +145,16 @@ public class PlayerScript : MonoBehaviour
             box.size = Vector2.one;
         }
         comborank();
-
+        if (Input.anyKeyDown)
+        {
+            foreach (KeyCode code in Enum.GetValues(typeof(KeyCode)))
+            { // 検索
+                if (Input.GetKeyDown(code))
+                { // 入力されたキーの名前と一致した場合
+                    Debug.Log(code.ToString() + " のボタンが押されたよ！！"); // コンソールに表示
+                }
+            }
+        }
         //if (animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerDamage"))
         //{
         //    Debug.Log("Damage再生中");
@@ -203,21 +214,21 @@ public class PlayerScript : MonoBehaviour
         if (pos.x > moveArea.x)
         {
             pos.x = moveArea.x;
-            Debug.Log("どれ");
+            //Debug.Log("どれ");
             //vec.x = -vec.x;
             //vec *= 0.0f;
         }
         if (pos.x < -moveArea.x)
         {
             pos.x = -moveArea.x;
-            Debug.Log("それ");
+            //Debug.Log("それ");
             //vec.x = -vec.x;
             //vec *= 0.0f;
         }
         if (pos.y > moveArea.y)
         {
             pos.y = moveArea.y;
-            Debug.Log("あれ");
+            //Debug.Log("あれ");
             //vec.y = -vec.y;
             //vec *= 0.0f;
         }
@@ -234,7 +245,7 @@ public class PlayerScript : MonoBehaviour
             }
             animator.SetBool("FallAnim", false);
             shotboxflag = false;
-            Debug.Log("これ");
+            //Debug.Log("これ");
             //vec.y = -vec.y;
             //vec *= 0.0f;
         }
@@ -252,23 +263,23 @@ public class PlayerScript : MonoBehaviour
     {
         if (combocount > 49)
         {
-            rank = "S";
+            rank = "A";
         }
         else if (combocount > 39)
         {
-            rank = "A";
+            rank = "B";
         }
         else if (combocount > 29)
         {
-            rank = "B";
+            rank = "C";
         }
         else if (combocount > 19)
         {
-            rank = "C";
+            rank = "D";
         }
         else if (combocount > 9)
         {
-            rank = "D";
+            rank = "E";
         }
         else
         {
@@ -278,23 +289,23 @@ public class PlayerScript : MonoBehaviour
 
     void rankbox()
     {
-        if (rank == "S")
+        if (rank == "A")
         {
             box.size = new Vector2(1.0f + (shotcollider * 5), 1.0f + (shotcollider * 5));
         }
-        else if (rank == "A")
+        else if (rank == "B")
         {
             box.size = new Vector2(1.0f + (shotcollider * 4), 1.0f + (shotcollider * 4));
         }
-        else if (rank == "B")
+        else if (rank == "C")
         {
             box.size = new Vector2(1.0f + (shotcollider * 3), 1.0f + (shotcollider * 3));
         }
-        else if (rank == "C")
+        else if (rank == "D")
         {
             box.size = new Vector2(1.0f + (shotcollider * 2), 1.0f + (shotcollider * 2));
         }
-        else if (rank == "D")
+        else if (rank == "E")
         {
             box.size = new Vector2(1.0f + (shotcollider * 1), 1.0f + (shotcollider * 1));
         }
