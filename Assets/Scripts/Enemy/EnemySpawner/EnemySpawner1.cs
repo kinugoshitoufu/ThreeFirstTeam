@@ -30,8 +30,12 @@ public class EnemySpawner1 : MonoBehaviour
     public float spawnCountTwo = 20f;
     public float spawnCountThree = 10f;
     private int WaitSpawnCount = 0;
+    [Header("ランダム間隔")]
+    public float Mindelay = 0.1f;
+    public float Maxdelay = 1.0f;
     [Header("確認用")]
     public float delay = 0f;
+    private bool isSpawning = false;
     public void OnEnemyDeath(Enemy enemy)
     {
         currentEnemies--;
@@ -40,9 +44,11 @@ public class EnemySpawner1 : MonoBehaviour
 
         WaitSpawnCount += count;
 
-        delay = Random.Range(0.1f,1.0f);
-
-        StartCoroutine(SpawnAfterDelay(delay));
+        delay = Random.Range(Mindelay, Maxdelay);
+        if (!isSpawning)
+        {
+            StartCoroutine(SpawnAfterDelay(delay));
+        }
     }
 
     private void Start()
@@ -152,6 +158,8 @@ public class EnemySpawner1 : MonoBehaviour
     //敵時間分待つ(敵が死んだ時に呼び出す)
     IEnumerator SpawnAfterDelay(float delay)
     {
+        isSpawning = true;
+
         yield return new WaitForSeconds(delay);
 
         int spawnCount = WaitSpawnCount;
@@ -175,11 +183,17 @@ public class EnemySpawner1 : MonoBehaviour
             GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
 
             Enemy enemy = obj.GetComponent<Enemy>();
-            //enemy.spawnTime = option.spawnTime;
 
             Register(enemy);
 
             yield return new WaitForSeconds(0.2f);
+        }
+        isSpawning = false;
+
+        if(WaitSpawnCount > 0)
+        {
+            float newDelay = Random.Range(Mindelay, Maxdelay);
+            StartCoroutine(SpawnAfterDelay(newDelay));
         }
     }
     public void Register(Enemy enemy)

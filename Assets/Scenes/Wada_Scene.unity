@@ -1095,10 +1095,13 @@ MonoBehaviour:
     spawnTime: 5
   Maxrange: {x: 5, y: 5}
   Minrange: {x: 1, y: 1}
-  maxEnemiesInScene: 10
-  spawnCountOne: 10
-  spawnCountTwo: 0
-  spawnCountThree: 0
+  maxEnemiesInScene: 20
+  spawnCountOne: 60
+  spawnCountTwo: 30
+  spawnCountThree: 10
+  Mindelay: 0.1
+  Maxdelay: 1
+  delay: 0
 --- !u!1 &1444763176
 GameObject:
   m_ObjectHideFlags: 0
