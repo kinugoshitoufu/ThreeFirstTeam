@@ -5,7 +5,7 @@ public class Enemy : MonoBehaviour
 {
     public Action<Enemy> OnDeath;
 
-    public float spawnTime = 0f;
+    public float spawnTime = 0.1f;
     public float speed = 3f; // 敵の移動速度
     private Transform player;
     void Start()

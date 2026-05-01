@@ -24,18 +24,25 @@ public class EnemySpawner1 : MonoBehaviour
     public Vector2 Minrange = new Vector2(1f, 1f);
     [Header("シーン上に存在できる敵数")]
     public int maxEnemiesInScene = 10;
-    private static int currentEnemies = 0;
+    private int currentEnemies = 0;
     [Header("追加で出てくる敵の確率")]
     public float spawnCountOne = 70f;
     public float spawnCountTwo = 20f;
     public float spawnCountThree = 10f;
+    private int WaitSpawnCount = 0;
+    [Header("確認用")]
+    public float delay = 0f;
     public void OnEnemyDeath(Enemy enemy)
     {
         currentEnemies--;
         
         int count = GetSpawnCount();
 
-        StartCoroutine(SpawnAfterDelay(enemy.spawnTime, count));
+        WaitSpawnCount += count;
+
+        delay = Random.Range(0.1f,1.0f);
+
+        StartCoroutine(SpawnAfterDelay(delay));
     }
 
     private void Start()
@@ -89,17 +96,16 @@ public class EnemySpawner1 : MonoBehaviour
         {
             Vector3 pos = transform.position;
             //円形状に
-            Vector2 offset = Random.insideUnitCircle * Maxrange.y;
-            pos += (Vector3)offset;
+            //Vector2 offset = Random.insideUnitCircle * Maxrange.y;
+            //pos += (Vector3)offset;
             //ランダムに
-            //pos.x += Random.Range(-Minrange.x, Maxrange.x);
-            //pos.y += Random.Range(-Minrange.y, Minrange.y);
-            //pos.z = 0f;
+            pos.x += Random.Range(-Minrange.x, Maxrange.x);
+            pos.y += Random.Range(-Minrange.y, Minrange.y);
+            pos.z = 0f;
 
             GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
 
             Enemy enemy = obj.GetComponent<Enemy>();
-            enemy.spawnTime = option.spawnTime;
 
             Register(enemy);
         }
@@ -144,16 +150,22 @@ public class EnemySpawner1 : MonoBehaviour
     //}
 
     //敵時間分待つ(敵が死んだ時に呼び出す)
-    IEnumerator SpawnAfterDelay(float delay, int count)
+    IEnumerator SpawnAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
 
+        int spawnCount = WaitSpawnCount;
+        WaitSpawnCount = 0;
+
         SpawnOption option = GetRandomOption();
 
-        for (int i = 0; i < option.spawnCount; i++)
+        for (int i = 0; i < spawnCount; i++)
         {
             if (currentEnemies >= maxEnemiesInScene)
+            {
+                WaitSpawnCount += (spawnCount - i);
                 yield break;
+            }
 
             Vector3 pos = transform.position;
 
@@ -162,10 +174,12 @@ public class EnemySpawner1 : MonoBehaviour
 
             GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
 
-            Enemy newEnemy = obj.GetComponent<Enemy>();
-            newEnemy.spawnTime = option.spawnTime;
+            Enemy enemy = obj.GetComponent<Enemy>();
+            //enemy.spawnTime = option.spawnTime;
 
-            Register(newEnemy);
+            Register(enemy);
+
+            yield return new WaitForSeconds(0.2f);
         }
     }
     public void Register(Enemy enemy)

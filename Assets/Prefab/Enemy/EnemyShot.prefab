@@ -179,7 +179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4943476aacfd3541a4169682fa54c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShot
-  spawnTime: 50
+  spawnTime: 0.1
   speed: 3
   shotData:
     frame: 140
