@@ -23,11 +23,15 @@ public class TimeScript : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.T))
         {
-            LimitTime += 2;
+            LimitTime = 130;
         }
         if (Input.GetKey(KeyCode.Y))
         {
-            LimitTime -= 2;
+            LimitTime = 70;
+        }
+        if (Input.GetKey(KeyCode.U))
+        {
+            LimitTime = 2;
         }
 
         // 時間の減少
@@ -66,22 +70,29 @@ public class TimeScript : MonoBehaviour
         timeText.text = Mathf.FloorToInt(LimitTime).ToString("F0");
 
         // 一旦全部OFF
-        redImage.gameObject.SetActive(false);
-        yellowImage.gameObject.SetActive(false);
-        blueImage.gameObject.SetActive(false);
+        redImage.gameObject.SetActive(true);
+        yellowImage.gameObject.SetActive(true);
+        blueImage.gameObject.SetActive(true);
+        redImage.fillAmount = 1f;
+        yellowImage.fillAmount=1f;
+        blueImage.fillAmount =1f;
 
-        // 条件ごとに1つだけON
-        if (LimitTime <= 60f)
+        if (LimitTime > 120f) // 青180～121
         {
-            redImage.gameObject.SetActive(true);
+            float t = Mathf.InverseLerp(180f, 121f, LimitTime);
+            blueImage.fillAmount = 1f - t;
         }
-        else if (LimitTime <= 120f)
+        else if (LimitTime > 60f) // 黄色120～61
         {
-            yellowImage.gameObject.SetActive(true);
+            blueImage.gameObject.SetActive(false);
+            float t = Mathf.InverseLerp(120f, 61f, LimitTime);
+            yellowImage.fillAmount = 1f - t;
         }
-        else
+        else // 赤60～0
         {
-            blueImage.gameObject.SetActive(true);
+            blueImage.gameObject.SetActive(false);
+            float t = Mathf.InverseLerp(60f, 0f, LimitTime);
+            redImage.fillAmount = 1f - t;
         }
 
     }
