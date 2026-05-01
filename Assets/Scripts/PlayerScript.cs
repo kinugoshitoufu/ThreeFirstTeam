@@ -14,6 +14,7 @@ public class PlayerScript : MonoBehaviour
 　　//パラメーターなど
     public static PlayerScript instance;
     public GameObject Arrow;
+    public Animator Arrowanimator;
     public float movespeed = 3.0f;
     public Vector2 moveArea = new(8.0f, 4.5f);//動ける範囲
     public float Shotspeed = 10.0f;
@@ -210,8 +211,20 @@ public class PlayerScript : MonoBehaviour
         rb.AddForce(Arrow.transform.up * Shotspeed, ForceMode2D.Impulse);
         shotFlag = true;
         transform.rotation = Arrow.transform.rotation;
-        Arrow.transform.rotation = quaternion.identity;
+        Arrow.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
         animator.Play("PlayerShot", 0, 0.0f);
+        if (combocount >= combocountRank * 3)
+        {
+            Arrowanimator.Play("CRankShotEffect",0,0.0f);
+        }
+        else if (combocount >= combocountRank * 2)
+        {
+            Arrowanimator.Play("DRankShotEffect", 0, 0.0f);
+        }
+        else if (combocount >= combocountRank)
+        {
+            Arrowanimator.Play("ERankShotEffect", 0, 0.0f);
+        }
         shotCount--;
     }
 
@@ -331,6 +344,11 @@ public class PlayerScript : MonoBehaviour
         return vec;
     }
     
+    public bool GetShotFlag()
+    {
+        return shotFlag;
+    }
+
     public int GetComboCount()
     {
         return combocount;
