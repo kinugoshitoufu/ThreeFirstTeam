@@ -38,8 +38,11 @@ public class TimeScript : MonoBehaviour
         // 時間の減少
         LimitTime -= Time.deltaTime*Downspeed;
 
-        // 経過時間を加算
+        // 30fごとに減少する経過時間を加算
         ElapsedDownTime += Time.deltaTime;
+
+        //ゲーム開始からの経過時間
+        ElapsedTime += Time.deltaTime;
 
         // 30秒ごとに減少速度を0.1追加
         if (ElapsedDownTime >= ReduceLimit)
@@ -57,7 +60,7 @@ public class TimeScript : MonoBehaviour
             Debug.Log("終了時スコア：" + finalScore);
 
             ResultScript.resultScore = finalScore;
-            ResultScript.resultTime = Mathf.Max(0f, elapsedTime);
+            ResultScript.resultTime = Mathf.Max(0f, ElapsedTime);
             ResultScript.resultCombo = PlayerScript.instance.maxcombo;
 
             SceneChanger.instance.sceneChanger("ResultScene");
