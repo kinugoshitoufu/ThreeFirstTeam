@@ -51,7 +51,7 @@ public class SoundManager : MonoBehaviour
     {
         if (index < 0 || index >= bgmList.Length) return;
 
-        foreach (var source in seSources)
+        foreach (var source in bgmSource)
         {
             if (!source.isPlaying)
             {

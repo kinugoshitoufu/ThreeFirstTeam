@@ -92,6 +92,7 @@ public class TimeScript : MonoBehaviour
         }
         else if (LimitTime > 60f) // 黄色120～61
         {
+            yellowImage.gameObject.SetActive(true);
             blueImage.gameObject.SetActive(false);
             float t = Mathf.InverseLerp(120f, 61f, LimitTime);
             yellowImage.fillAmount = 1f - t;
@@ -99,6 +100,7 @@ public class TimeScript : MonoBehaviour
         else // 赤60～0
         {
             blueImage.gameObject.SetActive(false);
+            yellowImage.gameObject.SetActive(false);
             float t = Mathf.InverseLerp(60f, 0f, LimitTime);
             redImage.fillAmount = 1f - t;
         }
