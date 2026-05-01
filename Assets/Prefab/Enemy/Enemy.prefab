@@ -180,6 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c9da25dc30b25142b54f11794e1f92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  spawnTime: 10
   speed: 3
 --- !u!82 &-4314365243575731198
 AudioSource:

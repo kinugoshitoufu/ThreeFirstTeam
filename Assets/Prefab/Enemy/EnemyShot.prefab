@@ -179,8 +179,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4943476aacfd3541a4169682fa54c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShot
+  spawnTime: 50
   speed: 3
   shotData:
     frame: 140
     type: 1
     bullet: {fileID: 7339847894137258478, guid: 48b4784766d5f7143b0638828af487f5, type: 3}
+  lifeTimer: 5

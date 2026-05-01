@@ -35,13 +35,12 @@ public class EnemySpawner1 : MonoBehaviour
         
         int count = GetSpawnCount();
 
-        //StartCoroutine(SpawnAfterDelay(option, count));
-        Spawn(GetSpawnCount());
+        StartCoroutine(SpawnAfterDelay(enemy.spawnTime, count));
     }
 
     private void Start()
     {
-        Spawn(GetSpawnCount());
+        SpawnFirst();
     }
 
     // 追加で何体出すか
@@ -81,93 +80,94 @@ public class EnemySpawner1 : MonoBehaviour
 
     //スポーンと抽選処理
 
-    /*単独用
-    void Spawn(int count)
+    //最初に呼び出す
+    void SpawnFirst()
     {
-        SpawnOption option = GetRandomOption();//種類抽選
+        SpawnOption option = GetRandomOption();
 
         for (int i = 0; i < option.spawnCount; i++)
         {
-            Debug.Log("Spawn呼ばれたよ！！");
-
-            if (currentEnemies >= maxEnemiesInScene)
-                break;
-
             Vector3 pos = transform.position;
-            pos.x += Random.Range(Maxrange.x, Maxrange.y);
-            pos.y += Random.Range(Minrange.x, Minrange.y);
-            pos.z = 0f;
+            //円形状に
+            Vector2 offset = Random.insideUnitCircle * Maxrange.y;
+            pos += (Vector3)offset;
+            //ランダムに
+            //pos.x += Random.Range(-Minrange.x, Maxrange.x);
+            //pos.y += Random.Range(-Minrange.y, Minrange.y);
+            //pos.z = 0f;
 
             GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
 
-            Enemy enemy = obj.GetComponent<Enemy>();//敵を登録
-          
+            Enemy enemy = obj.GetComponent<Enemy>();
+            enemy.spawnTime = option.spawnTime;
+
             Register(enemy);
         }
-    }*/
-
-    //コルーチン化
-    void Spawn(int count)
-    {
-        StartCoroutine(SpawnRoutine(count));
     }
-    IEnumerator SpawnRoutine(int count)
-    {
-
-        while(true)
-        {
-            Debug.Log("Spawn呼ばれたよ！！");
-
-            if (currentEnemies < maxEnemiesInScene) 
-            {
-                SpawnOption option = GetRandomOption();//種類抽選
-                for (int i = 0; i < option.spawnCount; i++)
-                {
-                    if (currentEnemies >= maxEnemiesInScene) break;
-                    Vector3 pos = transform.position;
-                    pos.x += Random.Range(-Minrange.x, Maxrange.x);
-                    pos.y += Random.Range(-Minrange.y, Minrange.y);
-                    pos.z = 0f;
-
-                    GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
-
-                    Enemy enemy = obj.GetComponent<Enemy>();//敵を登録
-
-                    Register(enemy);
-                }
-                //次の種類まで待つ
-                yield return new WaitForSeconds(option.spawnTime);
-            }
-            else
-            {
-                // 敵が多いときは少し待つ
-                yield return new WaitForSeconds(0.5f);
-            }
-            
-        }
-        
-    }
-
-    //IEnumerator SpawnAfterDelay(SpawnOption option, int count)
+    //通常
+    //IEnumerator SpawnRoutine(int count)
     //{
-    //    yield return new WaitForSeconds(option.spawnDelay);
     //
-    //    for (int i = 0; i < count; i++)
+    //    while(true)
     //    {
-    //        if (currentEnemies >= maxEnemiesInScene)
-    //            yield break;
+    //        Debug.Log("Spawn呼ばれたよ！！");
     //
-    //        Vector3 pos = transform.position;
-    //        pos.x += Random.Range(Maxrange.x, Maxrange.y);
-    //        pos.y += Random.Range(Minrange.x, Minrange.y);
-    //        pos.z = 0f;
+    //        if (currentEnemies < maxEnemiesInScene) 
+    //        {
+    //            SpawnOption option = GetRandomOption();//種類抽選
+    //            for (int i = 0; i < option.spawnCount; i++)
+    //            {
+    //                if (currentEnemies >= maxEnemiesInScene) break;
+    //                Vector3 pos = transform.position;
+    //                pos.x += Random.Range(-Minrange.x, Maxrange.x);
+    //                pos.y += Random.Range(-Minrange.y, Minrange.y);
+    //                pos.z = 0f;
     //
-    //        GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
+    //                GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
     //
-    //        Enemy newEnemy = obj.GetComponent<Enemy>();
-    //        Register(newEnemy);
+    //                Enemy enemy = obj.GetComponent<Enemy>();//敵を登録
+    //                enemy.spawnTime = option.spawnTime;
+    //
+    //                Register(enemy);
+    //            }
+    //            //次の種類まで待つ
+    //            yield return new WaitForSeconds(option.spawnTime);
+    //        }
+    //        else
+    //        {
+    //            // 敵が多いときは少し待つ
+    //            yield return new WaitForSeconds(0.5f);
+    //        }
+    //        
     //    }
+    //    
     //}
+
+    //敵時間分待つ(敵が死んだ時に呼び出す)
+    IEnumerator SpawnAfterDelay(float delay, int count)
+    {
+        yield return new WaitForSeconds(delay);
+
+        SpawnOption option = GetRandomOption();
+
+        for (int i = 0; i < option.spawnCount; i++)
+        {
+            if (currentEnemies >= maxEnemiesInScene)
+                yield break;
+
+            Vector3 pos = transform.position;
+
+            Vector2 offset = Random.insideUnitCircle * Maxrange.y;
+            pos += (Vector3)offset;
+
+            GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
+
+            Enemy newEnemy = obj.GetComponent<Enemy>();
+            newEnemy.spawnTime = option.spawnTime;
+
+            Register(newEnemy);
+        }
+    }
     public void Register(Enemy enemy)
     {
         currentEnemies++;
