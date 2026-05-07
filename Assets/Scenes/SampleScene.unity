@@ -663,7 +663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -928,7 +928,6 @@ MonoBehaviour:
   redImage: {fileID: 674650543}
   yellowImage: {fileID: 674650543}
   blueImage: {fileID: 674650543}
-  timeText: {fileID: 44380474}
 --- !u!1 &1087385177
 GameObject:
   m_ObjectHideFlags: 0
@@ -969,6 +968,9 @@ MonoBehaviour:
   spawnCountOne: 70
   spawnCountTwo: 20
   spawnCountThree: 10
+  Mindelay: 0.1
+  Maxdelay: 1
+  delay: 0
 --- !u!4 &1087385179
 Transform:
   m_ObjectHideFlags: 0
@@ -978,7 +980,7 @@ Transform:
   m_GameObject: {fileID: 1087385177}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.05, y: 2.07, z: 0}
+  m_LocalPosition: {x: 0.05, y: 0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1333,9 +1335,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2687553889497426975, guid: acae5471ef2593e4fbe08264ae80f0f8, type: 3}
+      propertyPath: particle
+      value: 
+      objectReference: {fileID: 5640451101015276910, guid: 0b9b2d585d11f6247b90e38d36755d8f, type: 3}
+    - target: {fileID: 2687553889497426975, guid: acae5471ef2593e4fbe08264ae80f0f8, type: 3}
       propertyPath: Timescript
       value: 
       objectReference: {fileID: 1001300662}
+    - target: {fileID: 2687553889497426975, guid: acae5471ef2593e4fbe08264ae80f0f8, type: 3}
+      propertyPath: Arrowanimator
+      value: 
+      objectReference: {fileID: 1667336167}
     - target: {fileID: 2687553889497426975, guid: acae5471ef2593e4fbe08264ae80f0f8, type: 3}
       propertyPath: combocountRank
       value: 10

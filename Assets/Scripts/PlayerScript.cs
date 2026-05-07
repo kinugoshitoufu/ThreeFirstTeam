@@ -1,13 +1,6 @@
 using System;
-using Unity.Mathematics;
-using Unity.VectorGraphics;
-using Unity.VisualScripting;
-using Unity.VisualScripting.Dependencies.NCalc;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class PlayerScript : MonoBehaviour
 {
@@ -30,6 +23,7 @@ public class PlayerScript : MonoBehaviour
     public float shotcollider = 0.1f;
     public float knockback = 10.0f;
     public int combocountRank = 10;
+    public GameObject particle;
 
 
     //操作によって変更
@@ -418,6 +412,7 @@ public class PlayerScript : MonoBehaviour
                 shotCount++;
                 combotimecount = 0.0f;
                 score += scorecount * combocount;
+                Instantiate(particle, transform.position, Quaternion.identity);
                 gravity -= fallspeed / downfallspeed;
                 Timescript.LimitTime += timeup;
             }
@@ -448,4 +443,5 @@ public class PlayerScript : MonoBehaviour
             }
         }
     }
+
 }
