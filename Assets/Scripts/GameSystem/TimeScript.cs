@@ -16,7 +16,9 @@ public class TimeScript : MonoBehaviour
     public Image redImage;    //0～60
     public Image yellowImage; //61～120
     public Image blueImage;   //121～180
+    public GameObject resultPrefab;
 
+    private bool isResultShown = false;
     private bool isFinished = false;
     void Update()
     {
@@ -57,6 +59,8 @@ public class TimeScript : MonoBehaviour
         {
             isFinished = true;
 
+            isResultShown = true;
+
             int finalScore = PlayerScript.instance.GetScore();
             Debug.Log("終了時スコア：" + finalScore);
 
@@ -64,7 +68,7 @@ public class TimeScript : MonoBehaviour
             ResultScript.resultTime = Mathf.Max(0f, ElapsedTime);
             ResultScript.resultCombo = PlayerScript.instance.maxcombo;
 
-            SceneChanger.instance.sceneChanger("ResultScene");
+            GameObject result = Instantiate(resultPrefab);
             return;
         }
         if (LimitTime < 0)

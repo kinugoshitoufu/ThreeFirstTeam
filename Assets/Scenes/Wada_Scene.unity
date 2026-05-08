@@ -1340,6 +1340,7 @@ MonoBehaviour:
   redImage: {fileID: 1118363278}
   yellowImage: {fileID: 667722431}
   blueImage: {fileID: 2113122198}
+  resultPrefab: {fileID: 6541669384265225286, guid: 39ab9d47b7f436e4ab9a4e411d4ebf69, type: 3}
 --- !u!1 &2113122196
 GameObject:
   m_ObjectHideFlags: 0
