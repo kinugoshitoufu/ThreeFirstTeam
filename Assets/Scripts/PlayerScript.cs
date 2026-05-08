@@ -27,6 +27,7 @@ public class PlayerScript : MonoBehaviour
     public float timedown = 3.0f;
     public GameObject particle;
     public int HitStopFlame = 3;
+    public float ControllerDeadZone = 0.1f;
 
 
     //操作によって変更
@@ -35,12 +36,12 @@ public class PlayerScript : MonoBehaviour
     //フラグ・カウント系など
     [SerializeField] private string rank = "none";
     private Animator animator;
-    private Vector3 PlayerPos;
     private BoxCollider2D box;
     private int combocount = 0;
     private bool shotboxflag = true;
     private int score = 0;
     private bool shotFlag;
+    private bool meshFlag = true;
     public int maxcombo = 0;
     [SerializeField] private float shottimecount = 0.0f;
     [SerializeField] private float combotimecount = 0.0f;
@@ -55,7 +56,6 @@ public class PlayerScript : MonoBehaviour
     {
         
         box = GetComponent<BoxCollider2D>();
-        PlayerPos = GetComponent<Transform>().position;
         rb = GetComponent<Rigidbody2D>();
         shotFlag = false;
         shotboxflag = true;
@@ -86,6 +86,10 @@ public class PlayerScript : MonoBehaviour
                 control = 1;
                 Debug.Log("キーボード操作に変更しました");
             }
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                meshFlag = !meshFlag;
+            }
         }
         
         
@@ -94,7 +98,12 @@ public class PlayerScript : MonoBehaviour
         {
             Move();
         }
-        PlayerPos = transform.position;
+        if (meshFlag)
+        {
+            TriangleMesh.instance.vec1 = transform.position;
+            TriangleMesh.instance.vec1.x -= -0.45622f;
+            TriangleMesh.instance.vec1.y -= -0.905f;
+        }
         if (shotCount > 0 && !shotFlag && !animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerDamage"))
         {
             if (control == 0 && Input.GetKeyDown("joystick button 2"))
@@ -175,8 +184,11 @@ public class PlayerScript : MonoBehaviour
         Vector2 vec;
         vec.x = Input.GetAxisRaw("Horizontal");
         vec.y = Input.GetAxisRaw("Vertical");
-        // ベクトルの長さが１を超えていたら長さを１にする
-        
+
+        if (Mathf.Abs(vec.x) <= ControllerDeadZone)
+        {
+            vec = Vector2.zero;
+        }
 
         //移動量を算出する
         vec *= movespeed * Time.deltaTime;
