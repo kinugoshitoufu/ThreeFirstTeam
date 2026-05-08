@@ -60,6 +60,7 @@ public class TimeScript : MonoBehaviour
             isFinished = true;
 
             isResultShown = true;
+            
 
             int finalScore = PlayerScript.instance.GetScore();
             Debug.Log("終了時スコア：" + finalScore);
@@ -69,6 +70,7 @@ public class TimeScript : MonoBehaviour
             ResultScript.resultCombo = PlayerScript.instance.maxcombo;
 
             GameObject result = Instantiate(resultPrefab);
+            Time.timeScale = 0f;
             return;
         }
         if (LimitTime < 0)
