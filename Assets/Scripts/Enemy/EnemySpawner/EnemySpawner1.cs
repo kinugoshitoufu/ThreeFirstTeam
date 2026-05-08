@@ -13,8 +13,8 @@ public class SpawnOption
     public int spawnCount = 1;
     [Header("確率")]
     public float weight = 1;
-    [Header("スポーン遅延時間")]
-    public float spawnTime = 0f;
+    //[Header("スポーン遅延時間")]
+    //public float spawnTime = 0f;
 }
 public class EnemySpawner1 : MonoBehaviour
 {
@@ -44,7 +44,7 @@ public class EnemySpawner1 : MonoBehaviour
 
         WaitSpawnCount += count;
 
-        delay = Random.Range(Mindelay, Maxdelay);
+        delay = enemy.spawnTime + Random.Range(Mindelay, Maxdelay);
         if (!isSpawning)
         {
             StartCoroutine(SpawnAfterDelay(delay));
@@ -93,7 +93,7 @@ public class EnemySpawner1 : MonoBehaviour
 
     //スポーンと抽選処理
 
-    //最初に呼び出す
+    //敵がランダムに出てくる(最初だけ)
     void SpawnFirst()
     {
         SpawnOption option = GetRandomOption();
@@ -172,6 +172,9 @@ public class EnemySpawner1 : MonoBehaviour
             if (currentEnemies >= maxEnemiesInScene)
             {
                 WaitSpawnCount += (spawnCount - i);
+
+                isSpawning = false;
+
                 yield break;
             }
 
