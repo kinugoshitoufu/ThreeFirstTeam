@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,7 +24,9 @@ public class PlayerScript : MonoBehaviour
     public float shotcollider = 0.1f;
     public float knockback = 10.0f;
     public int combocountRank = 10;
+    public float timedown = 3.0f;
     public GameObject particle;
+    public int HitStopFlame = 3;
 
 
     //操作によって変更
@@ -407,6 +410,7 @@ public class PlayerScript : MonoBehaviour
         {
             if (shotFlag)
             {
+                //  shaking();
                 Destroy(collision.gameObject);
                 combocount++;
                 shotCount++;
@@ -421,6 +425,7 @@ public class PlayerScript : MonoBehaviour
                 //rb.AddForce(-Arrow.transform.up * knockback, ForceMode2D.Impulse);
                 if (!animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerDamage"))
                 {
+                    Timescript.LimitTime -= timedown;
                     animator.Play("PlayerDamage", 0, 0);
                 }
                 
@@ -428,7 +433,6 @@ public class PlayerScript : MonoBehaviour
         }
         if (collision.CompareTag("EnemyBullet"))
         {
-            Timescript.LimitTime -= 5;
             if (shotFlag)
             {
                 Destroy(collision.gameObject);
@@ -438,10 +442,21 @@ public class PlayerScript : MonoBehaviour
                 //rb.AddForce(-Arrow.transform.up * knockback, ForceMode2D.Impulse);
                 if (!animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerDamage"))
                 {
+                    Timescript.LimitTime -= timedown;
                     animator.Play("PlayerDamage", 0, 0);
                 }
             }
         }
     }
+    private async UniTask shaking()
+    {
+        for (int i = 0; i < HitStopFlame; i++)
+        {
+            await UniTask.DelayFrame(1); //1fごとに処理
+        }
+
+
+    }
+
 
 }
