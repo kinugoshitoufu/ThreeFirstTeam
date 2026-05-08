@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 [System.Serializable]
@@ -54,6 +55,49 @@ public class EnemySpawner1 : MonoBehaviour
     private void Start()
     {
         SpawnFirst();
+        // 黒背景の初期透明度
+        Color color = backscreen.color;
+        color.a = 0f;
+        backscreen.color = color;
+    }
+
+    // 川本こうせいが追加したコード↓↓↓↓↓
+    [Header("最初の敵の関数達")]
+    public GameObject StartEnemy;
+    public float targetX = 5f; //目的地
+    public float speed = 3f;    //移動速度
+    public Image backscreen;//黒背景
+    private bool ismove=true;
+
+    void Update()
+    {
+        FastEmemy();
+    }
+
+    void FastEmemy()
+    {
+        if (StartEnemy == null)
+        {
+            Debug.Log("StartEnemy死亡!!!!!!!!!!!!");
+            Color color = backscreen.color;
+            color.a = 0f;
+            backscreen.color = color;
+            return;
+        }
+        Debug.Log(ismove);
+        if (ismove)
+        {
+            StartEnemy.transform.position += Vector3.left * 3f * Time.deltaTime;
+        }
+        // 目的地まで移動
+        if (StartEnemy.transform.position.x < targetX)
+        {
+            ismove = false;
+            // 到着したら透明度0.5
+            Color color = backscreen.color;
+            color.a = 0.5f;
+            backscreen.color = color;
+        }
     }
 
     // 追加で何体出すか
