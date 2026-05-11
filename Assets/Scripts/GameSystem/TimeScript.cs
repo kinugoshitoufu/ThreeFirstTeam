@@ -70,7 +70,7 @@ public class TimeScript : MonoBehaviour
             ResultScript.resultCombo = PlayerScript.instance.maxcombo;
 
             ResultScript.instance.ShowResult();
-            Time.timeScale = 0f;
+            //Time.timeScale = 0f;
             return;
         }
         if (LimitTime < 0)
