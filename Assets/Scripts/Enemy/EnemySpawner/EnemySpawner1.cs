@@ -64,9 +64,9 @@ public class EnemySpawner1 : MonoBehaviour
     // 川本こうせいが追加したコード↓↓↓↓↓
     [Header("最初の敵の関数達")]
     public GameObject StartEnemy;
-    public float targetX = 5f; //目的地
+    public float targetX = 5f;  //目的地
     public float speed = 3f;    //移動速度
-    public Image backscreen;//黒背景
+    public Image backscreen; //黒背景
     private bool ismove=true;
 
     void Update()
