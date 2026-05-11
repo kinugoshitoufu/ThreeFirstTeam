@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 public class TimeScript : MonoBehaviour
 {
     public static TimeScript instance;
-    public ResultScript resultScript;
     public float LimitTime = 30f;     // 残り時間
     public float Downspeed = 1f;     // 減少速度
     private float ElapsedDownTime = 0f;  // 指定時間ごとに減らす経過時間
@@ -70,7 +69,7 @@ public class TimeScript : MonoBehaviour
             ResultScript.resultTime = Mathf.Max(0f, ElapsedTime);
             ResultScript.resultCombo = PlayerScript.instance.maxcombo;
 
-            resultScript.ShowResult();
+            ResultScript.instance.ShowResult();
             Time.timeScale = 0f;
             return;
         }

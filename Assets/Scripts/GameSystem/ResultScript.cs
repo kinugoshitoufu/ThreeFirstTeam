@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ResultScript : MonoBehaviour
 {
+    public static ResultScript instance;
     [Header("テキスト")]
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI scoreText;
@@ -14,7 +15,10 @@ public class ResultScript : MonoBehaviour
     [Header("プレハブ入れてね！")]
     public GameObject resultPrefab;
     public GameObject triangle;
-    public Transform player;
+    private void Awake()
+    {
+        instance = this;
+    }
     void Start()
     {
         timeText.text = resultTime.ToString("F0") + "sec";
