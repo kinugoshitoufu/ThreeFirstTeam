@@ -100,9 +100,6 @@ public class PlayerScript : MonoBehaviour
         }
         if (meshFlag)
         {
-            TriangleMesh.instance.vec1 = transform.position;
-            TriangleMesh.instance.vec1.x -= -0.45622f;
-            TriangleMesh.instance.vec1.y -= -0.905f;
         }
         if (shotCount > 0 && !shotFlag && !animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerDamage"))
         {
