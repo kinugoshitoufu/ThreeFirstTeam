@@ -14,7 +14,7 @@ public class TitleScript : MonoBehaviour
     {
         if (Input.GetButtonDown("Submit") || Input.GetKeyDown(KeyCode.Space))
         {
-            SceneManager.LoadScene("Wada_Scene");
+            SceneManager.LoadScene("GameScene");
         }
     }
 }
