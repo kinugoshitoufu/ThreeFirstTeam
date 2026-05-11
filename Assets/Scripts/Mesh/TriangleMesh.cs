@@ -25,7 +25,7 @@ public class TriangleMesh : MonoBehaviour
         Vector3[] vertices = new Vector3[3] {
              vec,
              vec1,
-             vec2
+             vec2,
         };
         mesh.vertices = vertices;
 
@@ -40,22 +40,22 @@ public class TriangleMesh : MonoBehaviour
 
     void Update()
     {
+        //Bounds bounds = resultPanel.bounds;
+        //vec = new Vector3(bounds.min.x, bounds.min.y,0);
+        //vec2 = new Vector3(bounds.max.x,bounds.min.y,0);
+
         Vector3[] corners = new Vector3[4];
         resultPanel.GetWorldCorners(corners);
-        
-        // 右下
-        vec = corners[3];
-        
-        // 左下
-        vec2 = corners[0];
 
-
+        vec = corners[0];
+        vec1 = corners[3];
         mesh.SetVertices(new Vector3[] {
              vec,
              vec1,
              vec2,
             }
         );
+        mesh.triangles = new int[] { 0, 1, 2 };
 
         mesh.SetColors(colors);
     }

@@ -33,8 +33,9 @@ public class ResultScript : MonoBehaviour
     }
     public void ShowResult()
     {
-        GameObject result = Instantiate(resultPrefab);
+        GameObject resultObj = Instantiate(resultPrefab);
 
+        TriangleMesh.instance.resultPanel = resultObj.transform.Find("Panel").GetComponent<RectTransform>();
         triangle.SetActive(true);
     }
 }
