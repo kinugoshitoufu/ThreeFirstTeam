@@ -40,7 +40,7 @@ public class EnemySpawner1 : MonoBehaviour
     public void OnEnemyDeath(Enemy enemy)
     {
         currentEnemies--;
-        
+
         int count = GetSpawnCount();
 
         WaitSpawnCount += count;
@@ -69,6 +69,7 @@ public class EnemySpawner1 : MonoBehaviour
     public float speed = 3f;    //移動速度
     public Image backscreen; //黒背景
     private bool ismove=true;
+    private bool isdead=false;
 
     void Update()
     {
