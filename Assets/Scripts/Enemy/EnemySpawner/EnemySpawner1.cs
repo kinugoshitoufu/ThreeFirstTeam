@@ -64,6 +64,7 @@ public class EnemySpawner1 : MonoBehaviour
     // 川本こうせいが追加したコード↓↓↓↓↓
     [Header("最初の敵の関数達")]
     public GameObject StartEnemy;
+    public Image tutorialarrow;
     public float targetX = 5f;  //目的地
     public float speed = 3f;    //移動速度
     public Image backscreen; //黒背景
@@ -79,19 +80,21 @@ public class EnemySpawner1 : MonoBehaviour
         if (StartEnemy == null)
         {
             Debug.Log("StartEnemy死亡!!!!!!!!!!!!");
+            tutorialarrow.enabled = false;
             Color color = backscreen.color;
             color.a = 0f;
             backscreen.color = color;
             return;
         }
-        Debug.Log(ismove);
         if (ismove)
         {
+            tutorialarrow.enabled = false;
             StartEnemy.transform.position += Vector3.left * 3f * Time.deltaTime;
         }
         // 目的地まで移動
         if (StartEnemy.transform.position.x < targetX)
         {
+            tutorialarrow.enabled = true;
             ismove = false;
             // 到着したら透明度0.5
             Color color = backscreen.color;
