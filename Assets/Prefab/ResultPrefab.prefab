@@ -390,6 +390,9 @@ MonoBehaviour:
   timeText: {fileID: 1281038150795917072}
   scoreText: {fileID: 7287847566184195885}
   comboText: {fileID: 2592291988790839847}
+  resultPrefab: {fileID: 6541669384265225286}
+  trianglePrefab: {fileID: 7651316146191369746, guid: 06d6c9dd8f9eb2b41954e4145d9b5f22, type: 3}
+  player: {fileID: 6327969220033389860, guid: 4780f1d53739b6542be2e9d92cacb4ad, type: 3}
 --- !u!1 &3127746101402613681
 GameObject:
   m_ObjectHideFlags: 0

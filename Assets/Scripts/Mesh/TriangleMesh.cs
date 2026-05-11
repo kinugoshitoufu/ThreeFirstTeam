@@ -10,6 +10,7 @@ public class TriangleMesh : MonoBehaviour
     public Color[] colors;
     private Mesh mesh;
     private MeshRenderer meshRenderer;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {

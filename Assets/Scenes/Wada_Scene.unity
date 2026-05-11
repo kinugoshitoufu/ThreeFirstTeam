@@ -264,6 +264,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 775725458695431310, guid: 06d6c9dd8f9eb2b41954e4145d9b5f22, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3458953719828566956, guid: 06d6c9dd8f9eb2b41954e4145d9b5f22, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.2990899
@@ -307,6 +311,10 @@ PrefabInstance:
     - target: {fileID: 7651316146191369746, guid: 06d6c9dd8f9eb2b41954e4145d9b5f22, type: 3}
       propertyPath: m_Name
       value: Triangle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7651316146191369746, guid: 06d6c9dd8f9eb2b41954e4145d9b5f22, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -820,6 +828,7 @@ RectTransform:
   - {fileID: 1118363277}
   - {fileID: 667722430}
   - {fileID: 2113122197}
+  - {fileID: 1912453407}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1162,6 +1171,10 @@ MonoBehaviour:
   Mindelay: 0.1
   Maxdelay: 1
   delay: 0
+  StartEnemy: {fileID: 99298731110814657, guid: 652f4dd5208fc134ab62ca1c337c63d8, type: 3}
+  targetX: 5
+  speed: 3
+  backscreen: {fileID: 1912453408}
 --- !u!1 &1444763176
 GameObject:
   m_ObjectHideFlags: 0
@@ -1391,13 +1404,88 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 337acf6f15f17b947998c115f675e5cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimeScript
+  resultScript: {fileID: 0}
   LimitTime: 30
   Downspeed: 1
   speed: 0.1
   redImage: {fileID: 1118363278}
   yellowImage: {fileID: 667722431}
   blueImage: {fileID: 2113122198}
-  resultPrefab: {fileID: 6541669384265225286, guid: 39ab9d47b7f436e4ab9a4e411d4ebf69, type: 3}
+--- !u!1 &1912453406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1912453407}
+  - component: {fileID: 1912453409}
+  - component: {fileID: 1912453408}
+  m_Layer: 5
+  m_Name: BackScreen
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1912453407
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912453406}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1006366008}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -325.2539, y: -48.062683}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1912453408
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912453406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1912453409
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1912453406}
+  m_CullTransparentMesh: 1
 --- !u!1 &2113122196
 GameObject:
   m_ObjectHideFlags: 0
