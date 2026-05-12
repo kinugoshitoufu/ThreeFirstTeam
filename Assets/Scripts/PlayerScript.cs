@@ -1,6 +1,8 @@
 using Cysharp.Threading.Tasks;
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour
@@ -28,6 +30,7 @@ public class PlayerScript : MonoBehaviour
     public GameObject particle;
     public int HitStopFlame = 3;
     public float ControllerDeadZone = 0.1f;
+    public AudioClip audioClip;
 
 
     //操作によって変更
@@ -38,6 +41,7 @@ public class PlayerScript : MonoBehaviour
     private Animator animator;
     private BoxCollider2D box;
     private SpriteRenderer spriteRenderer;
+    private AudioSource audioSource;
     private Vector2 BoxSize;
     private Vector3 PlayerScale;
     private int combocount = 0;
@@ -67,6 +71,7 @@ public class PlayerScript : MonoBehaviour
         box = GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
         shotFlag = false;
         shotboxflag = true;
         animator = GetComponent<Animator>();
@@ -104,7 +109,7 @@ public class PlayerScript : MonoBehaviour
                 meshFlag = !meshFlag;
             }
         }
-
+        MoveAreaCheck();
         if (playerState == PlayerState.start)
         {
                 StartMove();
@@ -115,7 +120,7 @@ public class PlayerScript : MonoBehaviour
         }
         else if (playerState == PlayerState.Playering)
         {
-            MoveAreaCheck();
+            
             if (!shotFlag)
             {
                 Move();
@@ -281,6 +286,7 @@ public class PlayerScript : MonoBehaviour
         rb.linearVelocity *= 0.0f;
         rb.AddForce(Arrow.transform.up * Shotspeed, ForceMode2D.Impulse);
         shotFlag = true;
+        audioSource.PlayOneShot(audioClip);
         transform.rotation = Arrow.transform.rotation;
         Arrow.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
         animator.SetBool("ShootingAnim", true);
@@ -515,7 +521,6 @@ public class PlayerScript : MonoBehaviour
                     Timescript.LimitTime -= timedown;
                     animator.Play("PlayerDamage", 0, 0);
                 }
-
             }
         }
         if (collision.CompareTag("EnemyBullet"))
