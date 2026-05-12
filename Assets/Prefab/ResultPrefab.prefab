@@ -554,7 +554,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1514461220177691126}
         m_TargetAssemblyTypeName: OnButtonScript, Assembly-CSharp
         m_MethodName: ClickRetry
         m_Mode: 1
@@ -824,7 +824,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1514461220177691126}
         m_TargetAssemblyTypeName: OnButtonScript, Assembly-CSharp
         m_MethodName: ClickTitleScene
         m_Mode: 1
