@@ -191,6 +191,12 @@ public class PlayerScript : MonoBehaviour
         vec.x = Input.GetAxisRaw("Horizontal");
         vec.y = Input.GetAxisRaw("Vertical");
 
+        // 入力方向を向く角度を計算 (2DなのでZ軸回転)
+        float angle = Mathf.Atan2(vec.x, vec.y) * Mathf.Rad2Deg;
+
+        // 現在の回転から、計算した角度へ徐々に回転させる
+        Arrow.transform.rotation = Quaternion.Euler(0, 0, -angle);
+
         if (Mathf.Abs(vec.x) <= ControllerDeadZone)
         {
             animator.SetBool("WalkAnim", false);
@@ -213,11 +219,6 @@ public class PlayerScript : MonoBehaviour
         }
         //rb.linearVelocityX = vec.x;
         transform.Translate(vec.x, 0.0f, 0.0f);
-        // 入力方向を向く角度を計算 (2DなのでZ軸回転)
-        float angle = Mathf.Atan2(vec.x, vec.y) * Mathf.Rad2Deg;
-
-        // 現在の回転から、計算した角度へ徐々に回転させる
-        Arrow.transform.rotation = Quaternion.Euler(0, 0, -angle);
         //Vector2 arrowangletemp = new Vector2 (vec.x - Arrow.transform.position.x,vec.y - Arrow.transform.position.y);
         //float arrowangle = Mathf.Atan2(arrowangletemp.x, arrowangletemp.y) * Mathf.Rad2Deg - 90f;
 
