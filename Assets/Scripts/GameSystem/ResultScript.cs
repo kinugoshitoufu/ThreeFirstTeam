@@ -35,7 +35,7 @@ public class ResultScript : MonoBehaviour
     {
         GameObject resultObj = Instantiate(resultPrefab);
 
-        TriangleMesh.instance.resultPanel = resultObj.transform.Find("Panel").GetComponent<RectTransform>();
+        TriangleMesh.instance.resultPanel = resultObj.transform.Find("Panel").GetComponent<SpriteRenderer>();
         triangle.SetActive(true);
     }
 }
