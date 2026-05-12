@@ -30,6 +30,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            SoundManager.Instance.GAMESE(1);
             Die();
         }
     }

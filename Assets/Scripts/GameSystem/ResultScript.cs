@@ -8,10 +8,12 @@ public class ResultScript : MonoBehaviour
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI comboText;
+    public TextMeshProUGUI totalText;
     
     public static float resultTime;    //リザルト用
     public static int resultScore;     //リザルト用
     public static int resultCombo;        //リザルト用
+    public int TotalScore;
     [Header("プレハブ入れてね！")]
     public GameObject resultPrefab;
     public GameObject triangle;
@@ -21,9 +23,11 @@ public class ResultScript : MonoBehaviour
     }
     void Start()
     {
-        timeText.text = resultTime.ToString("F0") + "sec";
-        scoreText.text = resultScore.ToString() + "point";
-        comboText.text = resultCombo.ToString() + "combo";
+        TotalScore = (int)resultTime + resultScore + resultCombo;
+        timeText.text = "Life Time:" + resultTime.ToString("F0");
+        scoreText.text = "Score:" + resultScore.ToString();
+        comboText.text = "MaxCombo" + resultCombo.ToString();
+        totalText.text = "TotalScore\n" + TotalScore.ToString();
     }
 
     
@@ -33,6 +37,7 @@ public class ResultScript : MonoBehaviour
     }
     public void ShowResult()
     {
+        //GameObject resultObj = Instantiate(resultPrefab, new Vector3(0,0,-5),Quaternion.identity);
         GameObject resultObj = Instantiate(resultPrefab);
 
         TriangleMesh.instance.resultPanel = resultObj.transform.Find("Panel").GetComponent<SpriteRenderer>();

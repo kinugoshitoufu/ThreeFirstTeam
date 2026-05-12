@@ -64,7 +64,7 @@ public class EnemyShot : Enemy
         lifeTimer += Time.deltaTime;
         if (lifeTimer > 5f)
         {
-            //SoundManager.Instance.SEData(1);
+            SoundManager.Instance.GAMESE(1);
             Die();
         }
     }
