@@ -49,6 +49,13 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float shottimecount = 0.0f;
     [SerializeField] private float combotimecount = 0.0f;
     private Rigidbody2D rb;
+    public EnemySpawner1 enemyspawner;
+    public enum PlayerState
+    {
+        start,
+        Playering,
+    }
+    public PlayerState playerState;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
@@ -65,6 +72,7 @@ public class PlayerScript : MonoBehaviour
         animator = GetComponent<Animator>();
         BoxSize = box.size;
         PlayerScale = transform.localScale;
+        playerState= PlayerState.start;
     }
 
     // Update is called once per frame
@@ -97,11 +105,21 @@ public class PlayerScript : MonoBehaviour
             }
         }
 
-
-        MoveAreaCheck();
-        if (!shotFlag)
+        if (playerState == PlayerState.start)
         {
-            Move();
+                StartMove();
+                if(enemyspawner.isdead==true)
+                {
+                    playerState = PlayerState.Playering;
+                }
+        }
+        else if (playerState == PlayerState.Playering)
+        {
+            MoveAreaCheck();
+            if (!shotFlag)
+            {
+                Move();
+            }
         }
         if (meshFlag)
         {
@@ -224,6 +242,40 @@ public class PlayerScript : MonoBehaviour
 
     }
 
+    void StartMove()
+    {
+        //スティック入力をVecter2型に代入
+        Vector2 Startvec;
+        Startvec.x = Input.GetAxisRaw("Horizontal");
+        Startvec.y = Input.GetAxisRaw("Vertical");
+
+        // 入力方向を向く角度を計算 (2DなのでZ軸回転)
+        float angle = Mathf.Atan2(Startvec.x, Startvec.y) * Mathf.Rad2Deg;
+
+        // 現在の回転から、計算した角度へ徐々に回転させる
+        Arrow.transform.rotation = Quaternion.Euler(0, 0, -angle);
+
+        if (Mathf.Abs(Startvec.x) <= ControllerDeadZone)
+        {
+            animator.SetBool("WalkAnim", false);
+            Startvec = Vector2.zero;
+        }
+        else
+        {
+            //移動量を算出する
+            animator.SetBool("WalkAnim", true);
+        }
+        //実際にプレイヤーを動かす
+        if (Startvec.x < 0f)
+        {
+            spriteRenderer.flipX = false;
+        }
+        else if (Startvec.x > 0f)
+        {
+            spriteRenderer.flipX = true;
+        }
+    }
+
     void shot()
     {
         rb.linearVelocity *= 0.0f;
@@ -233,7 +285,15 @@ public class PlayerScript : MonoBehaviour
         Arrow.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
         animator.SetBool("ShootingAnim", true);
         animator.Play("PlayerShot", 0, 0.0f);
-        if (combocount >= combocountRank * 3)
+        if (combocount >= combocountRank * 5)
+        {
+            Arrowanimator.Play("ARankShotEffect", 0, 0.0f);
+        }
+        else if (combocount >= combocountRank * 4)
+        {
+            Arrowanimator.Play("BRankShotEffect", 0, 0.0f);
+        }
+        else if (combocount >= combocountRank * 3)
         {
             Arrowanimator.Play("CRankShotEffect", 0, 0.0f);
         }
