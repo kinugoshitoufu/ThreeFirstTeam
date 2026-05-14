@@ -31,6 +31,7 @@ public class PlayerScript : MonoBehaviour
     public int HitStopFlame = 3;
     public float ControllerDeadZone = 0.1f;
     public AudioClip audioClip;
+    public float DamageTime = 0.5f;
 
 
     //操作によって変更
@@ -41,6 +42,7 @@ public class PlayerScript : MonoBehaviour
     private Animator animator;
     private BoxCollider2D box;
     private SpriteRenderer spriteRenderer;
+    private OnFlashScript onFlashScript;
     private AudioSource audioSource;
     private Vector2 BoxSize;
     private Vector3 PlayerScale;
@@ -49,6 +51,8 @@ public class PlayerScript : MonoBehaviour
     private int score = 0;
     private bool shotFlag;
     private bool meshFlag = true;
+    private float DamageTimeCount = 0.0f;
+    private bool DamageFlag;
     public int maxcombo = 0;
     [SerializeField] private float shottimecount = 0.0f;
     [SerializeField] private float combotimecount = 0.0f;
@@ -72,6 +76,7 @@ public class PlayerScript : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         audioSource = GetComponent<AudioSource>();
+        onFlashScript = GetComponent<OnFlashScript>();
         shotFlag = false;
         shotboxflag = true;
         animator = GetComponent<Animator>();
@@ -158,6 +163,16 @@ public class PlayerScript : MonoBehaviour
             rb.gravityScale = gravity;
             transform.rotation = Quaternion.identity;
             shottimecount = 0.0f;
+        }
+        if (DamageFlag)
+        {
+            DamageTimeCount += Time.deltaTime;
+        }
+        if (DamageTimeCount > DamageTime)
+        {
+            DamageFlag = false;
+            onFlashScript.EndBlink();
+            DamageTimeCount = 0.0f;
         }
         if (maxcombo < combocount)
         {
@@ -516,10 +531,11 @@ public class PlayerScript : MonoBehaviour
             else
             {
                 //rb.AddForce(-Arrow.transform.up * knockback, ForceMode2D.Impulse);
-                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerDamage"))
+                if (DamageTimeCount <= 0.0f)
                 {
                     Timescript.LimitTime -= timedown;
-                    animator.Play("PlayerDamage", 0, 0);
+                    onFlashScript.BeginBlink();
+                    DamageFlag = true;
                 }
             }
         }
@@ -532,10 +548,11 @@ public class PlayerScript : MonoBehaviour
             else
             {
                 //rb.AddForce(-Arrow.transform.up * knockback, ForceMode2D.Impulse);
-                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerDamage"))
+                if (DamageTimeCount <= 0.0f)
                 {
                     Timescript.LimitTime -= timedown;
-                    animator.Play("PlayerDamage", 0, 0);
+                    onFlashScript.BeginBlink();
+                    DamageFlag = true;
                 }
             }
         }
