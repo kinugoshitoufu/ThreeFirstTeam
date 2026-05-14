@@ -58,6 +58,10 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float combotimecount = 0.0f;
     private Rigidbody2D rb;
     public EnemySpawner1 enemyspawner;
+
+    public float fallSpeed = 0.0f;
+    public bool isFalling = false;
+    //public bool isGrounded = false;
     public enum PlayerState
     {
         start,
@@ -220,6 +224,11 @@ public class PlayerScript : MonoBehaviour
         //{
         //    Debug.Log("Damage終了");
         //}
+        if (isFalling)
+        {
+            transform.position += Vector3.down * fallSpeed * Time.deltaTime;
+            return;
+        }
     }
 
     void Move()
@@ -492,8 +501,10 @@ public class PlayerScript : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Ground"))
+        if (isFalling && collision.collider.CompareTag("Ground"))
         {
+            isFalling = false;
+            ResultScript.instance.ShowResult();
             //if (shotCount < 1)
             //{
             //    shotCount = 1;
@@ -556,6 +567,7 @@ public class PlayerScript : MonoBehaviour
                 }
             }
         }
+        
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

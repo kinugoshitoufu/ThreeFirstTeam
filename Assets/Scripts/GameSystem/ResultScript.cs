@@ -17,6 +17,7 @@ public class ResultScript : MonoBehaviour
     [Header("プレハブ入れてね！")]
     public GameObject resultPrefab;
     public GameObject triangle;
+    public Transform player;
     private void Awake()
     {
         instance = this;
@@ -33,8 +34,21 @@ public class ResultScript : MonoBehaviour
     
     void Update()
     {
-        
+        //if (isFalling) player.position += Vector3.down * fallSpeed * Time.deltaTime;
     }
+    
+    //public void hasResult()
+    //{
+    //    Debug.Log("通知が来たよ！");
+    //    if (isGrounded)
+    //    {
+    //        ShowResult();
+    //    }
+    //    else
+    //    {
+    //        isFalling = true;
+    //    }
+    //}
     public void ShowResult()
     {
         //GameObject resultObj = Instantiate(resultPrefab, new Vector3(0,0,-5),Quaternion.identity);
@@ -42,5 +56,17 @@ public class ResultScript : MonoBehaviour
 
         TriangleMesh.instance.resultPanel = resultObj.transform.Find("Panel").GetComponent<SpriteRenderer>();
         triangle.SetActive(true);
+        Time.timeScale = 0f;
     }
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (isFalling && collision.gameObject.CompareTag("Ground"))
+    //    {
+    //        isFalling = false;
+    //        isGrounded = true;
+    //
+    //        ShowResult();
+    //
+    //    }
+    //}
 }

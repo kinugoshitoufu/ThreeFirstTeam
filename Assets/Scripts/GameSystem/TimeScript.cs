@@ -20,9 +20,13 @@ public class TimeScript : MonoBehaviour
 
     private bool isResultShown = false;
     private bool isFinished = false;
+    void Start()
+    {
+        Time.timeScale = 1;
+    }
     void Update()
     {
-        if(Input.GetKey(KeyCode.Return)) 
+        if (Input.GetKey(KeyCode.Return)) 
         {
             if (Input.GetKey(KeyCode.K))
             {
@@ -69,8 +73,8 @@ public class TimeScript : MonoBehaviour
             ResultScript.resultTime = Mathf.Max(0f, ElapsedTime);
             ResultScript.resultCombo = PlayerScript.instance.maxcombo;
 
-            Time.timeScale = 0f;
-            ResultScript.instance.ShowResult();
+            //ResultScript.instance.hasResult();//通知用
+            PlayerScript.instance.isFalling = true;
             return;
         }
         if (LimitTime < 0)
