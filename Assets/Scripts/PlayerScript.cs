@@ -57,11 +57,10 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float shottimecount = 0.0f;
     [SerializeField] private float combotimecount = 0.0f;
     private Rigidbody2D rb;
-    public EnemySpawner1 enemyspawner;
-
-    public float fallSpeed = 0.0f;
-    public bool isFalling = false;
-    //public bool isGrounded = false;
+    public static bool isMove=false;
+   public EnemySpawner1 enemyspawner;
+    public float fallSpeed=0.0f;
+    public bool isFalling=false;
     public enum PlayerState
     {
         start,
@@ -87,6 +86,7 @@ public class PlayerScript : MonoBehaviour
         BoxSize = box.size;
         PlayerScale = transform.localScale;
         playerState= PlayerState.start;
+        isMove = false;
     }
 
     // Update is called once per frame
@@ -122,14 +122,13 @@ public class PlayerScript : MonoBehaviour
         if (playerState == PlayerState.start)
         {
                 StartMove();
-                if(enemyspawner.isdead==true)
+                if(isMove)
                 {
                     playerState = PlayerState.Playering;
                 }
         }
         else if (playerState == PlayerState.Playering)
         {
-            
             if (!shotFlag)
             {
                 Move();
@@ -224,7 +223,7 @@ public class PlayerScript : MonoBehaviour
         //{
         //    Debug.Log("Damage終了");
         //}
-        if (isFalling)
+        if(isFalling)
         {
             transform.position += Vector3.down * fallSpeed * Time.deltaTime;
             return;
@@ -501,9 +500,9 @@ public class PlayerScript : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (isFalling && collision.collider.CompareTag("Ground"))
+        if (isFalling&&collision.collider.CompareTag("Ground"))
         {
-            isFalling = false;
+            isFalling=false;
             ResultScript.instance.ShowResult();
             //if (shotCount < 1)
             //{
@@ -550,7 +549,43 @@ public class PlayerScript : MonoBehaviour
                 }
             }
         }
-        if (collision.CompareTag("EnemyBullet"))
+        if (collision.CompareTag("StartEnemy"))
+        {
+            StartEnemy startEnemy = collision.gameObject.GetComponent<StartEnemy>();
+
+            if (startEnemy==null)
+            {
+                return;
+            }
+            else
+            {
+                if (shotFlag)
+                {
+                    //  shaking();
+                    Destroy(collision.gameObject);
+                    combocount++;
+                    shotCount++;
+                    combotimecount = 0.0f;
+                    score += scorecount * combocount;
+                    Instantiate(particle, transform.position, Quaternion.identity);
+                    gravity -= fallspeed / downfallspeed;
+                    Timescript.LimitTime += timeup;
+                }
+                else
+                {
+                    //rb.AddForce(-Arrow.transform.up * knockback, ForceMode2D.Impulse);
+                    if (DamageTimeCount <= 0.0f)
+                    {
+                        Timescript.LimitTime -= timedown;
+                        onFlashScript.BeginBlink();
+                        DamageFlag = true;
+                    }
+                }
+                startEnemy.FastEnemyDead();
+                isMove = true;
+            }
+        }
+            if (collision.CompareTag("EnemyBullet"))
         {
             if (shotFlag)
             {
@@ -567,7 +602,6 @@ public class PlayerScript : MonoBehaviour
                 }
             }
         }
-        
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

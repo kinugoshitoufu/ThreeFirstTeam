@@ -37,31 +37,6 @@ public class EnemySpawner1 : MonoBehaviour
     [Header("確認用")]
     public float delay = 0f;
     private bool isSpawning = false;
-    public void OnEnemyDeath(Enemy enemy)
-    {
-        currentEnemies--;
-
-        int count = GetSpawnCount();
-
-        WaitSpawnCount += count;
-
-        delay = enemy.spawnTime + Random.Range(Mindelay, Maxdelay);
-        if (!isSpawning)
-        {
-            StartCoroutine(SpawnAfterDelay(delay));
-        }
-    }
-
-    private void Start()
-    {
-        SpawnFirst();
-        // 黒背景の初期透明度
-        Color color = backscreen.color;
-        color.a = 0f;
-        backscreen.color = color;
-    }
-
-    
     // 川本こうせいが追加したコード↓↓↓↓↓
     [Header("最初の敵の関数達")]
     public GameObject StartEnemy;
@@ -69,17 +44,48 @@ public class EnemySpawner1 : MonoBehaviour
     public float targetX = 5f;  //目的地
     public float speed = 3f;    //移動速度
     public Image backscreen; //黒背景
-    public Image button; 
-    private bool ismove=true;
+    public Image button;
+    private bool ismove = true;
+    public static bool SpawnFlag=false; //エネミースポーン切り替え
     public bool isdead = false;
+    public static bool StartSpawnFlag = false;
+    public void OnEnemyDeath(Enemy enemy)
+    {
+        currentEnemies--;
 
+        if (StartSpawnFlag)
+            return;
+
+        int count = GetSpawnCount();
+
+        WaitSpawnCount += count;
+
+        delay = enemy.spawnTime + Random.Range(Mindelay, Maxdelay);
+        Debug.Log("isSpawning"+isSpawning);
+        if (!isSpawning)
+        {
+            StartCoroutine(SpawnAfterDelay(delay));
+        }
+    }
+    private void Start()
+    {
+        // 黒背景の初期透明度
+        Color color = backscreen.color;
+        color.a = 0f;
+        backscreen.color = color;
+    }
     
     void Update()
     {
-        FastEmemy();
+        SpawnFirst();
+        //FastEnemy();
+        if (Input.GetKey(KeyCode.B))
+        {
+            Destroy(StartEnemy);
+        }
     }
 
-    void FastEmemy()
+    void FastEnemy()
     {
         if (StartEnemy == null)
         {
@@ -89,6 +95,7 @@ public class EnemySpawner1 : MonoBehaviour
             Color color = backscreen.color;
             color.a = 0f;
             backscreen.color = color;
+            StartCoroutine(SpawnAfterDelay(1f));
             return;
         }
         if (ismove)
@@ -150,6 +157,7 @@ public class EnemySpawner1 : MonoBehaviour
     //敵がランダムに出てくる(最初だけ)
     void SpawnFirst()
     {
+        if(!StartSpawnFlag) return;
         SpawnOption option = GetRandomOption();
 
         for (int i = 0; i < option.spawnCount; i++)
@@ -168,6 +176,8 @@ public class EnemySpawner1 : MonoBehaviour
             Enemy enemy = obj.GetComponent<Enemy>();
 
             Register(enemy);
+            StartSpawnFlag = false;
+            StartCoroutine(SpawnAfterDelay(1f));
         }
     }
     //通常
@@ -212,7 +222,8 @@ public class EnemySpawner1 : MonoBehaviour
     //敵時間分待つ(敵が死んだ時に呼び出す)
     IEnumerator SpawnAfterDelay(float delay)
     {
-        isSpawning = true;
+   
+            isSpawning = true;
 
         yield return new WaitForSeconds(delay);
 
@@ -231,19 +242,18 @@ public class EnemySpawner1 : MonoBehaviour
 
                 yield break;
             }
+                Vector3 pos = transform.position;
 
-            Vector3 pos = transform.position;
+                Vector2 offset = Random.insideUnitCircle * Maxrange.y;
+                pos += (Vector3)offset;
 
-            Vector2 offset = Random.insideUnitCircle * Maxrange.y;
-            pos += (Vector3)offset;
+                GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
 
-            GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
+                Enemy enemy = obj.GetComponent<Enemy>();
 
-            Enemy enemy = obj.GetComponent<Enemy>();
+                Register(enemy);
 
-            Register(enemy);
-
-            yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.2f);
         }
         isSpawning = false;
 
@@ -257,5 +267,15 @@ public class EnemySpawner1 : MonoBehaviour
     {
         currentEnemies++;
         enemy.OnDeath += OnEnemyDeath;
+    }
+
+    //
+    public static void IsMove(bool flag)
+    {
+        if(!StartSpawnFlag)
+        {
+            StartSpawnFlag = flag;
+        }
+        SpawnFlag =flag;
     }
 }
