@@ -37,14 +37,6 @@ public class EnemySpawner1 : MonoBehaviour
     [Header("確認用")]
     public float delay = 0f;
     private bool isSpawning = false;
-    // 川本こうせいが追加したコード↓↓↓↓↓
-    [Header("最初の敵の関数達")]
-    public GameObject StartEnemy;
-    public Image tutorialarrow;
-    public float targetX = 5f;  //目的地
-    public float speed = 3f;    //移動速度
-    public Image backscreen; //黒背景
-    public Image button;
     private bool ismove = true;
     public static bool SpawnFlag=false; //エネミースポーン切り替え
     public bool isdead = false;
@@ -67,55 +59,13 @@ public class EnemySpawner1 : MonoBehaviour
             StartCoroutine(SpawnAfterDelay(delay));
         }
     }
-    private void Start()
-    {
-        // 黒背景の初期透明度
-        Color color = backscreen.color;
-        color.a = 0f;
-        backscreen.color = color;
-    }
     
     void Update()
     {
         SpawnFirst();
-        //FastEnemy();
-        if (Input.GetKey(KeyCode.B))
-        {
-            Destroy(StartEnemy);
-        }
     }
 
-    void FastEnemy()
-    {
-        if (StartEnemy == null)
-        {
-            isdead = true;
-            tutorialarrow.enabled = false;
-            button.enabled = false;
-            Color color = backscreen.color;
-            color.a = 0f;
-            backscreen.color = color;
-            StartCoroutine(SpawnAfterDelay(1f));
-            return;
-        }
-        if (ismove)
-        {
-            tutorialarrow.enabled = false;
-            button.enabled = false;
-            StartEnemy.transform.position += Vector3.left * 3f * Time.deltaTime;
-        }
-        // 目的地まで移動
-        if (StartEnemy.transform.position.x < targetX)
-        {
-            tutorialarrow.enabled = true;
-            button.enabled = true;
-            ismove = false;
-            // 到着したら透明度0.5
-            Color color = backscreen.color;
-            color.a = 0.5f;
-            backscreen.color = color;
-        }
-    }
+    
 
     // 追加で何体出すか
     int GetSpawnCount()

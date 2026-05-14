@@ -20,7 +20,11 @@ public class StartEnemy : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-　　}
+        // 黒背景の初期透明度
+        Color color = backscreen.color;
+        color.a = 0f;
+        backscreen.color = color;
+    }
 
     // Update is called once per frame
     void Update()
