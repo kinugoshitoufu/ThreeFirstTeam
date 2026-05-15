@@ -61,6 +61,12 @@ public class PlayerScript : MonoBehaviour
    public EnemySpawner1 enemyspawner;
     public float fallSpeed=0.0f;
     public bool isFalling=false;
+
+    //川本こうせいが追加した変数
+    public GameObject startEnemy;
+    public float PermissionAngle=10f;//スタート時の突撃できる範囲
+
+
     public enum PlayerState
     {
         start,
@@ -282,6 +288,10 @@ public class PlayerScript : MonoBehaviour
 
         // 現在の回転から、計算した角度へ徐々に回転させる
         Arrow.transform.rotation = Quaternion.Euler(0, 0, -angle);
+        if(!EnemyAngleCheck())
+        {
+            return;
+        }
 
         if (Mathf.Abs(Startvec.x) <= ControllerDeadZone)
         {
@@ -293,6 +303,9 @@ public class PlayerScript : MonoBehaviour
             //移動量を算出する
             animator.SetBool("WalkAnim", true);
         }
+
+       
+
         //実際にプレイヤーを動かす
         if (Startvec.x < 0f)
         {
@@ -304,7 +317,25 @@ public class PlayerScript : MonoBehaviour
         }
     }
 
-    void shot()
+    bool EnemyAngleCheck()
+    {
+        if (startEnemy == null)
+        {
+            return false;
+        }
+        Vector2 enemy = startEnemy.transform.position;
+        Vector2 dir = enemy - (Vector2)transform.position;
+
+        float EnemyAngle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
+        if (EnemyAngle<= EnemyAngle+ PermissionAngle && EnemyAngle>= EnemyAngle- PermissionAngle)
+        {
+
+        }
+        return false;
+    }
+
+
+        void shot()
     {
         rb.linearVelocity *= 0.0f;
         rb.AddForce(Arrow.transform.up * Shotspeed, ForceMode2D.Impulse);

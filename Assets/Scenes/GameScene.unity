@@ -712,16 +712,41 @@ PrefabInstance:
       propertyPath: m_Name
       value: StartEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 99298731110814657, guid: 652f4dd5208fc134ab62ca1c337c63d8, type: 3}
+      propertyPath: m_TagString
+      value: StartEnemy
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 99298731110814657, guid: 652f4dd5208fc134ab62ca1c337c63d8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 849448517}
   m_SourcePrefab: {fileID: 100100000, guid: 652f4dd5208fc134ab62ca1c337c63d8, type: 3}
 --- !u!1 &849448511 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 99298731110814657, guid: 652f4dd5208fc134ab62ca1c337c63d8, type: 3}
   m_PrefabInstance: {fileID: 849448510}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &849448517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 849448511}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b555695c5610c9d40916c068e023fb77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StartEnemy
+  tutorialarrow: {fileID: 1288470013}
+  targetX: 2.5
+  speed: 3
+  backscreen: {fileID: 1331516684}
+  button: {fileID: 1865895150}
+  isdead: 0
 --- !u!1 &891074402
 GameObject:
   m_ObjectHideFlags: 0
@@ -1043,6 +1068,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 660368572}
     - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
+      propertyPath: startEnemy
+      value: 
+      objectReference: {fileID: 849448511}
+    - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: enemyspawner
       value: 
       objectReference: {fileID: 2026470637}
@@ -1127,6 +1156,7 @@ MonoBehaviour:
   TotalScore: 0
   resultPrefab: {fileID: 6541669384265225286, guid: 39ab9d47b7f436e4ab9a4e411d4ebf69, type: 3}
   triangle: {fileID: 1366553414}
+  player: {fileID: 0}
 --- !u!4 &1104051584
 Transform:
   m_ObjectHideFlags: 0
@@ -1731,7 +1761,7 @@ GameObject:
   - component: {fileID: 1865895151}
   - component: {fileID: 1865895150}
   m_Layer: 5
-  m_Name: Image
+  m_Name: button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2246,12 +2276,6 @@ MonoBehaviour:
   Mindelay: 0.1
   Maxdelay: 1
   delay: 0
-  StartEnemy: {fileID: 849448511}
-  tutorialarrow: {fileID: 1288470013}
-  targetX: 2
-  speed: 3
-  backscreen: {fileID: 1331516684}
-  button: {fileID: 1865895150}
   isdead: 0
 --- !u!4 &2026470638
 Transform:
