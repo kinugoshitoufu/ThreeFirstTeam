@@ -1,4 +1,3 @@
-using Cysharp.Threading.Tasks;
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -634,16 +633,5 @@ public class PlayerScript : MonoBehaviour
             animator.SetBool("FallAnim", true);
         }
     }
-
-    private async UniTask shaking()
-    {
-        for (int i = 0; i < HitStopFlame; i++)
-        {
-            await UniTask.DelayFrame(1); //1fごとに処理
-        }
-
-
-    }
-
 
 }
