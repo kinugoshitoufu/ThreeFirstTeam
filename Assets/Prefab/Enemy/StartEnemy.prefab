@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3785180176974191358}
   - component: {fileID: 7348115660379472040}
   - component: {fileID: 5810699037850893693}
+  - component: {fileID: -2570617846330114311}
   m_Layer: 0
   m_Name: StartEnemy
   m_TagString: Enemy
@@ -264,3 +265,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &-2570617846330114311
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 99298731110814657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b555695c5610c9d40916c068e023fb77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StartEnemy
+  tutorialarrow: {fileID: 0}
+  targetX: 5
+  speed: 3
+  backscreen: {fileID: 0}
+  button: {fileID: 0}
+  isdead: 0
