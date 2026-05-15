@@ -5,6 +5,14 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
+[System.Serializable]
+public class SEData
+{
+    public AudioClip clip;
+
+    [Range(0f, 1f)]
+    public float SEvolume = 1f;
+}
 public class PlayerScript : MonoBehaviour
 {
     //パラメーターなど
@@ -31,7 +39,7 @@ public class PlayerScript : MonoBehaviour
     public int HitStopFlame = 3;
     public float ControllerDeadZone = 0.1f;
     public float DamageTime = 0.5f;
-
+    public SEData[] audios;
 
     //操作によって変更
     private int control = 0;//操作方法の変更
@@ -150,15 +158,18 @@ public class PlayerScript : MonoBehaviour
         }
         if (shotCount > 0 && !shotFlag && !animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerDamage"))
         {
-            if (control == 0 && Input.GetKeyDown("joystick button 2"))
+            if (DamageTimeCount <= 0.0f)
             {
-                Debug.Log("コントローラー突撃");
-                shot();
-            }
-            if (control == 1 && Input.GetKeyDown(KeyCode.Z))
-            {
-                Debug.Log("キーボード突撃");
-                shot();
+                if (control == 0 && Input.GetKeyDown("joystick button 2"))
+                {
+                    Debug.Log("コントローラー突撃");
+                    shot();
+                }
+                if (control == 1 && Input.GetKeyDown(KeyCode.Z))
+                {
+                    Debug.Log("キーボード突撃");
+                    shot();
+                }
             }
         }
         if (shotFlag)
@@ -315,7 +326,7 @@ public class PlayerScript : MonoBehaviour
 
     void shot()
     {
-        SoundManager.Instance.GAMESE(1);
+        audioSource.PlayOneShot(audios[0].clip,audios[0].SEvolume);
         rb.linearVelocity *= 0.0f;
         rb.AddForce(Arrow.transform.up * Shotspeed, ForceMode2D.Impulse);
         shotFlag = true;
@@ -553,7 +564,7 @@ public class PlayerScript : MonoBehaviour
                 if (DamageTimeCount <= 0.0f)
                 {
                     Timescript.LimitTime -= timedown;
-                    SoundManager.Instance.GAMESE(0);
+                    audioSource.PlayOneShot(audios[1].clip, audios[1].SEvolume);
                     onFlashScript.BeginBlink();
                     DamageFlag = true;
                 }
@@ -587,7 +598,7 @@ public class PlayerScript : MonoBehaviour
                     if (DamageTimeCount <= 0.0f)
                     {
                         Timescript.LimitTime -= timedown;
-                        SoundManager.Instance.GAMESE(0);
+                        audioSource.PlayOneShot(audios[1].clip, audios[1].SEvolume);
                         onFlashScript.BeginBlink();
                         DamageFlag = true;
                     }
@@ -608,7 +619,7 @@ public class PlayerScript : MonoBehaviour
                 if (DamageTimeCount <= 0.0f)
                 {
                     Timescript.LimitTime -= timedown;
-                    SoundManager.Instance.GAMESE(0);
+                    audioSource.PlayOneShot(audios[1].clip, audios[1].SEvolume);
                     onFlashScript.BeginBlink();
                     DamageFlag = true;
                 }
