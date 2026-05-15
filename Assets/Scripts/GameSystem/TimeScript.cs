@@ -72,8 +72,7 @@ public class TimeScript : MonoBehaviour
             ResultScript.resultScore = finalScore;
             ResultScript.resultTime = Mathf.Max(0f, ElapsedTime);
             ResultScript.resultCombo = PlayerScript.instance.maxcombo;
-
-            //ResultScript.instance.hasResult();//通知用
+            FadeManager.instance.StartFade();
             PlayerScript.instance.isFalling = true;
             return;
         }

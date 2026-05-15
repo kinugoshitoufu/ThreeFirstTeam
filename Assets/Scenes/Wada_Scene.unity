@@ -1165,6 +1165,7 @@ RectTransform:
   - {fileID: 2113122197}
   - {fileID: 2048047606}
   - {fileID: 500847466}
+  - {fileID: 1950592959}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1442,12 +1443,6 @@ MonoBehaviour:
   Mindelay: 0.1
   Maxdelay: 1
   delay: 0
-  StartEnemy: {fileID: 99298731110814657, guid: 652f4dd5208fc134ab62ca1c337c63d8, type: 3}
-  tutorialarrow: {fileID: 2048047607}
-  targetX: 5
-  speed: 3
-  backscreen: {fileID: 1912453408}
-  button: {fileID: 500847467}
   isdead: 0
 --- !u!1 &1345290277
 GameObject:
@@ -1654,6 +1649,7 @@ GameObject:
   - component: {fileID: 1504003664}
   - component: {fileID: 1504003667}
   - component: {fileID: 1504003668}
+  - component: {fileID: 1504003669}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -1734,7 +1730,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 337acf6f15f17b947998c115f675e5cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimeScript
-  LimitTime: 3
+  LimitTime: 5
   Downspeed: 1
   speed: 0.1
   redImage: {fileID: 1118363278}
@@ -1760,9 +1756,21 @@ MonoBehaviour:
   resultPrefab: {fileID: 6541669384265225286, guid: 39ab9d47b7f436e4ab9a4e411d4ebf69, type: 3}
   triangle: {fileID: 7651316146191369746, guid: 06d6c9dd8f9eb2b41954e4145d9b5f22, type: 3}
   player: {fileID: 1732096645}
-  fallSpeed: 10
-  isFalling: 0
-  isGrounded: 0
+--- !u!114 &1504003669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1504003663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd3e63835c5f21249b365b43e377da43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FadeManager
+  fadeImage: {fileID: 1950592960}
+  player: {fileID: 1732096645}
+  fadeSpeed: 0.5
 --- !u!1001 &1732096644
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1911,6 +1919,81 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1912453406}
+  m_CullTransparentMesh: 1
+--- !u!1 &1950592958
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1950592959}
+  - component: {fileID: 1950592961}
+  - component: {fileID: 1950592960}
+  m_Layer: 5
+  m_Name: FadeImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1950592959
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950592958}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 20, y: 12, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1006366008}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 3, y: -2}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1950592960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950592958}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1950592961
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950592958}
   m_CullTransparentMesh: 1
 --- !u!1 &2048047605
 GameObject:

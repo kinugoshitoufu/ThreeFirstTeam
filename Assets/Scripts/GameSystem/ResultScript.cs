@@ -9,11 +9,10 @@ public class ResultScript : MonoBehaviour
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI comboText;
     public TextMeshProUGUI totalText;
-    
+    public int TotalScore;
     public static float resultTime;    //リザルト用
     public static int resultScore;     //リザルト用
     public static int resultCombo;        //リザルト用
-    public int TotalScore;
     [Header("プレハブ入れてね！")]
     public GameObject resultPrefab;
     public GameObject triangle;
@@ -34,39 +33,15 @@ public class ResultScript : MonoBehaviour
     
     void Update()
     {
-        //if (isFalling) player.position += Vector3.down * fallSpeed * Time.deltaTime;
+        
     }
     
-    //public void hasResult()
-    //{
-    //    Debug.Log("通知が来たよ！");
-    //    if (isGrounded)
-    //    {
-    //        ShowResult();
-    //    }
-    //    else
-    //    {
-    //        isFalling = true;
-    //    }
-    //}
     public void ShowResult()
     {
-        //GameObject resultObj = Instantiate(resultPrefab, new Vector3(0,0,-5),Quaternion.identity);
         GameObject resultObj = Instantiate(resultPrefab);
 
         TriangleMesh.instance.resultPanel = resultObj.transform.Find("Panel").GetComponent<SpriteRenderer>();
         triangle.SetActive(true);
         Time.timeScale = 0f;
     }
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (isFalling && collision.gameObject.CompareTag("Ground"))
-    //    {
-    //        isFalling = false;
-    //        isGrounded = true;
-    //
-    //        ShowResult();
-    //
-    //    }
-    //}
 }
