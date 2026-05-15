@@ -39,6 +39,8 @@ public class StartEnemy : MonoBehaviour
             button.enabled = false;
             transform.position += Vector3.left * 3f * Time.deltaTime;
         }
+
+        TimeScript.stopTimer = true;
         // 目的地まで移動
         if (transform.position.x < targetX)
         {
@@ -49,6 +51,7 @@ public class StartEnemy : MonoBehaviour
             Color color = backscreen.color;
             color.a = 0.5f;
             backscreen.color = color;
+            
         }
     }
 

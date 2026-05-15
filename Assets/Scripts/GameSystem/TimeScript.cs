@@ -20,6 +20,7 @@ public class TimeScript : MonoBehaviour
 
     private bool isResultShown = false;
     private bool isFinished = false;
+    public static bool stopTimer = false;
     void Start()
     {
         Time.timeScale = 1;
@@ -43,8 +44,8 @@ public class TimeScript : MonoBehaviour
         }
 
         // 時間の減少
-        LimitTime -= Time.deltaTime*Downspeed;
-
+        if (!stopTimer) LimitTime -= Time.deltaTime * Downspeed;
+      
         // 30fごとに減少する経過時間を加算
         ElapsedDownTime += Time.deltaTime;
 

@@ -36,6 +36,9 @@ public class EnemyShot : Enemy
 
     void Shot()
     {
+        Vector2 dir = (playerObj.transform.position - transform.position).normalized;
+
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         shotFrame++;
         if (shotFrame > shotData.frame)
         {
@@ -48,14 +51,17 @@ public class EnemyShot : Enemy
                         EnemyBullet bullet = (EnemyBullet)Instantiate(
                             shotData.bullet,
                             transform.position,
-                            Quaternion.identity
+                            Quaternion.Euler(0,0,angle)
                         );
-                        bullet.SetMoveVec(playerObj.transform.position - transform.position);
+                        //bullet.SetMoveVec(playerObj.transform.position - transform.position);
+                        bullet.SetMoveVec(dir);
+
                     }
                     break;
             }
             shotFrame = 0;
-        }    }
+        }    
+    }
     
     void Update()
     {
