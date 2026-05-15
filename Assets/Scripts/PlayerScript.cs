@@ -564,7 +564,7 @@ public class PlayerScript : MonoBehaviour
                 if (DamageTimeCount <= 0.0f)
                 {
                     Timescript.LimitTime -= timedown;
-                    audioSource.PlayOneShot(audios[1].clip, audios[1].SEvolume);
+                    SoundManager2.instance.PlaySE(1);
                     onFlashScript.BeginBlink();
                     DamageFlag = true;
                 }

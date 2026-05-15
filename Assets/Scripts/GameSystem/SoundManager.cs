@@ -30,25 +30,32 @@ public class SoundManager : MonoBehaviour
 
     void Awake()
     {
+        //どこでも使えるように
         Instance = this;
     }
 
     private void Update()
     {
+
     }
 
     public void GAMESE(int index)
     {
         if (index < 0 || index >= seList.Length) return;
 
-        foreach (var source in seSources)
+        AudioSource source = seSources[0];
+
+        // 同じ音なら最初から再生
+        if (source.clip == seList[index].clip && source.isPlaying)
         {
-            if (!source.isPlaying)
-            {
-                source.PlayOneShot(seList[index].clip, seList[index].SEvolume);
-                return;
-            }
+            source.time = 0f;
+            return;
         }
+
+        // 別音なら再生
+        source.clip = seList[index].clip;
+        source.volume = seList[index].SEvolume;
+        source.Play();
     }
 
     public void GAMEBGM(int index)
