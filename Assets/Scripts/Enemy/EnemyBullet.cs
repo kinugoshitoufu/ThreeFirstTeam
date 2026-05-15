@@ -9,7 +9,7 @@ public class EnemyBullet : MonoBehaviour
     {
         float add_move = moveSpeed * Time.deltaTime;
         transform.Translate(moveVec * add_move);
-        //LookAt2D();
+        
     }
 
     public void SetMoveSpeed(float _speed)

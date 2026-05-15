@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     private Transform player;
     void Start()
     {
+        Debug.Log("敵生成");
         // プレイヤーのTransformを取得
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
@@ -35,6 +36,7 @@ public class Enemy : MonoBehaviour
     }
     public void Die()
     {
+        Debug.Log("敵消滅");
         // 死亡処理
         OnDeath?.Invoke(this);
         Destroy(gameObject);
