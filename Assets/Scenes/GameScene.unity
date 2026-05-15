@@ -119,11 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!82 &165978291 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 3782997667882356039, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
-  m_PrefabInstance: {fileID: 1103848484}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &165978296 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8489122761341450624, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
@@ -577,6 +572,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2570617846330114311, guid: 652f4dd5208fc134ab62ca1c337c63d8, type: 3}
+      propertyPath: button
+      value: 
+      objectReference: {fileID: 1865895150}
+    - target: {fileID: -2570617846330114311, guid: 652f4dd5208fc134ab62ca1c337c63d8, type: 3}
+      propertyPath: backscreen
+      value: 
+      objectReference: {fileID: 1331516684}
+    - target: {fileID: -2570617846330114311, guid: 652f4dd5208fc134ab62ca1c337c63d8, type: 3}
+      propertyPath: tutorialarrow
+      value: 
+      objectReference: {fileID: 1288470013}
     - target: {fileID: 77762641579499566, guid: 652f4dd5208fc134ab62ca1c337c63d8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.24
@@ -628,34 +635,13 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 99298731110814657, guid: 652f4dd5208fc134ab62ca1c337c63d8, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 849448517}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 652f4dd5208fc134ab62ca1c337c63d8, type: 3}
 --- !u!1 &849448511 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 99298731110814657, guid: 652f4dd5208fc134ab62ca1c337c63d8, type: 3}
   m_PrefabInstance: {fileID: 849448510}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &849448517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 849448511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b555695c5610c9d40916c068e023fb77, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::StartEnemy
-  tutorialarrow: {fileID: 1288470013}
-  targetX: 2.5
-  speed: 3
-  backscreen: {fileID: 1331516684}
-  button: {fileID: 1865895150}
-  isdead: 0
 --- !u!1 &891074402
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,6 +978,18 @@ PrefabInstance:
       propertyPath: combotimecount
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
+      propertyPath: audios.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
+      propertyPath: audios.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 249f8e533d6fd804eb1df4fbee9fb7e7, type: 3}
+    - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
+      propertyPath: audios.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 249f8e533d6fd804eb1df4fbee9fb7e7, type: 3}
     - target: {fileID: 8489122761341450624, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.21
@@ -1616,7 +1614,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1821793177}
-  - component: {fileID: 1821793176}
+  - component: {fileID: 1821793178}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -1624,33 +1622,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1821793176
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1821793175}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce77028bae986fa4089486510bba0a73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SoundManager
-  seSources:
-  - {fileID: 891074404}
-  - {fileID: 165978291}
-  seList:
-  - clip: {fileID: 8300000, guid: e8904c9f86974da4fb3e67506d518a91, type: 3}
-    SEvolume: 1
-  - clip: {fileID: 8300000, guid: 249f8e533d6fd804eb1df4fbee9fb7e7, type: 3}
-    SEvolume: 1
-  bgmSource:
-  - {fileID: 281826678}
-  bgmList:
-  - clip: {fileID: 8300000, guid: a789c11f5bab012409d05ac9b9c4d352, type: 3}
-    BGMvolume: 0.206
-  - clip: {fileID: 8300000, guid: 11ac7e83ebb7cab49af2ba9e60c201c4, type: 3}
-    BGMvolume: 1
 --- !u!4 &1821793177
 Transform:
   m_ObjectHideFlags: 0
@@ -1666,6 +1637,22 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1821793178
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1821793175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59c0848c54556404ab416314476696bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundManager2
+  seClips:
+  - {fileID: 8300000, guid: ce1e9d9945dc00e41bcf76de23f1630e, type: 3}
+  - {fileID: 8300000, guid: 68f2f952aed251e49a1e7ca7f2ac7b90, type: 3}
+  maxSeAudio: 10
 --- !u!1 &1865895148
 GameObject:
   m_ObjectHideFlags: 0

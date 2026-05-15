@@ -44,8 +44,7 @@ public class TimeScript : MonoBehaviour
         }
 
         // 時間の減少
-        if (!stopTimer) LimitTime -= Time.deltaTime * Downspeed;
-      
+        if(!stopTimer)LimitTime -= Time.deltaTime * Downspeed;
         // 30fごとに減少する経過時間を加算
         ElapsedDownTime += Time.deltaTime;
 

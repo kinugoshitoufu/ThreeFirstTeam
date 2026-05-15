@@ -37,7 +37,7 @@ public class EnemyShot : Enemy
     void Shot()
     {
         Vector2 dir = (playerObj.transform.position - transform.position).normalized;
-
+        
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
         shotFrame++;
         if (shotFrame > shotData.frame)
