@@ -30,7 +30,6 @@ public class PlayerScript : MonoBehaviour
     public GameObject particle;
     public int HitStopFlame = 3;
     public float ControllerDeadZone = 0.1f;
-    public AudioClip audioClip;
     public float DamageTime = 0.5f;
 
 
@@ -64,7 +63,6 @@ public class PlayerScript : MonoBehaviour
 
     //川本こうせいが追加した変数
     public GameObject startEnemy;
-    public float PermissionAngle=10f;//スタート時の突撃できる範囲
 
 
     public enum PlayerState
@@ -122,6 +120,10 @@ public class PlayerScript : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.I))
             {
                 meshFlag = !meshFlag;
+            }
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                isMove = !isMove; 
             }
         }
         MoveAreaCheck();
@@ -284,63 +286,39 @@ public class PlayerScript : MonoBehaviour
         Startvec.y = Input.GetAxisRaw("Vertical");
 
         // 入力方向を向く角度を計算 (2DなのでZ軸回転)
-        float angle = Mathf.Atan2(Startvec.x, Startvec.y) * Mathf.Rad2Deg;
+        float angle = EnemyAngleCheck();
 
         // 現在の回転から、計算した角度へ徐々に回転させる
         Arrow.transform.rotation = Quaternion.Euler(0, 0, -angle);
-        if(!EnemyAngleCheck())
-        {
-            return;
-        }
 
         if (Mathf.Abs(Startvec.x) <= ControllerDeadZone)
         {
             animator.SetBool("WalkAnim", false);
-            Startvec = Vector2.zero;
         }
-        else
-        {
-            //移動量を算出する
-            animator.SetBool("WalkAnim", true);
-        }
-
-       
-
-        //実際にプレイヤーを動かす
-        if (Startvec.x < 0f)
-        {
-            spriteRenderer.flipX = false;
-        }
-        else if (Startvec.x > 0f)
-        {
-            spriteRenderer.flipX = true;
-        }
+        
     }
 
-    bool EnemyAngleCheck()
+    float EnemyAngleCheck()
     {
         if (startEnemy == null)
         {
-            return false;
+            return 0.0f;
         }
         Vector2 enemy = startEnemy.transform.position;
         Vector2 dir = enemy - (Vector2)transform.position;
 
         float EnemyAngle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-        if (EnemyAngle<= EnemyAngle+ PermissionAngle && EnemyAngle>= EnemyAngle- PermissionAngle)
-        {
-
-        }
-        return false;
+        
+        return EnemyAngle;
     }
 
 
-        void shot()
+    void shot()
     {
+        SoundManager.Instance.GAMESE(1);
         rb.linearVelocity *= 0.0f;
         rb.AddForce(Arrow.transform.up * Shotspeed, ForceMode2D.Impulse);
         shotFlag = true;
-        audioSource.PlayOneShot(audioClip);
         transform.rotation = Arrow.transform.rotation;
         Arrow.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
         animator.SetBool("ShootingAnim", true);
@@ -396,10 +374,10 @@ public class PlayerScript : MonoBehaviour
         if (pos.y < -moveArea.y)
         {
             pos.y = -moveArea.y;
-            //if (rb.linearVelocityY < 0)
-            //{
-            //    rb.linearVelocityY = 0.0f;
-            //}
+            if (rb.linearVelocityY < 0)
+            {
+                rb.linearVelocityY = 0.0f;
+            }
             if (shotCount < 1)
             {
                 shotCount = 1;
@@ -531,9 +509,9 @@ public class PlayerScript : MonoBehaviour
     }
     private void OnCollisionStay2D(Collision2D collision)
     {
-        if (isFalling&&collision.collider.CompareTag("Ground"))
+        if (isFalling && collision.collider.CompareTag("Ground"))
         {
-            isFalling=false;
+            isFalling = false;
             ResultScript.instance.ShowResult();
             //if (shotCount < 1)
             //{
@@ -575,6 +553,7 @@ public class PlayerScript : MonoBehaviour
                 if (DamageTimeCount <= 0.0f)
                 {
                     Timescript.LimitTime -= timedown;
+                    SoundManager.Instance.GAMESE(0);
                     onFlashScript.BeginBlink();
                     DamageFlag = true;
                 }
@@ -608,6 +587,7 @@ public class PlayerScript : MonoBehaviour
                     if (DamageTimeCount <= 0.0f)
                     {
                         Timescript.LimitTime -= timedown;
+                        SoundManager.Instance.GAMESE(0);
                         onFlashScript.BeginBlink();
                         DamageFlag = true;
                     }
@@ -628,12 +608,14 @@ public class PlayerScript : MonoBehaviour
                 if (DamageTimeCount <= 0.0f)
                 {
                     Timescript.LimitTime -= timedown;
+                    SoundManager.Instance.GAMESE(0);
                     onFlashScript.BeginBlink();
                     DamageFlag = true;
                 }
             }
         }
     }
+    
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Ground"))
