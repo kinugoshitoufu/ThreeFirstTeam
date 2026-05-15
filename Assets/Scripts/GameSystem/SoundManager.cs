@@ -33,6 +33,10 @@ public class SoundManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Update()
+    {
+    }
+
     public void GAMESE(int index)
     {
         if (index < 0 || index >= seList.Length) return;
