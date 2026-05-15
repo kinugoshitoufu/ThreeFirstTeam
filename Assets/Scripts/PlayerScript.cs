@@ -71,7 +71,6 @@ public class PlayerScript : MonoBehaviour
     //川本こうせいが追加した変数
     public GameObject startEnemy;
 
-
     public enum PlayerState
     {
         start,

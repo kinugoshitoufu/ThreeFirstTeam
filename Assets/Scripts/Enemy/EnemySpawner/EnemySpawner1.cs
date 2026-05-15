@@ -53,7 +53,6 @@ public class EnemySpawner1 : MonoBehaviour
         WaitSpawnCount += count;
 
         delay = enemy.spawnTime + Random.Range(Mindelay, Maxdelay);
-        Debug.Log("isSpawning"+isSpawning);
         if (!isSpawning)
         {
             StartCoroutine(SpawnAfterDelay(delay));
