@@ -6,17 +6,20 @@ using UnityEngine.SceneManagement;
 public class TimeScript : MonoBehaviour
 {
     public static TimeScript instance;
-    public float LimitTime = 30f;     // 残り時間
-    public float Downspeed = 1f;     // 減少速度
-    private float ElapsedDownTime = 0f;  // 指定時間ごとに減らす経過時間
-    private float ElapsedTime = 0f;  // ゲーム開始から始まる経過時間
-    private float ReduceLimit = 30f;   //減らす時間
+    public float limitTime = 30f;     // 残り時間
+    public float downspeed = 1f;     // 減少速度
+    private float elapsedDownTime = 0f;  // 指定時間ごとに減らす経過時間
+    private float elapsedTime = 0f;  // ゲーム開始から始まる経過時間
+    public float eeduceLimit = 30f;   //減らす時間
 
     public float speed = 0.1f;  //回転速度
     public Image redImage;    //0～60
     public Image yellowImage; //61～120
     public Image blueImage;   //121～180
-    
+
+
+    //吉本追加
+    public float upTecreaseTime=0.2f;//○○秒おきに減る時間スピードを早くさせるか
 
     private bool isResultShown = false;
     private bool isFinished = false;
@@ -31,35 +34,35 @@ public class TimeScript : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.K))
             {
-                LimitTime = 130;
+                limitTime = 130;
             }
             if (Input.GetKey(KeyCode.Y))
             {
-                LimitTime = 70;
+                limitTime = 70;
             }
             if (Input.GetKey(KeyCode.U))
             {
-                LimitTime = 2;
+                limitTime = 2;
             }
         }
 
         // 時間の減少
-        if(!stopTimer)LimitTime -= Time.deltaTime * Downspeed;
+        if(!stopTimer)limitTime -= Time.deltaTime * downspeed;
         // 30fごとに減少する経過時間を加算
-        ElapsedDownTime += Time.deltaTime;
+        elapsedDownTime += Time.deltaTime;
 
         //ゲーム開始からの経過時間
-        ElapsedTime += Time.deltaTime;
+        elapsedTime += Time.deltaTime;
 
         // 30秒ごとに減少速度を0.1追加
-        if (ElapsedDownTime >= ReduceLimit)
+        if (elapsedDownTime >= eeduceLimit)
         {
-            Downspeed += 0.1f;
-            ElapsedDownTime = 0f;
-            Debug.Log(Downspeed.ToString("F1"));
+            downspeed += upTecreaseTime;
+            elapsedDownTime = 0f;
+            Debug.Log(downspeed.ToString("F1"));
         }
 
-        if(LimitTime <= 0f && !isFinished) 
+        if(limitTime <= 0f && !isFinished) 
         {
             isFinished = true;
 
@@ -70,15 +73,15 @@ public class TimeScript : MonoBehaviour
             Debug.Log("終了時スコア：" + finalScore);
 
             ResultScript.resultScore = finalScore;
-            ResultScript.resultTime = Mathf.Max(0f, ElapsedTime);
+            ResultScript.resultTime = Mathf.Max(0f, elapsedTime);
             ResultScript.resultCombo = PlayerScript.instance.maxcombo;
             FadeManager.instance.StartFade();
             PlayerScript.instance.isFalling = true;
             return;
         }
-        if (LimitTime < 0)
+        if (limitTime < 0)
         {
-            LimitTime = 0f;//０以下にならないように
+            limitTime = 0f;//０以下にならないように
         }
 
         // 表示
@@ -89,23 +92,23 @@ public class TimeScript : MonoBehaviour
         yellowImage.fillAmount=1f;
         blueImage.fillAmount =1f;
 
-        if (LimitTime > 120f) // 青180～121
+        if (limitTime > 120f) // 青180～121
         {
-            float t = Mathf.InverseLerp(180f, 121f, LimitTime);
+            float t = Mathf.InverseLerp(180f, 121f, limitTime);
             blueImage.fillAmount = 1f - t;
         }
-        else if (LimitTime > 60f) // 黄色120～61
+        else if (limitTime > 60f) // 黄色120～61
         {
             yellowImage.gameObject.SetActive(true);
             blueImage.gameObject.SetActive(false);
-            float t = Mathf.InverseLerp(120f, 61f, LimitTime);
+            float t = Mathf.InverseLerp(120f, 61f, limitTime);
             yellowImage.fillAmount = 1f - t;
         }
         else // 赤60～0
         {
             blueImage.gameObject.SetActive(false);
             yellowImage.gameObject.SetActive(false);
-            float t = Mathf.InverseLerp(60f, 0f, LimitTime);
+            float t = Mathf.InverseLerp(60f, 0f, limitTime);
             redImage.fillAmount = 1f - t;
         }
 
