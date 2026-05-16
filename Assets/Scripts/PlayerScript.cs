@@ -548,6 +548,7 @@ public class PlayerScript : MonoBehaviour
             {
                 //  shaking();
                 Destroy(collision.gameObject);
+                audioSource.PlayOneShot(audios[2].clip, audios[2].SEvolume);
                 combocount++;
                 shotCount++;
                 combotimecount = 0.0f;
@@ -562,7 +563,7 @@ public class PlayerScript : MonoBehaviour
                 if (DamageTimeCount <= 0.0f)
                 {
                     Timescript.LimitTime -= timedown;
-                    SoundManager2.instance.PlaySE(1);
+                    audioSource.PlayOneShot(audios[1].clip, audios[1].SEvolume);
                     onFlashScript.BeginBlink();
                     DamageFlag = true;
                 }
@@ -582,6 +583,7 @@ public class PlayerScript : MonoBehaviour
                 {
                     //  shaking();
                     Destroy(collision.gameObject);
+                    audioSource.PlayOneShot(audios[2].clip, audios[2].SEvolume);
                     combocount++;
                     shotCount++;
                     combotimecount = 0.0f;

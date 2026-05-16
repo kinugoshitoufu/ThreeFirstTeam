@@ -1876,7 +1876,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 337acf6f15f17b947998c115f675e5cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimeScript
-  LimitTime: 5
+  LimitTime: 120
   Downspeed: 1
   speed: 0.1
   redImage: {fileID: 709837746}
@@ -3062,7 +3062,7 @@ PrefabInstance:
       objectReference: {fileID: 1087385180}
     - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: audios.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: audios.Array.data[0].clip
@@ -3073,12 +3073,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8300000, guid: 68f2f952aed251e49a1e7ca7f2ac7b90, type: 3}
     - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
+      propertyPath: audios.Array.data[2].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 38c66d28f8c5560448381d314f91bdec, type: 3}
+    - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: audios.Array.data[0].SEvolume
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: audios.Array.data[1].SEvolume
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
+      propertyPath: audios.Array.data[2].SEvolume
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8171498340057067448, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: m_Color.b
