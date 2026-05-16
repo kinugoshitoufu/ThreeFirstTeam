@@ -58,6 +58,9 @@ public class StartEnemy : MonoBehaviour
 
     public void FastEnemyDead()
     {
+
+        //Effect
+        Instantiate(gameStartEffect,Vector3.zero, Quaternion.identity);
         isdead = true;
         tutorialarrow.enabled = false;
         button.enabled = false;
@@ -66,9 +69,6 @@ public class StartEnemy : MonoBehaviour
         color.a = 0f;
         backscreen.color = color;
         EnemySpawner1.IsMove(true);
-
-        //Effect
-        Instantiate(gameStartEffect,Vector3.zero, Quaternion.identity);
         return;
     }
 }
