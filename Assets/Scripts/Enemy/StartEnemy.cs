@@ -16,6 +16,8 @@ public class StartEnemy : MonoBehaviour
     private bool ismove = true;
     public static bool Spawnflag = false;
     public bool isdead;
+
+    public GameObject gameStartEffect;
    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -64,6 +66,9 @@ public class StartEnemy : MonoBehaviour
         color.a = 0f;
         backscreen.color = color;
         EnemySpawner1.IsMove(true);
+
+        //Effect
+        Instantiate(gameStartEffect,Vector3.zero, Quaternion.identity);
         return;
     }
 }
