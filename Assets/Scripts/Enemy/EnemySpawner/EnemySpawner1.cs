@@ -179,10 +179,10 @@ public class EnemySpawner1 : MonoBehaviour
         int spawnCount = WaitSpawnCount;
         WaitSpawnCount = 0;
 
-        SpawnOption option = GetRandomOption();
 
         for (int i = 0; i < spawnCount; i++)
         {
+            SpawnOption option = GetRandomOption();
             if (currentEnemies >= maxEnemiesInScene)
             {
                 WaitSpawnCount += (spawnCount - i);

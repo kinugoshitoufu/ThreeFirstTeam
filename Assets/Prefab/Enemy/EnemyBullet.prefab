@@ -109,7 +109,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c71b3dd3602184ea3be6490a48f8ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBullet
-  moveSpeed: 3
+  moveSpeed: 2
   moveVec: {x: -2, y: 0, z: 0}
 --- !u!61 &1760824774880294425
 BoxCollider2D:
@@ -145,17 +145,17 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.13180178, y: 0.2136097}
+  m_Offset: {x: 0.03, y: 0.12}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.28, y: 4}
+    oldSize: {x: 0.456, y: 0.8}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.718217, y: 1.8998876}
+  m_Size: {x: 0.39, y: 0.47}
   m_EdgeRadius: 0
 --- !u!82 &6452594643229116003
 AudioSource:
@@ -168,9 +168,9 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 249f8e533d6fd804eb1df4fbee9fb7e7, type: 3}
+  m_Resource: {fileID: 8300000, guid: ec0ea81f46982764c827069eb4fdfbd9, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.085
   m_Pitch: 1
   Loop: 0
   Mute: 0
