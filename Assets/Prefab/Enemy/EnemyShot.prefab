@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.57932, y: 1.39226, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -184,7 +184,7 @@ MonoBehaviour:
   spawnTime: 1
   speed: 3
   shotData:
-    frame: 140
+    frame: 300
     type: 1
     bullet: {fileID: 7339847894137258478, guid: 48b4784766d5f7143b0638828af487f5, type: 3}
   lifeTimer: 5
