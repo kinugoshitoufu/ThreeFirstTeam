@@ -24,6 +24,7 @@ public class PlayerScript : MonoBehaviour
     public float shottime = 3.0f;
     public float gravity = 1.0f;
     public int shotCount = 1;
+    public int shotMaxLimitCount = 20;
     public float combotime = 1.2f;
     public int scorecount = 200;
     public float timeup = 1.0f;
@@ -147,6 +148,10 @@ public class PlayerScript : MonoBehaviour
             {
                 Move();
             }
+        }
+        if (shotCount > shotMaxLimitCount)
+        {
+            shotCount = shotMaxLimitCount;
         }
         if (meshFlag)
         {
