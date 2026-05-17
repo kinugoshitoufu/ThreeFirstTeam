@@ -140,7 +140,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 0.63576245, y: 0.56918156}
+  m_Size: {x: 0.55, y: 0.36}
   m_EdgeRadius: 0
 --- !u!50 &8795625212199313689
 Rigidbody2D:
@@ -183,7 +183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Enemy
   spawnTime: 0.1
   speed: 3
-  isMove: 0
+  startFlag: 0
 --- !u!82 &-4314365243575731198
 AudioSource:
   m_ObjectHideFlags: 0

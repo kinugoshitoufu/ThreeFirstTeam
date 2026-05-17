@@ -398,11 +398,12 @@ MonoBehaviour:
   shottime: 0.5
   gravity: 1
   shotCount: 1
+  shotMaxLimitCount: 20
   combotime: 12
-  scorecount: 200
+  scorecount: 20
   timeup: 1
   downfallspeed: 30
-  fallspeed: 0.5
+  fallspeed: 0.3
   Timescript: {fileID: 0}
   shotcollider: 0.1
   knockback: 10
@@ -410,13 +411,17 @@ MonoBehaviour:
   timedown: 5
   particle: {fileID: 5640451101015276910, guid: 0b9b2d585d11f6247b90e38d36755d8f, type: 3}
   HitStopFlame: 3
-  ControllerDeadZone: 0.1
-  audioClip: {fileID: 8300000, guid: ce1e9d9945dc00e41bcf76de23f1630e, type: 3}
+  ControllerDeadZone: 0.2
+  DamageTime: 0.5
+  audios: []
   rank: 
   maxcombo: 0
   shottimecount: 0
   combotimecount: 0
   enemyspawner: {fileID: 0}
+  fallSpeed: 0
+  isFalling: 0
+  startEnemy: {fileID: 0}
   playerState: 1
 --- !u!95 &8603904942283412002
 Animator:
@@ -468,7 +473,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: -0.06, y: -0.52, z: 0}
-  m_LocalScale: {x: 1.495, y: 1.495, z: 1.495}
+  m_LocalScale: {x: 2.1293285, y: 2.1293285, z: 2.1293285}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8489122761341450624}

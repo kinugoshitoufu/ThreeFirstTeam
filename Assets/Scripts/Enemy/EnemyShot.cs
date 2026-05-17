@@ -23,7 +23,7 @@ public class EnemyShot : Enemy
     GameObject playerObj = null;//プレイヤーオブジェクト
     int shotFrame = 0;          //フレーム
     public float lifeTimer = 0f;
-    private bool startFlag = false;
+    //private bool startFlag = false;
     void Start()
     {
         //プレイヤオブジェクトを取得する
@@ -68,16 +68,16 @@ public class EnemyShot : Enemy
     void Update()
     {
         Shot();
-        Debug.Log(isFlag);
         lifeTimer += Time.deltaTime;
         if (lifeTimer > 5f)
         {
             //Die();
         }
     }
-    private void StartEnemy()
+    private void ShotStartEnemy()
     {
-        startFlag = true;
-        tag = "Enemy";
+        this.startFlag = true;
+        this.tag = "Enemy";
+        Debug.Log(startFlag);
     }
 }

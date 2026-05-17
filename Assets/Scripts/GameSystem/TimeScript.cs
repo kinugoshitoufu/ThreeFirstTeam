@@ -19,7 +19,8 @@ public class TimeScript : MonoBehaviour
 
 
     //吉本追加
-    public float upTecreaseTime=0.2f;//○○秒おきに減る時間スピードを早くさせるか
+    public float upTecreaseTime = 0.2f;//○○秒おきに減る時間スピードを早くさせるか
+    public GameObject timeUpEffect;
 
     private bool isResultShown = false;
     private bool isFinished = false;
@@ -30,7 +31,7 @@ public class TimeScript : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKey(KeyCode.Return)) 
+        if (Input.GetKey(KeyCode.Return))
         {
             if (Input.GetKey(KeyCode.K))
             {
@@ -47,7 +48,7 @@ public class TimeScript : MonoBehaviour
         }
 
         // 時間の減少
-        if(!stopTimer)limitTime -= Time.deltaTime * downspeed;
+        if (!stopTimer) limitTime -= Time.deltaTime * downspeed*speed;
         // 30fごとに減少する経過時間を加算
         elapsedDownTime += Time.deltaTime;
 
@@ -60,14 +61,15 @@ public class TimeScript : MonoBehaviour
             downspeed += upTecreaseTime;
             elapsedDownTime = 0f;
             Debug.Log(downspeed.ToString("F1"));
+
         }
 
-        if(limitTime <= 0f && !isFinished) 
+        if (limitTime <= 0f && !isFinished)
         {
             isFinished = true;
 
             isResultShown = true;
-            
+
 
             int finalScore = PlayerScript.instance.GetScore();
             Debug.Log("終了時スコア：" + finalScore);
@@ -89,11 +91,15 @@ public class TimeScript : MonoBehaviour
         yellowImage.gameObject.SetActive(true);
         blueImage.gameObject.SetActive(true);
         redImage.fillAmount = 1f;
-        yellowImage.fillAmount=1f;
-        blueImage.fillAmount =1f;
+        yellowImage.fillAmount = 1f;
+        blueImage.fillAmount = 1f;
 
-        if (limitTime > 120f) // 青180～121
+        if (limitTime > 180f)
         {
+            limitTime = 180f;//120以上行かないように
+        }
+        else if (limitTime > 120f) // 青180～121
+        {           
             float t = Mathf.InverseLerp(180f, 121f, limitTime);
             blueImage.fillAmount = 1f - t;
         }
@@ -112,5 +118,15 @@ public class TimeScript : MonoBehaviour
             redImage.fillAmount = 1f - t;
         }
 
+    }
+
+    public void UpEffect()
+    {
+        Vector3 screenPos = redImage.rectTransform.position;
+
+        Vector3 worldPos =Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, 10f));
+        worldPos.z = 0;
+
+        Instantiate(timeUpEffect, worldPos, Quaternion.identity);
     }
 }

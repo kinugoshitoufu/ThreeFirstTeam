@@ -61,6 +61,7 @@ public class StartEnemy : MonoBehaviour
 
         //Effect
         Instantiate(gameStartEffect,Vector3.zero, Quaternion.identity);
+        
         isdead = true;
         tutorialarrow.enabled = false;
         button.enabled = false;

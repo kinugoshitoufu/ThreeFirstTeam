@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     private Transform player;
 
     public static bool isFlag=true;
-    private bool startFlag=false;
+    public bool startFlag=false;
     void Start()
     {
         Debug.Log("敵生成");
@@ -30,9 +30,9 @@ public class Enemy : MonoBehaviour
             );
         }
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player")&& isFlag&& startFlag)
+        if (collision.CompareTag("Player")&& startFlag)
         {
             Die();
         }
@@ -48,6 +48,7 @@ public class Enemy : MonoBehaviour
     {
         startFlag = true;
         tag = "Enemy";
+        Debug.Log(startFlag);
     }
     public static void IsMove(bool flag)
     {

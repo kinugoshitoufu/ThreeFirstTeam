@@ -41,6 +41,13 @@ public class EnemySpawner1 : MonoBehaviour
     public static bool SpawnFlag=false; //エネミースポーン切り替え
     public bool isdead = false;
     public static bool StartSpawnFlag = false;
+
+    //吉本追加　主にスポーンのアルゴ
+    private int oneSpawnCount = 0;
+    private bool onespawnFlag = false;
+    [Header("最初連続で敵が1体しかずっと出ない場合○体後出現させる")]
+    public int maxOnespawnCount = 3;
+
     public void OnEnemyDeath(Enemy enemy)
     {
         currentEnemies--;
@@ -49,6 +56,7 @@ public class EnemySpawner1 : MonoBehaviour
             return;
 
         int count = GetSpawnCount();
+        count=OneChecker(count);
 
         WaitSpawnCount += count;
 
@@ -63,8 +71,22 @@ public class EnemySpawner1 : MonoBehaviour
     {
         SpawnFirst();
     }
-
-    
+    //敵が一体かどうか
+    int OneChecker(int num)
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        if (enemies.Length == 1&& !onespawnFlag)
+        {
+            Debug.Log(enemies.Length);
+            oneSpawnCount++;
+            if (oneSpawnCount>= maxOnespawnCount)
+            {
+                onespawnFlag= true;
+                return 2;
+            }
+        }
+        return num;
+    }
 
     // 追加で何体出すか
     int GetSpawnCount()
