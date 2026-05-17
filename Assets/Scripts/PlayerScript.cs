@@ -560,14 +560,14 @@ public class PlayerScript : MonoBehaviour
                 score += scorecount * combocount;
                 Instantiate(particle, transform.position, Quaternion.identity);
                 gravity -= fallspeed / downfallspeed;
-                Timescript.LimitTime += timeup;
+                Timescript.limitTime += timeup;
             }
             else
             {
                 //rb.AddForce(-Arrow.transform.up * knockback, ForceMode2D.Impulse);
                 if (DamageTimeCount <= 0.0f)
                 {
-                    Timescript.LimitTime -= timedown;
+                    Timescript.limitTime -= timedown;
                     audioSource.PlayOneShot(audios[1].clip, audios[1].SEvolume);
                     onFlashScript.BeginBlink();
                     DamageFlag = true;
@@ -595,14 +595,14 @@ public class PlayerScript : MonoBehaviour
                     score += scorecount * combocount;
                     Instantiate(particle, transform.position, Quaternion.identity);
                     gravity -= fallspeed / downfallspeed;
-                    Timescript.LimitTime += timeup;
+                    Timescript.limitTime += timeup;
                 }
                 else
                 {
                     //rb.AddForce(-Arrow.transform.up * knockback, ForceMode2D.Impulse);
                     if (DamageTimeCount <= 0.0f)
                     {
-                        Timescript.LimitTime -= timedown;
+                        Timescript.limitTime -= timedown;
                         audioSource.PlayOneShot(audios[1].clip, audios[1].SEvolume);
                         onFlashScript.BeginBlink();
                         DamageFlag = true;
@@ -623,7 +623,7 @@ public class PlayerScript : MonoBehaviour
                 //rb.AddForce(-Arrow.transform.up * knockback, ForceMode2D.Impulse);
                 if (DamageTimeCount <= 0.0f)
                 {
-                    Timescript.LimitTime -= timedown;
+                    Timescript.limitTime -= timedown;
                     audioSource.PlayOneShot(audios[1].clip, audios[1].SEvolume);
                     onFlashScript.BeginBlink();
                     DamageFlag = true;

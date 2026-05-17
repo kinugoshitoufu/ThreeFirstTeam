@@ -23,6 +23,7 @@ public class EnemyShot : Enemy
     GameObject playerObj = null;//プレイヤーオブジェクト
     int shotFrame = 0;          //フレーム
     public float lifeTimer = 0f;
+    private bool startFlag = false;
     void Start()
     {
         //プレイヤオブジェクトを取得する
@@ -36,6 +37,7 @@ public class EnemyShot : Enemy
 
     void Shot()
     {
+        if (!isFlag&& !startFlag) return;
         //Vector2 dir = (playerObj.transform.position - transform.position).normalized;
         //
         //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
@@ -66,11 +68,16 @@ public class EnemyShot : Enemy
     void Update()
     {
         Shot();
-        
+        Debug.Log(isFlag);
         lifeTimer += Time.deltaTime;
         if (lifeTimer > 5f)
         {
             //Die();
         }
+    }
+    private void StartEnemy()
+    {
+        startFlag = true;
+        tag = "Enemy";
     }
 }

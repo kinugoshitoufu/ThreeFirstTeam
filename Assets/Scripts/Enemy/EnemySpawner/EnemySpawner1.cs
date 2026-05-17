@@ -116,8 +116,18 @@ public class EnemySpawner1 : MonoBehaviour
             //Vector2 offset = Random.insideUnitCircle * Maxrange.y;
             //pos += (Vector3)offset;
             //ランダムに
-            pos.x += Random.Range(-Minrange.x, Maxrange.x);
-            pos.y += Random.Range(-Minrange.y, Minrange.y);
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            if (enemies == null)
+            {
+                pos.x += Random.Range(-Minrange.x, Maxrange.x);
+                pos.y += Random.Range(-Minrange.y, 0);
+            }
+            else 
+            { 
+                pos.x += Random.Range(-Minrange.x, Maxrange.x);
+                pos.y += Random.Range(-Minrange.y, Minrange.y);            
+            }
+
             pos.z = 0f;
 
             GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);

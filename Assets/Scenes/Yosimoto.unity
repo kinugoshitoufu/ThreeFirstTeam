@@ -1494,12 +1494,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 337acf6f15f17b947998c115f675e5cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimeScript
-  LimitTime: 120
-  Downspeed: 1
+  limitTime: 30
+  downspeed: 1
+  eeduceLimit: 30
   speed: 0.1
   redImage: {fileID: 25261828}
   yellowImage: {fileID: 197656557}
   blueImage: {fileID: 1840075461}
+  upTecreaseTime: 0.2
 --- !u!114 &646647368
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2350,6 +2352,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
+      propertyPath: timeup
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: fallSpeed
       value: 10
       objectReference: {fileID: 0}
@@ -2485,12 +2491,12 @@ MonoBehaviour:
     weight: 100
   - enemyPrefab: {fileID: 459942376683718103, guid: 48ed62e6d5a6c8940b9dafc132321f5b, type: 3}
     spawnCount: 1
-    weight: 30
+    weight: 20
   Maxrange: {x: 5, y: 5}
   Minrange: {x: 1, y: 1}
-  maxEnemiesInScene: 30
-  spawnCountOne: 50
-  spawnCountTwo: 30
+  maxEnemiesInScene: 50
+  spawnCountOne: 40
+  spawnCountTwo: 40
   spawnCountThree: 20
   Mindelay: 0.1
   Maxdelay: 1
@@ -3538,6 +3544,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3458953719828566956, guid: 06d6c9dd8f9eb2b41954e4145d9b5f22, type: 3}
   m_PrefabInstance: {fileID: 384684841}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2101741462
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 459942376683718103, guid: 815445face620214b89adeed80cb31aa, type: 3}
+      propertyPath: m_Name
+      value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115067789482829911, guid: 815445face620214b89adeed80cb31aa, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.08132
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115067789482829911, guid: 815445face620214b89adeed80cb31aa, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.69065
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115067789482829911, guid: 815445face620214b89adeed80cb31aa, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115067789482829911, guid: 815445face620214b89adeed80cb31aa, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115067789482829911, guid: 815445face620214b89adeed80cb31aa, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115067789482829911, guid: 815445face620214b89adeed80cb31aa, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115067789482829911, guid: 815445face620214b89adeed80cb31aa, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115067789482829911, guid: 815445face620214b89adeed80cb31aa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115067789482829911, guid: 815445face620214b89adeed80cb31aa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2115067789482829911, guid: 815445face620214b89adeed80cb31aa, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 815445face620214b89adeed80cb31aa, type: 3}
 --- !u!1001 &2661255652413033306
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3608,3 +3671,4 @@ SceneRoots:
   - {fileID: 1002557035}
   - {fileID: 1793455537}
   - {fileID: 1791967144}
+  - {fileID: 2101741462}
