@@ -491,6 +491,10 @@ public class PlayerScript : MonoBehaviour
     {
         return shotFlag;
     }
+    public int GetShotCount()
+    {
+        return shotCount;
+    }
 
     public int GetComboCount()
     {
@@ -563,7 +567,7 @@ public class PlayerScript : MonoBehaviour
             if (shotFlag)
             {
                 //  shaking();
-                Destroy(collision.gameObject);
+                //Destroy(collision.gameObject);
                 audioSource.PlayOneShot(audios[2].clip, audios[2].SEvolume);
                 combocount++;
                 shotCount++;

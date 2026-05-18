@@ -19,9 +19,9 @@ public class OnButtonScript : MonoBehaviour
         SoundManager.Instance.GAMESE(0);
         SceneChanger.instance.sceneChanger("TitleScene");
     }
-    public void ClickRetry()
+    public void ClickRetry(string s)
     {
         SoundManager.Instance.GAMESE(0);
-        SceneChanger.instance.sceneChanger("Wada_Scene");//名前を変えればいいよ！！！
+        SceneChanger.instance.sceneChanger(s);//名前を変えればいいよ！！！
     }
 }

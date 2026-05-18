@@ -281,9 +281,9 @@ MonoBehaviour:
   tutorialarrow: {fileID: 0}
   targetX: 5
   speed: 3
-  backscreen: {fileID: 0}
   button: {fileID: 0}
   isdead: 0
+  deadEffect: {fileID: 0}
   gameStartEffect: {fileID: 0}
 --- !u!95 &1547746997824672374
 Animator:

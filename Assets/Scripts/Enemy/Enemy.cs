@@ -34,7 +34,7 @@ public class Enemy : MonoBehaviour
     }
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player")&& startFlag)
+        if (collision.CompareTag("Player") && startFlag)
         {
             Die();
         }
@@ -44,15 +44,15 @@ public class Enemy : MonoBehaviour
         Debug.Log("敵消滅");
         // 死亡処理
         //Effect
-        Instantiate(deadEffect, enemy.position, Quaternion.identity);
+        Instantiate(deadEffect, transform.position, Quaternion.identity);
         OnDeath?.Invoke(this);
         Destroy(gameObject);
     }
     private void StartEnemy()
     {
-        enemy = GameObject.FindGameObjectWithTag("Enemy").transform;
         startFlag = true;
         tag = "Enemy";
+        enemy = GameObject.FindGameObjectWithTag("Enemy").transform;
         Debug.Log(startFlag);
     }
     public static void IsMove(bool flag)

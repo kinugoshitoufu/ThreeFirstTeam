@@ -607,13 +607,13 @@ MonoBehaviour:
       - m_Target: {fileID: 1514461220177691126}
         m_TargetAssemblyTypeName: OnButtonScript, Assembly-CSharp
         m_MethodName: ClickRetry
-        m_Mode: 1
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: SampleScene
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!82 &6718311740189813162
