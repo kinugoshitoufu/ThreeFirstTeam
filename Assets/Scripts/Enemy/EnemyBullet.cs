@@ -7,17 +7,20 @@ public class EnemyBullet : MonoBehaviour
     public GameObject player;
     void Start()
     {
+        player = GameObject.FindWithTag("Player");
+        Debug.Log(player.transform.position);
         Vector2 dir = (player.transform.position - transform.position).normalized;
         moveVec = dir;
-        float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-        transform.rotation = Quaternion.Euler(0, 0, angle);
+        moveVec = ((Vector2)player.transform.position - (Vector2)transform.position).normalized;
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle-90);
         transform.position += new Vector3(moveVec.x, moveVec.y, 0) * moveSpeed * Time.deltaTime;
     }
 
     void Update()
     {
-        //LookAt2D(player.transform.position,true);
-
+        
+        transform.position += (Vector3)(moveVec * moveSpeed * Time.deltaTime);
     }
     
     public void SetMoveSpeed(float _speed)
