@@ -118,12 +118,12 @@ TextureImporter:
       name: EnemyDeath1_0
       rect:
         serializedVersion: 2
-        x: 159
-        y: 158
-        width: 77
-        height: 78
+        x: 0
+        y: 0
+        width: 400
+        height: 400
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -140,12 +140,12 @@ TextureImporter:
       name: EnemyDeath1_1
       rect:
         serializedVersion: 2
-        x: 546
-        y: 142
-        width: 116
-        height: 116
+        x: 400
+        y: 0
+        width: 400
+        height: 400
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -162,12 +162,12 @@ TextureImporter:
       name: EnemyDeath1_2
       rect:
         serializedVersion: 2
-        x: 859
-        y: 137
-        width: 21
-        height: 24
+        x: 800
+        y: 0
+        width: 400
+        height: 400
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -184,12 +184,12 @@ TextureImporter:
       name: EnemyDeath1_3
       rect:
         serializedVersion: 2
-        x: 867
-        y: 62
-        width: 274
-        height: 276
+        x: 1200
+        y: 0
+        width: 400
+        height: 400
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -206,12 +206,12 @@ TextureImporter:
       name: EnemyDeath1_4
       rect:
         serializedVersion: 2
-        x: 1197
+        x: 1600
         y: 0
-        width: 398
+        width: 400
         height: 400
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -224,33 +224,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: EnemyDeath1_5
-      rect:
-        serializedVersion: 2
-        x: 1593
-        y: 0
-        width: 407
-        height: 400
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 71682bc8a407f46b0800000000000000
-      internalID: -5309901970156124649
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 903069527d20d8d4db1401b43e5b9e56
     internalID: 0
     vertices: []
     indices: 
@@ -258,14 +236,15 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     spriteCustomMetadata:
-      entries: []
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":5.0,"y":1.0},"gridSpriteSize":{"x":400.0,"y":400.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":2,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
       EnemyDeath1_0: -1063783718082271215
       EnemyDeath1_1: 8591217997973660463
       EnemyDeath1_2: -8146597831517268263
       EnemyDeath1_3: 7031967646355752087
       EnemyDeath1_4: -2909966455018162894
-      EnemyDeath1_5: -5309901970156124649
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

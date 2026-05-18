@@ -39,6 +39,8 @@ public class PlayerScript : MonoBehaviour
     public int HitStopFlame = 3;
     public float ControllerDeadZone = 0.1f;
     public float DamageTime = 0.5f;
+    public float TriangleFixX;
+    public float TriangleFixY;
     public SEData[] audios;
 
     //操作によって変更
@@ -155,9 +157,9 @@ public class PlayerScript : MonoBehaviour
         }
         if (meshFlag)
         {
-            TriangleMesh.instance.vec1 = transform.position;
-            TriangleMesh.instance.vec1.x -= -0.45622f;
-            TriangleMesh.instance.vec1.y -= -0.905f;
+            TriangleMesh.instance.vec2 = transform.position;
+            TriangleMesh.instance.vec2.x += TriangleFixX;
+            TriangleMesh.instance.vec2.y += TriangleFixY;
         }
         if (shotCount > 0 && !shotFlag && !animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerDamage"))
         {
@@ -599,6 +601,7 @@ public class PlayerScript : MonoBehaviour
                     Destroy(collision.gameObject);
                     audioSource.PlayOneShot(audios[2].clip, audios[2].SEvolume);
                     SoundManager2.instance.PlayBGM(0);
+                    FadeManager.instance.SetFadeFlag(true);
                     combocount++;
                     shotCount++;
                     combotimecount = 0.0f;

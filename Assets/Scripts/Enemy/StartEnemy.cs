@@ -18,6 +18,7 @@ public class StartEnemy : MonoBehaviour
     public static bool Spawnflag = false;
     public bool isdead;
 
+    public GameObject deadEffect;
     public GameObject gameStartEffect;
    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -44,6 +45,7 @@ public class StartEnemy : MonoBehaviour
         if (transform.position.x < targetX)
         {
             tutorialarrow.enabled = true;
+            FadeManager.instance.SetFadeFlag(false);
             button.enabled = true;
             ismove = false;
         }
@@ -54,6 +56,7 @@ public class StartEnemy : MonoBehaviour
 
         //Effect
         Instantiate(gameStartEffect,Vector3.zero, Quaternion.identity);
+        Instantiate(deadEffect,transform.position, Quaternion.identity);
         
         isdead = true;
         tutorialarrow.enabled = false;

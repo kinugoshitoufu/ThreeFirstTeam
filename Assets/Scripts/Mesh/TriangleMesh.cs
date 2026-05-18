@@ -61,7 +61,7 @@ public class TriangleMesh : MonoBehaviour
 
         vec = new Vector3(bounds.max.x - widthFix, bounds.max.y - heightFix, 0);
         vec1 = new Vector3(bounds.min.x - widthFix, bounds.max.y - heightFix, 0);
-        vec2 = player.position + new Vector3(0, 2f, 0);
+        //vec2 = player.position + new Vector3(0, 2f, 0);
 
         //その２
         //Vector3 size = resultPanel.sprite.bounds.size;
