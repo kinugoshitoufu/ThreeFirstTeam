@@ -13,7 +13,6 @@ public class StartEnemy : MonoBehaviour
     public Image tutorialarrow;
     public float targetX = 5f;  //目的地
     public float speed = 3f;    //移動速度
-    public Image backscreen; //黒背景
     public Image button;
     private bool ismove = true;
     public static bool Spawnflag = false;
@@ -25,10 +24,6 @@ public class StartEnemy : MonoBehaviour
     void Start()
     {
         instance = this;
-        // 黒背景の初期透明度
-        Color color = backscreen.color;
-        color.a = 0f;
-        backscreen.color = color;
     }
 
     // Update is called once per frame
@@ -51,11 +46,6 @@ public class StartEnemy : MonoBehaviour
             tutorialarrow.enabled = true;
             button.enabled = true;
             ismove = false;
-            // 到着したら透明度0.5
-            Color color = backscreen.color;
-            color.a = 0.5f;
-            backscreen.color = color;
-            
         }
     }
 
@@ -69,9 +59,6 @@ public class StartEnemy : MonoBehaviour
         tutorialarrow.enabled = false;
         button.enabled = false;
         TimeScript.stopTimer = false;
-        Color color = backscreen.color;
-        color.a = 0f;
-        backscreen.color = color;
         EnemySpawner1.IsMove(true);
         return;
     }
