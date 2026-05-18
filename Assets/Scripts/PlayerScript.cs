@@ -309,7 +309,16 @@ public class PlayerScript : MonoBehaviour
         {
             animator.SetBool("WalkAnim", false);
         }
+        if (StartEnemy.instance.tutorialarrow == null)
+        {
+            return;
+        }
+        else
+        {
+            StartEnemy.instance.tutorialarrow.transform.rotation = Quaternion.Euler(0, 0, -angle);
+        }
         
+
     }
 
     float EnemyAngleCheck()

@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.ShaderGraph.Internal.KeywordDependentCollection;
 
 public class StartEnemy : MonoBehaviour
 {
     // 川本こうせいが追加したコード↓↓↓↓↓
     [Header("最初の敵の関数達")]
+    public static StartEnemy instance;
     public Image tutorialarrow;
     public float targetX = 5f;  //目的地
     public float speed = 3f;    //移動速度
@@ -22,6 +24,7 @@ public class StartEnemy : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        instance = this;
         // 黒背景の初期透明度
         Color color = backscreen.color;
         color.a = 0f;
