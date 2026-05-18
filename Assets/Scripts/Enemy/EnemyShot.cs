@@ -68,11 +68,11 @@ public class EnemyShot : Enemy
     void Update()
     {
         Shot();
-        lifeTimer += Time.deltaTime;
-        if (lifeTimer > 5f)
-        {
-            Die();
-        }
+        //lifeTimer += Time.deltaTime;
+        //if (lifeTimer > 5f)
+        //{
+        //    Die();
+        //}
     }
     private void ShotStartEnemy()
     {

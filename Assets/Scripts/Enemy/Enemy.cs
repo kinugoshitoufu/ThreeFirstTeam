@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
         Debug.Log("敵生成");
         // プレイヤーのTransformを取得
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        enemy = GameObject.FindGameObjectWithTag("Player").transform;
+        //enemy = GameObject.FindGameObjectWithTag("Enemy").transform;
     }
 
     void Update()
@@ -44,12 +44,13 @@ public class Enemy : MonoBehaviour
         Debug.Log("敵消滅");
         // 死亡処理
         //Effect
-        Instantiate(deadEffect, transform.position, Quaternion.identity);
+        Instantiate(deadEffect, enemy.position, Quaternion.identity);
         OnDeath?.Invoke(this);
         Destroy(gameObject);
     }
     private void StartEnemy()
     {
+        enemy = GameObject.FindGameObjectWithTag("Enemy").transform;
         startFlag = true;
         tag = "Enemy";
         Debug.Log(startFlag);
