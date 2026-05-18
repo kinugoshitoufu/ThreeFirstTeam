@@ -56,8 +56,6 @@ public class Combo : MonoBehaviour
 
             // 毎回最新コンボ取得
             combo = playerscript.GetComboCount();
-
-            //Debug.Log(combo);
         }
 
         isPlaying = false;
@@ -65,7 +63,20 @@ public class Combo : MonoBehaviour
 
     void ComboCount()
     {
-        combo = playerscript.GetMaxComboCount();
+        combo = playerscript.GetComboCount();
+
+        // コンボ0なら消す
+        if (combo <= 0)
+        {
+            if (currentLeftText != null)
+            {
+                Destroy(currentLeftText.gameObject);
+                currentLeftText = null;
+            }
+
+            oldcombo = 0;
+            return;
+        }
 
         if (combo > oldcombo && !isPlaying)
         {

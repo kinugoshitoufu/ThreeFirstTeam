@@ -124,7 +124,7 @@ public class PlayerScript : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.U))
             {
                 control = 1;
-                Debug.Log("キーボード操作に変更しました");
+                //Debug.Log("キーボード操作に変更しました");
             }
             if (Input.GetKeyDown(KeyCode.I))
             {
@@ -135,6 +135,7 @@ public class PlayerScript : MonoBehaviour
                 isMove = !isMove; 
             }
         }
+        Debug.Log(combotimecount);
         MoveAreaCheck();
         if (playerState == PlayerState.start)
         {
@@ -176,11 +177,11 @@ public class PlayerScript : MonoBehaviour
                 //    Debug.Log("コントローラー突撃");
                 //    shot();
                 //}
-                //if (control == 1 && Input.GetKeyDown(KeyCode.Z))
-                //{
-                //    Debug.Log("キーボード突撃");
-                //    shot();
-                //}
+                if (control == 1 && Input.GetKeyDown(KeyCode.Z))
+                {
+                    //Debug.Log("キーボード突撃");
+                    shot();
+                }
             }
         }
         if (shotFlag)
@@ -215,12 +216,17 @@ public class PlayerScript : MonoBehaviour
         {
             combotimecount += Time.deltaTime;
         }
-        if (combotime < combotimecount)
+        if (combocount > 0)
         {
-            gravity = 1.0f;
-            rb.gravityScale = gravity;
-            combocount = 0;
-            combotimecount = 0.0f;
+            combotimecount += Time.deltaTime;
+
+            if (combotime < combotimecount)
+            {
+                gravity = 1.0f;
+                rb.gravityScale = gravity;
+                combocount = 0;
+                combotimecount = 0.0f;
+            }
         }
         if (combocount > downfallspeed)
         {
@@ -574,8 +580,9 @@ public class PlayerScript : MonoBehaviour
             {
                 //  shaking();
                 //Destroy(collision.gameObject);
-                audioSource.PlayOneShot(audios[2].clip, audios[2].SEvolume);
+                //audioSource.PlayOneShot(audios[2].clip, audios[2].SEvolume);
                 combocount++;
+                Debug.Log(combocount);
                 shotCount++;
                 combotimecount = 0.0f;
                 score += scorecount * combocount;
@@ -609,7 +616,7 @@ public class PlayerScript : MonoBehaviour
                 {
                     //  shaking();
                     Destroy(collision.gameObject);
-                    audioSource.PlayOneShot(audios[2].clip, audios[2].SEvolume);
+                    //audioSource.PlayOneShot(audios[2].clip, audios[2].SEvolume);
                     SoundManager2.instance.PlayBGM(0);
                     FadeManager.instance.SetFadeFlag(true);
                     combocount++;
