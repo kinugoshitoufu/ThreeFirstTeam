@@ -399,7 +399,7 @@ MonoBehaviour:
   gravity: 1
   shotCount: 1
   shotMaxLimitCount: 20
-  combotime: 12
+  combotime: 0.1
   scorecount: 20
   timeup: 1
   downfallspeed: 30

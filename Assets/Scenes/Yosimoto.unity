@@ -2583,7 +2583,7 @@ MonoBehaviour:
     weight: 100
   - enemyPrefab: {fileID: 459942376683718103, guid: 48ed62e6d5a6c8940b9dafc132321f5b, type: 3}
     spawnCount: 1
-    weight: 30
+    weight: 25
   Maxrange: {x: 5, y: 5}
   Minrange: {x: 1, y: 1}
   maxEnemiesInScene: 25
