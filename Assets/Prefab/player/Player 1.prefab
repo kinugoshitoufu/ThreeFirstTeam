@@ -399,9 +399,9 @@ MonoBehaviour:
   gravity: 1
   shotCount: 1
   shotMaxLimitCount: 20
-  combotime: 0.1
+  combotime: 3
   scorecount: 20
-  timeup: 1
+  timeup: 2
   downfallspeed: 30
   fallspeed: 0.3
   Timescript: {fileID: 0}
@@ -413,6 +413,8 @@ MonoBehaviour:
   HitStopFlame: 3
   ControllerDeadZone: 0.2
   DamageTime: 0.5
+  TriangleFixX: 0
+  TriangleFixY: 0
   audios: []
   rank: 
   maxcombo: 0
