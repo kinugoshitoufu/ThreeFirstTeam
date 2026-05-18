@@ -580,7 +580,7 @@ public class PlayerScript : MonoBehaviour
             {
                 //  shaking();
                 //Destroy(collision.gameObject);
-                //audioSource.PlayOneShot(audios[2].clip, audios[2].SEvolume);
+                audioSource.PlayOneShot(audios[2].clip, audios[2].SEvolume);
                 combocount++;
                 Debug.Log(combocount);
                 shotCount++;

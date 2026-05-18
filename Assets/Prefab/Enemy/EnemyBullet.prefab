@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07c71b3dd3602184ea3be6490a48f8ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBullet
-  moveSpeed: 6
+  moveSpeed: 7
   moveVec: {x: 0, y: 0}
   player: {fileID: 3504794306052921860, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
 --- !u!61 &1760824774880294425
