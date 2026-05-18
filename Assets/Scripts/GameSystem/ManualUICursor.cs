@@ -34,7 +34,7 @@ public class ManualUICursor : MonoBehaviour
             vertical = 1;
 
         // ■ コントローラー
-        vertical += Input.GetAxis("Vertical");
+        vertical += Input.GetAxisRaw("Horizontal");
 
         // ■ 移動処理（連続暴発防止）
         if (Mathf.Abs(vertical) > stickThreshold && timer >= inputDelay)

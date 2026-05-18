@@ -42,6 +42,8 @@ public class PlayerScript : MonoBehaviour
     public float TriangleFixX;
     public float TriangleFixY;
     public SEData[] audios;
+    public TriangleMesh triangleMesh;
+    public GameObject ResultPanel;
 
     //操作によって変更
     private int control = 0;//操作方法の変更
@@ -66,10 +68,10 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float shottimecount = 0.0f;
     [SerializeField] private float combotimecount = 0.0f;
     private Rigidbody2D rb;
-    public static bool isMove=false;
-   public EnemySpawner1 enemyspawner;
-    public float fallSpeed=0.0f;
-    public bool isFalling=false;
+    public static bool isMove = false;
+    public EnemySpawner1 enemyspawner;
+    public float fallSpeed = 0.0f;
+    public bool isFalling = false;
 
     //川本こうせいが追加した変数
     public GameObject startEnemy;
@@ -80,7 +82,6 @@ public class PlayerScript : MonoBehaviour
         Playering,
     }
     public PlayerState playerState;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     private void Awake()
     {
         if (instance == null) instance = this;
@@ -98,52 +99,52 @@ public class PlayerScript : MonoBehaviour
         animator = GetComponent<Animator>();
         BoxSize = box.size;
         PlayerScale = transform.localScale;
-        playerState= PlayerState.start;
+        playerState = PlayerState.start;
         isMove = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift))
-        {
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
-            if (Input.GetKeyDown(KeyCode.T))
-            {
-                combocount++;
-                combotimecount = 0.0f;
-            }
-            if (Input.GetKeyDown(KeyCode.Y))
-            {
-                control = 0;
-                Debug.Log("コントローラー操作に変更しました");
-            }
-            if (Input.GetKeyDown(KeyCode.U))
-            {
-                control = 1;
-                //Debug.Log("キーボード操作に変更しました");
-            }
-            if (Input.GetKeyDown(KeyCode.I))
-            {
-                meshFlag = !meshFlag;
-            }
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                isMove = !isMove; 
-            }
-        }
-        Debug.Log(combotimecount);
+        //if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift))
+        //{
+        //    if (Input.GetKeyDown(KeyCode.R))
+        //    {
+        //        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.T))
+        //    {
+        //        combocount++;
+        //        combotimecount = 0.0f;
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.Y))
+        //    {
+        //        control = 0;
+        //        Debug.Log("コントローラー操作に変更しました");
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.U))
+        //    {
+        //        control = 1;
+        //        Debug.Log("キーボード操作に変更しました");
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.I))
+        //    {
+        //        meshFlag = !meshFlag;
+        //    }
+        //    if (Input.GetKeyDown(KeyCode.O))
+        //    {
+        //        isMove = !isMove;
+        //    }
+        //}
+
         MoveAreaCheck();
         if (playerState == PlayerState.start)
         {
-                StartMove();
-                if(isMove)
-                {
-                    playerState = PlayerState.Playering;
-                }
+            StartMove();
+            if (isMove)
+            {
+                playerState = PlayerState.Playering;
+            }
         }
         else if (playerState == PlayerState.Playering)
         {
@@ -158,28 +159,28 @@ public class PlayerScript : MonoBehaviour
         }
         if (meshFlag)
         {
-            TriangleMesh.instance.vec2 = transform.position;
-            TriangleMesh.instance.vec2.x += TriangleFixX;
-            TriangleMesh.instance.vec2.y += TriangleFixY;
+            triangleMesh.vec2 = transform.position;
+            triangleMesh.vec2.x += TriangleFixX;
+            triangleMesh.vec2.y += TriangleFixY;
         }
         if (shotCount > 0 && !shotFlag)
         {
             if (DamageTimeCount <= 0.0f)
             {
-                if (Input.GetKeyDown("joystick button 2"))
-                {
-                    Debug.Log("コントローラー突撃");
-                    shot();
-                }
-
-                //if (control == 0 && Input.GetKeyDown("joystick button 2"))
+                //if (Input.GetKeyDown("joystick button 2"))
                 //{
                 //    Debug.Log("コントローラー突撃");
                 //    shot();
                 //}
+
+                if (control == 0 && Input.GetKeyDown("joystick button 2"))
+                {
+                    Debug.Log("コントローラー突撃");
+                    shot();
+                }
                 if (control == 1 && Input.GetKeyDown(KeyCode.Z))
                 {
-                    //Debug.Log("キーボード突撃");
+                    Debug.Log("キーボード突撃");
                     shot();
                 }
             }
@@ -216,17 +217,12 @@ public class PlayerScript : MonoBehaviour
         {
             combotimecount += Time.deltaTime;
         }
-        if (combocount > 0)
+        if (combotime < combotimecount)
         {
-            combotimecount += Time.deltaTime;
-
-            if (combotime < combotimecount)
-            {
-                gravity = 1.0f;
-                rb.gravityScale = gravity;
-                combocount = 0;
-                combotimecount = 0.0f;
-            }
+            gravity = 1.0f;
+            rb.gravityScale = gravity;
+            combocount = 0;
+            combotimecount = 0.0f;
         }
         if (combocount > downfallspeed)
         {
@@ -259,7 +255,7 @@ public class PlayerScript : MonoBehaviour
         //{
         //    Debug.Log("Damage終了");
         //}
-        if(isFalling)
+        if (isFalling)
         {
             transform.position += Vector3.down * fallSpeed * Time.deltaTime;
             return;
@@ -331,7 +327,7 @@ public class PlayerScript : MonoBehaviour
         {
             StartEnemy.instance.tutorialarrow.transform.rotation = Quaternion.Euler(0, 0, -angle);
         }
-        
+
 
     }
 
@@ -345,14 +341,14 @@ public class PlayerScript : MonoBehaviour
         Vector2 dir = enemy - (Vector2)transform.position;
 
         float EnemyAngle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
-        
+
         return EnemyAngle;
     }
 
 
     void shot()
     {
-        audioSource.PlayOneShot(audios[0].clip,audios[0].SEvolume);
+        audioSource.PlayOneShot(audios[0].clip, audios[0].SEvolume);
         rb.linearVelocity *= 0.0f;
         rb.AddForce(Arrow.transform.up * Shotspeed, ForceMode2D.Impulse);
         shotFlag = true;
@@ -582,7 +578,6 @@ public class PlayerScript : MonoBehaviour
                 //Destroy(collision.gameObject);
                 audioSource.PlayOneShot(audios[2].clip, audios[2].SEvolume);
                 combocount++;
-                Debug.Log(combocount);
                 shotCount++;
                 combotimecount = 0.0f;
                 score += scorecount * combocount;
@@ -606,7 +601,7 @@ public class PlayerScript : MonoBehaviour
         {
             StartEnemy startEnemy = collision.gameObject.GetComponent<StartEnemy>();
 
-            if (startEnemy==null)
+            if (startEnemy == null)
             {
                 return;
             }
@@ -616,7 +611,7 @@ public class PlayerScript : MonoBehaviour
                 {
                     //  shaking();
                     Destroy(collision.gameObject);
-                    //audioSource.PlayOneShot(audios[2].clip, audios[2].SEvolume);
+                    audioSource.PlayOneShot(audios[2].clip, audios[2].SEvolume);
                     SoundManager2.instance.PlayBGM(0);
                     FadeManager.instance.SetFadeFlag(true);
                     combocount++;
@@ -642,7 +637,7 @@ public class PlayerScript : MonoBehaviour
                 isMove = true;
             }
         }
-            if (collision.CompareTag("EnemyBullet"))
+        if (collision.CompareTag("EnemyBullet"))
         {
             if (shotFlag)
             {
@@ -661,7 +656,7 @@ public class PlayerScript : MonoBehaviour
             }
         }
     }
-    
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Ground"))

@@ -11,6 +11,8 @@ public class Combo : MonoBehaviour
 
     public PlayerScript playerscript;
 
+    public GameObject comboUI;
+
     [Header("移動速度")]
     public float moveTime = 0.25f;
 
@@ -35,6 +37,7 @@ public class Combo : MonoBehaviour
     void Start()
     {
         oldcombo = 0;
+        comboUI.SetActive(false);
     }
 
     void Update()
@@ -73,13 +76,14 @@ public class Combo : MonoBehaviour
                 Destroy(currentLeftText.gameObject);
                 currentLeftText = null;
             }
-
+            comboUI.SetActive(false);
             oldcombo = 0;
             return;
         }
 
         if (combo > oldcombo && !isPlaying)
         {
+            comboUI.SetActive(true);
             StartCoroutine(PlayComboSequence());
         }
     }

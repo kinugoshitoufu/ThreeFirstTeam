@@ -31,21 +31,21 @@ public class TimeScript : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKey(KeyCode.Return))
-        {
-            if (Input.GetKey(KeyCode.K))
-            {
-                limitTime = 130;
-            }
-            if (Input.GetKey(KeyCode.Y))
-            {
-                limitTime = 70;
-            }
-            if (Input.GetKey(KeyCode.U))
-            {
-                limitTime = 2;
-            }
-        }
+        //if (Input.GetKey(KeyCode.Return))
+        //{
+        //    if (Input.GetKey(KeyCode.K))
+        //    {
+        //        limitTime = 130;
+        //    }
+        //    if (Input.GetKey(KeyCode.Y))
+        //    {
+        //        limitTime = 70;
+        //    }
+        //    if (Input.GetKey(KeyCode.U))
+        //    {
+        //        limitTime = 2;
+        //    }
+        //}
 
         // 時間の減少
         if (!stopTimer) limitTime -= Time.deltaTime * downspeed*speed;

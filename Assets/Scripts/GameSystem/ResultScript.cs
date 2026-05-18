@@ -4,7 +4,7 @@ using System.Collections;
 public class ResultScript : MonoBehaviour
 {
     public static ResultScript instance;
-    public Animator animator;
+    private Animator animator;
     [Header("テキスト")]
     public TextMeshProUGUI timeText;
     public TextMeshProUGUI scoreText;

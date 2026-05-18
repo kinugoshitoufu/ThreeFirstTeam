@@ -13,7 +13,7 @@ public class SoundManager2 : MonoBehaviour
     public float bgmVolume;
 
     public int maxSeAudio = 10;
-    public int maxBgmAudio = 10;
+    public int maxBgmAudio = 3;
 
     private int currentSeAudioIndex = 0;
     private int currentBgmAudioIndex = 0;
@@ -61,7 +61,9 @@ public class SoundManager2 : MonoBehaviour
     {
         if (index < 0 || index >= bgmClips.Length) return;
 
-        bgmAudios[currentBgmAudioIndex].PlayOneShot(bgmClips[index]);
+        bgmAudios[currentBgmAudioIndex].clip = bgmClips[index];
+
+        bgmAudios[currentBgmAudioIndex].Play();
 
         currentBgmAudioIndex++;
 

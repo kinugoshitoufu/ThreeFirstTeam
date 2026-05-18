@@ -5,11 +5,9 @@ public class RankUIScript : MonoBehaviour
 {
     public Image Rankimage;
     public Sprite[] numbers;
-    public GameObject comboUI;
     public GameObject rankUI;
     void Start()
     {   
-        comboUI.SetActive(false);
         rankUI.SetActive(false);
     }
 
@@ -18,7 +16,6 @@ public class RankUIScript : MonoBehaviour
     {
         if (PlayerScript.instance.GetComboCount() >= PlayerScript.instance.combocountRank)
         {
-            comboUI.SetActive(true);
             rankUI.SetActive(true);
             if (PlayerScript.instance.GetRank() == "A")
             {
@@ -43,7 +40,6 @@ public class RankUIScript : MonoBehaviour
         }
         else
         {
-            comboUI.SetActive(false);
             rankUI.SetActive(false);
         }
     }

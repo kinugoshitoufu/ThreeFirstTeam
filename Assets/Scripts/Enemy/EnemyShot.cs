@@ -76,6 +76,14 @@ public class EnemyShot : Enemy
         //    Die();
         //}
     }
+    public new void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player") && startFlag)
+        {
+            Die();
+        }
+    }
+
     private void ShotStartEnemy()
     {
         this.startFlag = true;
