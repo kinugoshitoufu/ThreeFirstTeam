@@ -8,14 +8,16 @@ public class Enemy : MonoBehaviour
     public float spawnTime = 0.1f;
     public float speed = 3f; // 敵の移動速度
     private Transform player;
-
+    private Transform enemy;
     public static bool isFlag=true;
     public bool startFlag=false;
+    public GameObject deadEffect;
     void Start()
     {
         Debug.Log("敵生成");
         // プレイヤーのTransformを取得
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        enemy = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()
@@ -41,6 +43,8 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log("敵消滅");
         // 死亡処理
+        //Effect
+        Instantiate(deadEffect, enemy.position, Quaternion.identity);
         OnDeath?.Invoke(this);
         Destroy(gameObject);
     }

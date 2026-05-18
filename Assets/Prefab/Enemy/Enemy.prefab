@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 266807175171691131}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -184,6 +184,7 @@ MonoBehaviour:
   spawnTime: 0.1
   speed: 3
   startFlag: 0
+  deadEffect: {fileID: 5829252232034291361, guid: 229126c5c4b5c914caf63b769862960f, type: 3}
 --- !u!82 &-4314365243575731198
 AudioSource:
   m_ObjectHideFlags: 0

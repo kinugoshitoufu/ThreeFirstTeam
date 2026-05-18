@@ -71,7 +71,7 @@ public class EnemyShot : Enemy
         lifeTimer += Time.deltaTime;
         if (lifeTimer > 5f)
         {
-            //Die();
+            Die();
         }
     }
     private void ShotStartEnemy()

@@ -38,6 +38,6 @@ public class FadeManager : MonoBehaviour
 
     public void StartFade()
     {
-        targetAlpha = 0.4f;
+        targetAlpha = 0.0f;
     }
 }
