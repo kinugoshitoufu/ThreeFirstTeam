@@ -2115,6 +2115,9 @@ MonoBehaviour:
   - enemyPrefab: {fileID: 459942376683718103, guid: 815445face620214b89adeed80cb31aa, type: 3}
     spawnCount: 1
     weight: 100
+  - enemyPrefab: {fileID: 459942376683718103, guid: 48ed62e6d5a6c8940b9dafc132321f5b, type: 3}
+    spawnCount: 1
+    weight: 15
   Maxrange: {x: 5, y: 5}
   Minrange: {x: 1, y: 1}
   maxEnemiesInScene: 10
@@ -3374,6 +3377,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8171498340057067448, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
+      propertyPath: m_Color.a
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8171498340057067448, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: m_Color.b
       value: 0
       objectReference: {fileID: 0}
@@ -3387,7 +3394,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8171498340057067448, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: m_SortingOrder
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8489122761341450624, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: m_LocalPosition.x

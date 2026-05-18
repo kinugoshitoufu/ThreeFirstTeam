@@ -12,9 +12,9 @@ public class TitleScript : MonoBehaviour
     
     void Update()
     {
-        if (Input.GetButtonDown("Submit") || Input.GetKeyDown(KeyCode.Space))
+        if (Input.anyKeyDown)
         {
-            SceneManager.LoadScene("GameScene");
+            SceneManager.LoadScene("SampleScene");
         }
     }
 }

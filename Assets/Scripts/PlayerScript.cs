@@ -161,20 +161,26 @@ public class PlayerScript : MonoBehaviour
             TriangleMesh.instance.vec2.x += TriangleFixX;
             TriangleMesh.instance.vec2.y += TriangleFixY;
         }
-        if (shotCount > 0 && !shotFlag && !animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerDamage"))
+        if (shotCount > 0 && !shotFlag)
         {
             if (DamageTimeCount <= 0.0f)
             {
-                if (control == 0 && Input.GetKeyDown("joystick button 2"))
+                if (Input.GetKeyDown("joystick button 2"))
                 {
                     Debug.Log("コントローラー突撃");
                     shot();
                 }
-                if (control == 1 && Input.GetKeyDown(KeyCode.Z))
-                {
-                    Debug.Log("キーボード突撃");
-                    shot();
-                }
+
+                //if (control == 0 && Input.GetKeyDown("joystick button 2"))
+                //{
+                //    Debug.Log("コントローラー突撃");
+                //    shot();
+                //}
+                //if (control == 1 && Input.GetKeyDown(KeyCode.Z))
+                //{
+                //    Debug.Log("キーボード突撃");
+                //    shot();
+                //}
             }
         }
         if (shotFlag)
@@ -229,16 +235,16 @@ public class PlayerScript : MonoBehaviour
             box.size = new Vector2(BoxSize.x, BoxSize.y);
         }
         comborank();
-        if (Input.anyKeyDown)
-        {
-            foreach (KeyCode code in Enum.GetValues(typeof(KeyCode)))
-            { // 検索
-                if (Input.GetKeyDown(code))
-                { // 入力されたキーの名前と一致した場合
-                    Debug.Log(code.ToString() + " のボタンが押されたよ！！"); // コンソールに表示
-                }
-            }
-        }
+        //if (Input.anyKeyDown)
+        //{
+        //    foreach (KeyCode code in Enum.GetValues(typeof(KeyCode)))
+        //    { // 検索
+        //        if (Input.GetKeyDown(code))
+        //        { // 入力されたキーの名前と一致した場合
+        //            Debug.Log(code.ToString() + " のボタンが押されたよ！！"); // コンソールに表示
+        //        }
+        //    }
+        //}
         //if (animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerDamage"))
         //{
         //    Debug.Log("Damage再生中");
