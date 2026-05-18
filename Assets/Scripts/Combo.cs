@@ -6,10 +6,10 @@ public class Combo : MonoBehaviour
 {
     public TextMeshProUGUI comboTextPrefab;
 
-    public RectTransform spawnPoint; //スポーン位置
-    public RectTransform leftPoint;  //停止位置
+    public RectTransform spawnPoint; // スポーン位置
+    public RectTransform leftPoint;  // 停止位置
 
-    public PlayerScript playerscript; 
+    public PlayerScript playerscript;
 
     [Header("移動速度")]
     public float moveTime = 0.25f;
@@ -26,6 +26,7 @@ public class Combo : MonoBehaviour
 
     private int combo;
     private int oldcombo;
+
     private bool isPlaying;
 
     // 今左にいるテキスト
@@ -55,6 +56,8 @@ public class Combo : MonoBehaviour
 
             // 毎回最新コンボ取得
             combo = playerscript.GetComboCount();
+
+            //Debug.Log(combo);
         }
 
         isPlaying = false;
@@ -79,23 +82,20 @@ public class Combo : MonoBehaviour
         }
 
         // 新しい文字生成
-        TextMeshProUGUI newText =
-            Instantiate(
-                comboTextPrefab,
-                spawnPoint.position,
-                Quaternion.identity,
-                spawnPoint.parent
-            );
+        TextMeshProUGUI newText = Instantiate(
+            comboTextPrefab,
+            spawnPoint.position,
+            Quaternion.identity,
+            spawnPoint.parent
+        );
 
         RectTransform rect = newText.rectTransform;
 
         // 初期位置
-        rect.anchoredPosition =
-            spawnPoint.anchoredPosition;
+        rect.anchoredPosition = spawnPoint.anchoredPosition;
 
         // 初期スケール
-        rect.localScale =
-            Vector3.one * startScale;
+        rect.localScale = Vector3.one * startScale;
 
         // 数値
         newText.text = value.ToString();
@@ -112,17 +112,13 @@ public class Combo : MonoBehaviour
         StartCoroutine(MoveToLeft(newText));
     }
 
-    // 左へ移動↓↓↓↓
-
+    // 左へ移動
     IEnumerator MoveToLeft(TextMeshProUGUI text)
     {
         RectTransform rect = text.rectTransform;
 
-        Vector2 startPos =
-            spawnPoint.anchoredPosition;
-
-        Vector2 targetPos =
-            leftPoint.anchoredPosition;
+        Vector2 startPos = spawnPoint.anchoredPosition;
+        Vector2 targetPos = leftPoint.anchoredPosition;
 
         float timer = 0f;
 
@@ -131,7 +127,6 @@ public class Combo : MonoBehaviour
             timer += Time.deltaTime;
 
             float t = timer / moveTime;
-
             t = Mathf.SmoothStep(0f, 1f, t);
 
             // 移動
@@ -159,7 +154,7 @@ public class Combo : MonoBehaviour
         rect.anchoredPosition = targetPos;
     }
 
-    // 拡大してフェードアウトする↓↓↓↓
+    // 拡大してフェードアウトする
     IEnumerator ExpandAndFadeOut(TextMeshProUGUI text)
     {
         RectTransform rect = text.rectTransform;
@@ -176,7 +171,6 @@ public class Combo : MonoBehaviour
             timer += Time.deltaTime;
 
             float t = timer / destroyTime;
-
             t = Mathf.SmoothStep(0f, 1f, t);
 
             // 拡大
