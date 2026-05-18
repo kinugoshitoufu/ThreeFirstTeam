@@ -444,23 +444,23 @@ public class PlayerScript : MonoBehaviour
     {
         if (rank == "A")
         {
-            box.size = new Vector2(BoxSize.x + (shotcollider * 5), BoxSize.y + (shotcollider * 5));
+            box.size = new Vector2(BoxSize.x, BoxSize.y + (shotcollider * 5));
         }
         else if (rank == "B")
         {
-            box.size = new Vector2(BoxSize.x + (shotcollider * 4), BoxSize.y + (shotcollider * 4));
+            box.size = new Vector2(BoxSize.x, BoxSize.y + (shotcollider * 4));
         }
         else if (rank == "C")
         {
-            box.size = new Vector2(BoxSize.x + (shotcollider * 3), BoxSize.y + (shotcollider * 3));
+            box.size = new Vector2(BoxSize.x, BoxSize.y + (shotcollider * 3));
         }
         else if (rank == "D")
         {
-            box.size = new Vector2(BoxSize.x + (shotcollider * 2), BoxSize.y + (shotcollider * 2));
+            box.size = new Vector2(BoxSize.x, BoxSize.y + (shotcollider * 2));
         }
         else if (rank == "E")
         {
-            box.size = new Vector2(BoxSize.x + (shotcollider * 1), BoxSize.y + (shotcollider * 1));
+            box.size = new Vector2(BoxSize.x, BoxSize.y + (shotcollider * 1));
         }
         else
         {
@@ -589,6 +589,7 @@ public class PlayerScript : MonoBehaviour
                     //  shaking();
                     Destroy(collision.gameObject);
                     audioSource.PlayOneShot(audios[2].clip, audios[2].SEvolume);
+                    SoundManager2.instance.PlayBGM(0);
                     combocount++;
                     shotCount++;
                     combotimecount = 0.0f;

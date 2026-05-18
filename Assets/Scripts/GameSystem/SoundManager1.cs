@@ -3,19 +3,28 @@ using UnityEngine;
 public class SoundManager2 : MonoBehaviour
 {
     public AudioClip[] seClips;
+    public AudioClip[] bgmClips;
     public static SoundManager2 instance;
 
     private AudioSource[] seAudios;
+    private AudioSource[] bgmAudios;
+
+    [Range(0f,1f)]
+    public float bgmVolume;
 
     public int maxSeAudio = 10;
+    public int maxBgmAudio = 10;
 
-    private int currentAudioIndex = 0;
+    private int currentSeAudioIndex = 0;
+    private int currentBgmAudioIndex = 0;
 
     void Start()
     {
         instance = this;
 
         seAudios = new AudioSource[maxSeAudio];
+
+        bgmAudios = new AudioSource[maxBgmAudio];
 
         for (int i = 0; i < maxSeAudio; i++)
         {
@@ -24,19 +33,41 @@ public class SoundManager2 : MonoBehaviour
             seAudios[i].playOnAwake = false;
             seAudios[i].spatialBlend = 0f;
         }
+        for (int i = 0; i < maxBgmAudio; i++)
+        {
+            bgmAudios[i] = gameObject.AddComponent<AudioSource>();
+            bgmAudios[i].volume = bgmVolume;
+            bgmAudios[i].loop = true;
+            bgmAudios[i].playOnAwake = false;
+            bgmAudios[i].spatialBlend = 0f;
+        }
     }
 
     public void PlaySE(int index)
     {
         if (index < 0 || index >= seClips.Length) return;
 
-        seAudios[currentAudioIndex].PlayOneShot(seClips[index]);
+        seAudios[currentSeAudioIndex].PlayOneShot(seClips[index]);
 
-        currentAudioIndex++;
+        currentSeAudioIndex++;
 
-        if (currentAudioIndex >= maxSeAudio)
+        if (currentSeAudioIndex >= maxSeAudio)
         {
-            currentAudioIndex = 0;
+            currentSeAudioIndex = 0;
+        }
+    }
+
+    public void PlayBGM(int index)
+    {
+        if (index < 0 || index >= bgmClips.Length) return;
+
+        bgmAudios[currentBgmAudioIndex].PlayOneShot(bgmClips[index]);
+
+        currentBgmAudioIndex++;
+
+        if (currentBgmAudioIndex >= maxBgmAudio)
+        {
+            currentBgmAudioIndex = 0;
         }
     }
 }

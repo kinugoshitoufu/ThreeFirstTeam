@@ -410,7 +410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &201339019
 Transform:
   m_ObjectHideFlags: 0
@@ -492,8 +492,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 230905481}
-  - component: {fileID: 230905479}
   - component: {fileID: 230905480}
+  - component: {fileID: 230905482}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Untagged
@@ -501,27 +501,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &230905479
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 230905478}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ce77028bae986fa4089486510bba0a73, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SoundManager
-  seSources:
-  - {fileID: 1440645668}
-  seList:
-  - clip: {fileID: 8300000, guid: 68f2f952aed251e49a1e7ca7f2ac7b90, type: 3}
-    SEvolume: 1
-  - clip: {fileID: 8300000, guid: ce1e9d9945dc00e41bcf76de23f1630e, type: 3}
-    SEvolume: 1
-  bgmSource: []
-  bgmList: []
 --- !u!82 &230905480
 AudioSource:
   m_ObjectHideFlags: 0
@@ -634,6 +613,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &230905482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 230905478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59c0848c54556404ab416314476696bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundManager2
+  seClips: []
+  bgmClips:
+  - {fileID: 8300000, guid: 5f975a87b3c592b44808eb219088cd2d, type: 3}
+  bgmVolume: 0.123
+  maxSeAudio: 10
+  maxBgmAudio: 10
 --- !u!1001 &289810813
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1968,12 +1965,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 337acf6f15f17b947998c115f675e5cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimeScript
-  LimitTime: 120
-  Downspeed: 1
+  limitTime: 30
+  downspeed: 1
+  eeduceLimit: 30
   speed: 0.1
   redImage: {fileID: 709837746}
   yellowImage: {fileID: 716845038}
   blueImage: {fileID: 1632101720}
+  upTecreaseTime: 0.2
+  timeUpEffect: {fileID: 0}
 --- !u!114 &1001300663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2189,6 +2189,7 @@ MonoBehaviour:
   Maxdelay: 1
   delay: 0
   isdead: 0
+  maxOnespawnCount: 3
 --- !u!1 &1087411845
 GameObject:
   m_ObjectHideFlags: 0
@@ -2467,11 +2468,6 @@ Transform:
 --- !u!4 &1440645665 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8489122761341450624, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
-  m_PrefabInstance: {fileID: 9164792454348995001}
-  m_PrefabAsset: {fileID: 0}
---- !u!82 &1440645668 stripped
-AudioSource:
-  m_CorrespondingSourceObject: {fileID: 3782997667882356039, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
   m_PrefabInstance: {fileID: 9164792454348995001}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1553957060
@@ -3156,6 +3152,10 @@ PrefabInstance:
       propertyPath: enemyspawner
       value: 
       objectReference: {fileID: 1087385180}
+    - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
+      propertyPath: shotcollider
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: audios.Array.size
       value: 3
