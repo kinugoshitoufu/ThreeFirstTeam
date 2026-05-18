@@ -181,9 +181,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4943476aacfd3541a4169682fa54c6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyShot
-  spawnTime: 1
+  spawnTime: 0.1
   speed: 3
   startFlag: 0
+  deadEffect: {fileID: 5640451101015276910, guid: 0b9b2d585d11f6247b90e38d36755d8f, type: 3}
   shotData:
     frame: 300
     type: 1
@@ -200,7 +201,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 249f8e533d6fd804eb1df4fbee9fb7e7, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1

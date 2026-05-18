@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour
         Debug.Log("敵消滅");
         // 死亡処理
         //Effect
-        Instantiate(deadEffect, enemy.position, Quaternion.identity);
+        Instantiate(deadEffect, transform.position, Quaternion.identity);
         OnDeath?.Invoke(this);
         Destroy(gameObject);
     }

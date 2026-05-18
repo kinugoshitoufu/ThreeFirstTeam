@@ -654,7 +654,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner1
   spawnOptions:
-  - enemyPrefab: {fileID: 459942376683718103, guid: 815445face620214b89adeed80cb31aa, type: 3}
+  - enemyPrefab: {fileID: 459942376683718103, guid: 48ed62e6d5a6c8940b9dafc132321f5b, type: 3}
     spawnCount: 5
     weight: 100
   Maxrange: {x: 5, y: 5}
@@ -1090,7 +1090,10 @@ MonoBehaviour:
   seClips:
   - {fileID: 8300000, guid: ce1e9d9945dc00e41bcf76de23f1630e, type: 3}
   - {fileID: 8300000, guid: 68f2f952aed251e49a1e7ca7f2ac7b90, type: 3}
+  bgmClips: []
+  bgmVolume: 0
   maxSeAudio: 10
+  maxBgmAudio: 10
 --- !u!4 &1288685373
 Transform:
   m_ObjectHideFlags: 0
@@ -2094,7 +2097,7 @@ Transform:
   m_GameObject: {fileID: 4726266533230962199}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.09, y: 1.1358491, z: 6}
+  m_LocalPosition: {x: -0.09, y: 1.1358491, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
