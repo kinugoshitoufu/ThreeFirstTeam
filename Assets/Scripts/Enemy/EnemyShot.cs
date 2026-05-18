@@ -20,28 +20,29 @@ public class EnemyShot : Enemy
     //ショットデータ
     [SerializeField] ShotData shotData = new ShotData { frame = 60, type = ShotType.NONE, bullet = null };
 
-    GameObject playerObj = null;//プレイヤーオブジェクト
-    int shotFrame = 0;          //フレーム
+    public GameObject playerObj;//プレイヤーオブジェクト
+    float shotFrame = 0;          //フレーム
     public float lifeTimer = 0f;
     //private bool startFlag = false;
     void Start()
     {
         //プレイヤオブジェクトを取得する
-        switch (shotData.type)
-        {
-            case ShotType.NORMAL:
-                playerObj = GameObject.Find("Player");
-                break;
-        }
+        //switch (shotData.type)
+        //{
+        //    case ShotType.NORMAL:
+        //        playerObj = GameObject.Find("Player1");
+        //        break;
+        //}
     }
-
+    
     void Shot()
     {
+        //Debug.Log("startFlag:" + startFlag);
+        //Debug.Log("isFlag:" + isFlag);
         if (!isFlag&& !startFlag) return;
-        //Vector2 dir = (playerObj.transform.position - transform.position).normalized;
-        //
-        //float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-        shotFrame++;
+        
+        Debug.Log(playerObj);
+        shotFrame += Time.deltaTime;
         if (shotFrame > shotData.frame)
         {
             switch (shotData.type)
@@ -55,7 +56,7 @@ public class EnemyShot : Enemy
                             transform.position,
                             Quaternion.identity
                         );
-                        bullet.SetMoveVec(playerObj.transform.position - transform.position);
+                        //bullet.SetMoveVec(playerObj.transform.position - transform.position);
                         //bullet.SetMoveVec(dir);
 
                     }
@@ -68,6 +69,7 @@ public class EnemyShot : Enemy
     void Update()
     {
         Shot();
+        
         //lifeTimer += Time.deltaTime;
         //if (lifeTimer > 5f)
         //{
@@ -80,4 +82,5 @@ public class EnemyShot : Enemy
         this.tag = "Enemy";
         Debug.Log(startFlag);
     }
+    
 }

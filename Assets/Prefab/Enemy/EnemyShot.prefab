@@ -186,9 +186,10 @@ MonoBehaviour:
   startFlag: 0
   deadEffect: {fileID: 5640451101015276910, guid: 0b9b2d585d11f6247b90e38d36755d8f, type: 3}
   shotData:
-    frame: 300
+    frame: 5
     type: 1
     bullet: {fileID: 7339847894137258478, guid: 48b4784766d5f7143b0638828af487f5, type: 3}
+  playerObj: {fileID: 3504794306052921860, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
   lifeTimer: 5
 --- !u!82 &-2653073802022514588
 AudioSource:

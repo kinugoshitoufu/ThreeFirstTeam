@@ -3,15 +3,23 @@ using UnityEngine;
 public class EnemyBullet : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 3.0f;                   // 移動値
-    [SerializeField] Vector3 moveVec = new Vector3(-1, 0, 0);  // 移動方向
+    [SerializeField] Vector2 moveVec;  // 移動方向
+    public GameObject player;
+    void Start()
+    {
+        Vector2 dir = (player.transform.position - transform.position).normalized;
+        moveVec = dir;
+        float angle = Mathf.Atan2(dir.x, dir.y) * Mathf.Rad2Deg;
+        transform.rotation = Quaternion.Euler(0, 0, angle);
+        transform.position += new Vector3(moveVec.x, moveVec.y, 0) * moveSpeed * Time.deltaTime;
+    }
 
     void Update()
     {
-        float add_move = moveSpeed * Time.deltaTime;
-        transform.Translate(moveVec * add_move);
-        
-    }
+        //LookAt2D(player.transform.position,true);
 
+    }
+    
     public void SetMoveSpeed(float _speed)
     {
         moveSpeed = _speed;
@@ -19,7 +27,7 @@ public class EnemyBullet : MonoBehaviour
 
     public void SetMoveVec(Vector3 _vec)
     {
-        moveVec = _vec.normalized;
+        moveVec = new Vector2(_vec.x,_vec.y).normalized;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -53,7 +61,7 @@ public class EnemyBullet : MonoBehaviour
             Vector2 newPosition = myPosition + moveDirection * speed * Time.deltaTime;
             transform.position = newPosition;
         }
-
+    
     }
 
 }
