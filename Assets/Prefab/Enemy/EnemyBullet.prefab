@@ -108,7 +108,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBullet
   moveSpeed: 7
-  moveVec: {x: 0, y: 0}
+  bulletDethCount: 5
   player: {fileID: 3504794306052921860, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
 --- !u!61 &1760824774880294425
 BoxCollider2D:

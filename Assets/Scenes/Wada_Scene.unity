@@ -657,14 +657,17 @@ MonoBehaviour:
   - enemyPrefab: {fileID: 459942376683718103, guid: 48ed62e6d5a6c8940b9dafc132321f5b, type: 3}
     spawnCount: 5
     weight: 100
-  Maxrange: {x: 5, y: 5}
-  Minrange: {x: 1, y: 1}
+  - enemyPrefab: {fileID: 459942376683718103, guid: 815445face620214b89adeed80cb31aa, type: 3}
+    spawnCount: 5
+    weight: 100
+  Maxrange: {x: 8, y: 3}
+  Minrange: {x: -8, y: 1}
   maxEnemiesInScene: 10
   spawnCountOne: 10
   spawnCountTwo: 0
   spawnCountThree: 0
-  Mindelay: 0.1
   Maxdelay: 1
+  Mindelay: 0.1
   delay: 0
   isdead: 0
   maxOnespawnCount: 3
@@ -763,6 +766,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7651316146191369746, guid: 06d6c9dd8f9eb2b41954e4145d9b5f22, type: 3}
   m_PrefabInstance: {fileID: 540762322}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &980885730 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 775725458695431310, guid: 06d6c9dd8f9eb2b41954e4145d9b5f22, type: 3}
+  m_PrefabInstance: {fileID: 540762322}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 980885729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b2c66a1fac7f6646a61b34e54e33d92, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TriangleMesh
 --- !u!1 &1021506068
 GameObject:
   m_ObjectHideFlags: 0
@@ -1138,7 +1152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7191b287064eeec42ab1c711343d9fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ResultScript
-  animator: {fileID: 228475193015552822}
   timeText: {fileID: 1652701298}
   scoreText: {fileID: 2048640738}
   comboText: {fileID: 522036699}
@@ -1241,9 +1254,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1184372963}
     - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
+      propertyPath: ResultPanel
+      value: 
+      objectReference: {fileID: 4726266533230962199}
+    - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: enemyspawner
       value: 
       objectReference: {fileID: 899487255}
+    - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
+      propertyPath: triangleMesh
+      value: 
+      objectReference: {fileID: 980885730}
     - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: combotimecount
       value: 0
@@ -1266,11 +1287,11 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: 249f8e533d6fd804eb1df4fbee9fb7e7, type: 3}
     - target: {fileID: 8489122761341450624, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.21
+      value: -8.79
       objectReference: {fileID: 0}
     - target: {fileID: 8489122761341450624, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.61
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8489122761341450624, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1376,7 +1397,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1412,6 +1433,10 @@ PrefabInstance:
       propertyPath: button
       value: 
       objectReference: {fileID: 2069658532}
+    - target: {fileID: -2570617846330114311, guid: 652f4dd5208fc134ab62ca1c337c63d8, type: 3}
+      propertyPath: isdead
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -2570617846330114311, guid: 652f4dd5208fc134ab62ca1c337c63d8, type: 3}
       propertyPath: backscreen
       value: 
@@ -1471,6 +1496,10 @@ PrefabInstance:
     - target: {fileID: 99298731110814657, guid: 652f4dd5208fc134ab62ca1c337c63d8, type: 3}
       propertyPath: m_Name
       value: StartEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 99298731110814657, guid: 652f4dd5208fc134ab62ca1c337c63d8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 99298731110814657, guid: 652f4dd5208fc134ab62ca1c337c63d8, type: 3}
       propertyPath: m_TagString

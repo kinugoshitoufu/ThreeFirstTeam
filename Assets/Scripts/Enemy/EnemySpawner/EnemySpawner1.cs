@@ -32,8 +32,8 @@ public class EnemySpawner1 : MonoBehaviour
     public float spawnCountThree = 10f;
     private int WaitSpawnCount = 0;
     [Header("ランダム間隔")]
-    public float Mindelay = 0.1f;
     public float Maxdelay = 1.0f;
+    public float Mindelay = 0.1f;
     [Header("確認用")]
     public float delay = 0f;
     private bool isSpawning = false;
@@ -103,6 +103,13 @@ public class EnemySpawner1 : MonoBehaviour
     // ★種類はここで抽選（追尾 or ショット）
     SpawnOption GetRandomOption()
     {
+        SpawnOption forceOption = CheckenemyType();
+
+        if(forceOption != null)
+        {
+            return forceOption;
+        }
+
         Debug.Log("敵の抽選が開始したよ！！");
         float total = 0f;
 
@@ -258,5 +265,38 @@ public class EnemySpawner1 : MonoBehaviour
             StartSpawnFlag = flag;
         }
         SpawnFlag =flag;
+    }
+    SpawnOption CheckenemyType()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        bool onlyShotEnemy = true;
+
+        foreach (GameObject obj in enemies)
+        {
+            Enemy enemy = obj.GetComponent<Enemy>();
+
+            // ShotEnemy じゃない敵がいたら false
+            if (!(enemy is EnemyShot))
+            {
+                onlyShotEnemy = false;
+                break;
+            }
+        }
+
+        // 全員ショットエネミーだった場合
+        if (onlyShotEnemy && enemies.Length > 0)
+        {
+            foreach (var opt in spawnOptions)
+            {
+                // ShotEnemy 以外を返す
+                if (!opt.enemyPrefab.GetComponent<EnemyShot>())
+                {
+                    return opt;
+                }
+            }
+        }
+        return null;
+
     }
 }
