@@ -1539,7 +1539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 337acf6f15f17b947998c115f675e5cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TimeScript
-  limitTime: 30
+  limitTime: 2
   downspeed: 1
   eeduceLimit: 30
   speed: 0.1

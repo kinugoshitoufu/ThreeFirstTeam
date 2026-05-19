@@ -449,8 +449,8 @@ MonoBehaviour:
   targets:
   - {fileID: 8014023967205264736}
   - {fileID: 7198364694260946191}
-  stickThreshold: 0.5
-  inputDelay: 0.2
+  stickThreshold: 0.7
+  inputDelay: 0.3
 --- !u!114 &1514461220177691126
 MonoBehaviour:
   m_ObjectHideFlags: 0
