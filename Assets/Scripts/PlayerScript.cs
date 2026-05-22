@@ -44,6 +44,7 @@ public class PlayerScript : MonoBehaviour
     public SEData[] audios;
     public TriangleMesh triangleMesh;
     public GameObject ResultPanel;
+    public FaverManeger Favermaneger;
 
     //操作によって変更
     private int control = 0;//操作方法の変更
@@ -576,6 +577,7 @@ public class PlayerScript : MonoBehaviour
             {
                 //  shaking();
                 //Destroy(collision.gameObject);
+                Favermaneger.FaverCount++;
                 audioSource.PlayOneShot(audios[2].clip, audios[2].SEvolume);
                 combocount++;
                 shotCount++;
