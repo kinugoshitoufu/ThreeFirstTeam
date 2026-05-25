@@ -76,6 +76,8 @@ public class PlayerScript : MonoBehaviour
 
     //川本こうせいが追加した変数
     public GameObject startEnemy;
+    public float FeverSpeed;//フィーバー状態の移動速度
+    private float TempSpeed;
 
     public enum PlayerState
     {
@@ -102,6 +104,8 @@ public class PlayerScript : MonoBehaviour
         PlayerScale = transform.localScale;
         playerState = PlayerState.start;
         isMove = false;
+         instance = this;
+        TempSpeed = movespeed;
     }
 
     // Update is called once per frame
@@ -286,6 +290,14 @@ public class PlayerScript : MonoBehaviour
             //移動量を算出する
             animator.SetBool("WalkAnim", true);
             vec *= movespeed * Time.deltaTime;
+            if (FaverManeger.IsFaver)
+            {
+                movespeed = FeverSpeed;
+            }
+            else if(!FaverManeger.IsFaver)
+            {
+                movespeed = TempSpeed;
+            }
         }
         //実際にプレイヤーを動かす
         if (vec.x < 0f)

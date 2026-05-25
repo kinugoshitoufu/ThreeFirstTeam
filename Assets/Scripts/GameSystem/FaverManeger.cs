@@ -5,28 +5,36 @@ public class FaverManeger : MonoBehaviour
 {
     public int FaverCount = 0;
     public RectTransform GageImage;
-    public float startY = -213f;// ゲージ開始位置
-    public float maxY = 0f;// ゲージMAX位置
-    public int maxCount = 15;// 最大カウント
+    public float StartY = -213f;// ゲージ開始位置
+    public float MaxY = 0f;// ゲージMAX位置
+    public  int MaxCount = 15;// 最大カウント
+    private float FaverTime = 10f;//フィーバー時間
+    public static bool IsFaver=false;
 
     void Update()
     {
         // 0～1に変換
-        float t = FaverCount / (float)maxCount;
+        float t = FaverCount / (float)MaxCount;
 
         // 座標計算
-        float y = Mathf.Lerp(startY, maxY, t);
+        float y = Mathf.Lerp(StartY, MaxY, t);
 
         // ゲージ移動
         GageImage.anchoredPosition = new Vector2(0, y);
 
         // フィーバー
-        if (FaverCount >= maxCount)
+        if (FaverCount >= MaxCount)
         {
+            IsFaver = true;
             Debug.Log("フィーバー状態!!!!");
-
-            // リセット
-            FaverCount = 0;
+            FaverTime-= Time.deltaTime;
+            if(FaverTime<0)
+            {
+                // リセット
+                FaverCount = 0;
+                IsFaver = false;
+            }
         }
     }
 }
+
