@@ -634,6 +634,7 @@ GameObject:
   m_Component:
   - component: {fileID: 899487256}
   - component: {fileID: 899487255}
+  - component: {fileID: 899487257}
   m_Layer: 0
   m_Name: EnemySpawner (1)
   m_TagString: Untagged
@@ -648,7 +649,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899487254}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5630883e98619ab42baf21f9146af4e6, type: 3}
   m_Name: 
@@ -686,6 +687,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &899487257
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899487254}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78ee75e4fc8a7fb43be6089355db4439, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner2
+  player: {fileID: 1926236288}
+  spawnOptions:
+  - enemyPrefab: {fileID: 459942376683718103, guid: 815445face620214b89adeed80cb31aa, type: 3}
+    spawnCount: 5
+    weight: 100
+  - enemyPrefab: {fileID: 459942376683718103, guid: 48ed62e6d5a6c8940b9dafc132321f5b, type: 3}
+    spawnCount: 1
+    weight: 100
+  Maxrange: {x: 8, y: 3}
+  maxEnemiesInScene: 10
+  spawnCountOne: 10
+  spawnCountTwo: 0
+  spawnCountThree: 0
+  Maxdelay: 1
+  Mindelay: 0.1
 --- !u!1 &929443519
 GameObject:
   m_ObjectHideFlags: 0
@@ -1543,9 +1571,7 @@ MonoBehaviour:
   downspeed: 1
   eeduceLimit: 30
   speed: 0.1
-  redImage: {fileID: 1021506071}
-  yellowImage: {fileID: 1625039658}
-  blueImage: {fileID: 1154793886}
+  timetext: {fileID: 1652701298}
   upTecreaseTime: 0.2
   timeUpEffect: {fileID: 5829252232034291361, guid: 229126c5c4b5c914caf63b769862960f, type: 3}
 --- !u!4 &1458133071
