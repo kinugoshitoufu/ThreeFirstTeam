@@ -23,6 +23,7 @@ public class EnemyShot : Enemy
     public GameObject playerObj;//プレイヤーオブジェクト
     float shotFrame = 0;          //フレーム
     public float lifeTimer = 0f;
+    public Animator enemyDeath2Animator;
     //private bool startFlag = false;
     void Start()
     {
@@ -80,7 +81,7 @@ public class EnemyShot : Enemy
     {
         if (collision.CompareTag("Player") && startFlag)
         {
-            Die();
+            //Die(enemyDeath2Animator,);
         }
     }
 

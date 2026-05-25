@@ -63,6 +63,7 @@ public class StartEnemy : MonoBehaviour
         TimeScript.stopTimer = false;
         EnemySpawner1.IsMove(true);
         EnemySpawner2.IsMove(true);
+        EnemySpawner3.IsMove(true);
         return;
     }
 }

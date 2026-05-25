@@ -12,6 +12,8 @@ public class Enemy : MonoBehaviour
     public static bool isFlag=true;
     public bool startFlag=false;
     public GameObject deadEffect;
+    public Animator enemyDeath1Animator;
+    
     void Start()
     {
         Debug.Log("敵生成");
@@ -36,17 +38,17 @@ public class Enemy : MonoBehaviour
     {
         if (collision.CompareTag("Player") && startFlag)
         {
-            Die();
+            Die(enemyDeath1Animator, "EnemyDeath1");
         }
     }
-    public void Die()
+    public void Die(Animator animator,string animName)
     {
         Debug.Log("敵消滅");
-        // 死亡処理
-        //Effect
+        //死亡Effect
         Instantiate(deadEffect, transform.position, Quaternion.identity);
+        animator.Play(animName);
         OnDeath?.Invoke(this);
-        Destroy(gameObject);
+        Destroy(gameObject,1.0f);
     }
     private void StartEnemy()
     {
