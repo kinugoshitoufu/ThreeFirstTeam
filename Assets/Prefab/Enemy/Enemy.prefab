@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4604371694848807348}
   - component: {fileID: -4314365243575731198}
   - component: {fileID: 266807175171691131}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,6 +185,7 @@ MonoBehaviour:
   speed: 3
   startFlag: 0
   deadEffect: {fileID: 5829252232034291361, guid: 229126c5c4b5c914caf63b769862960f, type: 3}
+  enemyDeath1Animator: {fileID: 0}
 --- !u!82 &-4314365243575731198
 AudioSource:
   m_ObjectHideFlags: 0

@@ -998,14 +998,18 @@ MonoBehaviour:
     weight: 100
   - enemyPrefab: {fileID: 459942376683718103, guid: 48ed62e6d5a6c8940b9dafc132321f5b, type: 3}
     spawnCount: 1
-    weight: 0
-  Maxrange: {x: 8, y: 3}
+    weight: 100
+  Maxrange: {x: 8, y: 2}
   maxEnemiesInScene: 10
-  spawnCountOne: 10
-  spawnCountTwo: 0
-  spawnCountThree: 0
+  spawnCountOne: 70
+  spawnCountTwo: 20
+  spawnCountThree: 10
   Maxdelay: 1
   Mindelay: 0.1
+  enemyCheckRadius: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!114 &899487258
 MonoBehaviour:
   m_ObjectHideFlags: 0

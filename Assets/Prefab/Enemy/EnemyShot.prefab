@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7025248340290575607}
   - component: {fileID: -2653073802022514588}
   - component: {fileID: 7631487517270949821}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: EnemyShot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,12 +185,14 @@ MonoBehaviour:
   speed: 3
   startFlag: 0
   deadEffect: {fileID: 5829252232034291361, guid: 229126c5c4b5c914caf63b769862960f, type: 3}
+  enemyDeath1Animator: {fileID: 0}
   shotData:
     frame: 3
     type: 1
     bullet: {fileID: 7339847894137258478, guid: 48b4784766d5f7143b0638828af487f5, type: 3}
   playerObj: {fileID: 3504794306052921860, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
   lifeTimer: 5
+  enemyDeath2Animator: {fileID: 0}
 --- !u!82 &-2653073802022514588
 AudioSource:
   m_ObjectHideFlags: 0

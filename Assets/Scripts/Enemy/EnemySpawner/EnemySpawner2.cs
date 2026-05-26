@@ -56,10 +56,21 @@ public class EnemySpawner2 : MonoBehaviour
 
     private bool isSpawning = false;
 
-    private int spawnCount = 0;
+    private int linespawnCount = 0;
     private AreaType beforeArea;
     public static bool StartSpawnFlag = false;
+    [Header("敵同士の距離")]
+    public float enemyCheckRadius = 1.0f;
+    [Header("敵レイヤー")]
+    public LayerMask enemyLayer;
 
+    //敵がその位置にいるかを確認
+    bool CanSpawn(Vector3 pos)
+    {
+        Collider2D hit = Physics2D.OverlapCircle(pos,enemyCheckRadius,enemyLayer);
+    
+        return hit == null;
+    }
     //========================================================
     // プレイヤーがどのエリアにいるか
     //========================================================
@@ -302,25 +313,25 @@ public class EnemySpawner2 : MonoBehaviour
         Vector3 pos;
 
         // 0～6
-        if (spawnCount < 7)
+        if (linespawnCount < 7)
         {
-            float t = spawnCount / 6f;
+            float t = linespawnCount / 6f;
 
             pos = Vector3.Lerp(start, middle, t);
         }
         else
         {
             // 7～13
-            float t = (spawnCount - 7) / 6f;
+            float t = (linespawnCount - 7) / 6f;
 
             pos = Vector3.Lerp(middle, end, t);
         }
 
-        spawnCount++;
+        linespawnCount++;
 
-        if (spawnCount >= 14)
+        if (linespawnCount >= 14)
         {
-            spawnCount = 0;
+            linespawnCount = 0;
         }
 
         return transform.position + pos;
@@ -416,7 +427,7 @@ public class EnemySpawner2 : MonoBehaviour
         //エリア変わったらリセット
         if (currentArea != beforeArea)
         {
-            spawnCount = 0;
+            linespawnCount = 0;
             beforeArea = currentArea;
         }
     }
@@ -499,6 +510,21 @@ public class EnemySpawner2 : MonoBehaviour
             AreaType area = GetSpawnArea();
 
             Vector3 pos = GetLineSpawnPosition(area);
+
+            // 敵がいるなら別位置を探す
+            int tryCount = 0;
+
+            while (!CanSpawn(pos) && tryCount < 20)
+            {
+                pos = GetLineSpawnPosition(area);
+                tryCount++;
+            }
+
+            // 20回試しても無理ならスキップ
+            if (tryCount >= 20)
+            {
+                continue;
+            }
 
             GameObject obj =
                 Instantiate(option.enemyPrefab, pos, Quaternion.identity);
