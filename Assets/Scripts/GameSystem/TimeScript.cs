@@ -86,10 +86,6 @@ public class TimeScript : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            limitTime = 10f;
-        }
 
         if (limitTime <= 0f && !isFinished)
         {

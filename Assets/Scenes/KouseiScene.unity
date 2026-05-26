@@ -406,8 +406,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 539441528}
   - {fileID: 1331516683}
+  - {fileID: 539441528}
   - {fileID: 1288470012}
   - {fileID: 1869730242}
   - {fileID: 445752822}
@@ -579,7 +579,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -229935769192994723, guid: d8827492b044e3945a0714af2908134f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2421,11 +2421,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner1
   spawnOptions:
   - enemyPrefab: {fileID: 459942376683718103, guid: 815445face620214b89adeed80cb31aa, type: 3}
-    spawnCount: 15
+    spawnCount: 20
     weight: 100
   - enemyPrefab: {fileID: 459942376683718103, guid: 48ed62e6d5a6c8940b9dafc132321f5b, type: 3}
     spawnCount: 1
-    weight: 20
+    weight: 0
   Maxrange: {x: 5, y: 5}
   Minrange: {x: 1, y: 1}
   maxEnemiesInScene: 10
@@ -2459,11 +2459,11 @@ SceneRoots:
   - {fileID: 2024696133}
   - {fileID: 2026470638}
   - {fileID: 1015941856}
+  - {fileID: 660368573}
   - {fileID: 2023545925}
   - {fileID: 919578981}
   - {fileID: 1821793177}
   - {fileID: 503569111}
-  - {fileID: 660368573}
   - {fileID: 849448510}
   - {fileID: 1008314554}
   - {fileID: 1104051584}
