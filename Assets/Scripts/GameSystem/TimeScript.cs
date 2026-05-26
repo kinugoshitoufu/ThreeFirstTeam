@@ -110,8 +110,7 @@ public class TimeScript : MonoBehaviour
             limitTime = 0f;//０以下にならないように
         }
         timetext.text = limitTime.ToString("F1");
+        // 最後に状態保存
+        wasUnderLimit = isUnderLimit;
     }
-
-    // 最後に状態保存
-    wasUnderLimit = isUnderLimit;
 }
