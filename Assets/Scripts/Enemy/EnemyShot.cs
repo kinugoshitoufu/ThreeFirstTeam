@@ -81,7 +81,7 @@ public class EnemyShot : Enemy
     {
         if (collision.CompareTag("Player") && startFlag)
         {
-            //Die(enemyDeath2Animator,);
+            Die();
         }
     }
 
