@@ -56,7 +56,8 @@ public class EnemySpawner2 : MonoBehaviour
 
     private bool isSpawning = false;
 
-    public static bool SpawnFlag = false;
+    private int spawnCount = 0;
+    private AreaType beforeArea;
     public static bool StartSpawnFlag = false;
 
     //========================================================
@@ -158,12 +159,13 @@ public class EnemySpawner2 : MonoBehaviour
     //========================================================
     // エリア内のランダム位置取得
     //========================================================
+    /*
     Vector3 GetSpawnPosition(AreaType area)
     {
         Vector3 pos = transform.position;
 
-        float cellWidth = (Maxrange.x) / 3f;
-        float cellHeight = (Maxrange.y) / 3f;
+        float cellWidth = (Maxrange.x * 2f) / 3f;
+        float cellHeight = (Maxrange.y * 2f) / 3f;
 
         float minX = 0;
         float maxX = 0;
@@ -251,7 +253,78 @@ public class EnemySpawner2 : MonoBehaviour
 
         return pos;
     }
+    */
+    Vector3 GetLineSpawnPosition(AreaType area)
+    {
+        Vector3 start = Vector3.zero;
+        Vector3 middle = Vector3.zero;
+        Vector3 end = Vector3.zero;
 
+        switch (area)
+        {
+            case AreaType.Left:
+
+                // 右から左へ
+                start = new Vector3(Maxrange.x, Maxrange.y, 0);
+                middle = new Vector3(Maxrange.x, 0, 0);
+                end = new Vector3(Maxrange.x, -Maxrange.y, 0);
+
+                break;
+
+            case AreaType.Right:
+
+                // 左から右へ
+                start = new Vector3(-Maxrange.x, Maxrange.y, 0);
+                middle = new Vector3(-Maxrange.x, 0, 0);
+                end = new Vector3(-Maxrange.x, -Maxrange.y, 0);
+
+                break;
+
+            case AreaType.Top:
+
+                // 下から上へ
+                start = new Vector3(-Maxrange.x, -Maxrange.y, 0);
+                middle = new Vector3(0, -Maxrange.y, 0);
+                end = new Vector3(Maxrange.x, -Maxrange.y, 0);
+
+                break;
+
+            case AreaType.Bottom:
+
+                // 上から下へ
+                start = new Vector3(-Maxrange.x, Maxrange.y, 0);
+                middle = new Vector3(0, Maxrange.y, 0);
+                end = new Vector3(Maxrange.x, Maxrange.y, 0);
+
+                break;
+        }
+
+        Vector3 pos;
+
+        // 0～6
+        if (spawnCount < 7)
+        {
+            float t = spawnCount / 6f;
+
+            pos = Vector3.Lerp(start, middle, t);
+        }
+        else
+        {
+            // 7～13
+            float t = (spawnCount - 7) / 6f;
+
+            pos = Vector3.Lerp(middle, end, t);
+        }
+
+        spawnCount++;
+
+        if (spawnCount >= 14)
+        {
+            spawnCount = 0;
+        }
+
+        return transform.position + pos;
+    }
     //========================================================
     // 出現数抽選
     //========================================================
@@ -275,7 +348,15 @@ public class EnemySpawner2 : MonoBehaviour
     //========================================================
     EnemySpawnOption GetRandomOption()
     {
+        if(spawnOptions.Count <= 0)
+        {
+            Debug.Log("spawnOptionsに何も入ってないです");
+            return null;
+        }
+
         AreaType area = GetPlayerArea();
+
+        List<EnemySpawnOption> candidates = new List<EnemySpawnOption>();
 
         switch (area)
         {
@@ -284,13 +365,10 @@ public class EnemySpawner2 : MonoBehaviour
 
                 foreach (var opt in spawnOptions)
                 {
-                    if (opt.enemyPrefab.GetComponent<EnemyShot>())
-                    {
-                        return opt;
-                    }
+                    if (opt.enemyPrefab.GetComponent<EnemyShot>())candidates.Add(opt);
                 }
 
-                break;
+            break;
 
             // 左上にいる時
             case AreaType.LeftTop:
@@ -332,7 +410,15 @@ public class EnemySpawner2 : MonoBehaviour
     //========================================================
     void Update()
     {
-        SpawnFirst();
+        if (StartSpawnFlag)SpawnFirst();
+        AreaType currentArea = GetPlayerArea();
+
+        //エリア変わったらリセット
+        if (currentArea != beforeArea)
+        {
+            spawnCount = 0;
+            beforeArea = currentArea;
+        }
     }
 
     void SpawnFirst()
@@ -350,7 +436,7 @@ public class EnemySpawner2 : MonoBehaviour
 
         for (int i = 0; i < option.spawnCount; i++)
         {
-            Vector3 pos = GetSpawnPosition(area);
+            Vector3 pos = GetLineSpawnPosition(area);
 
             GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
 
@@ -412,7 +498,7 @@ public class EnemySpawner2 : MonoBehaviour
 
             AreaType area = GetSpawnArea();
 
-            Vector3 pos = GetSpawnPosition(area);
+            Vector3 pos = GetLineSpawnPosition(area);
 
             GameObject obj =
                 Instantiate(option.enemyPrefab, pos, Quaternion.identity);
@@ -454,6 +540,6 @@ public class EnemySpawner2 : MonoBehaviour
             StartSpawnFlag = flag;
         }
 
-        SpawnFlag = flag;
+        StartSpawnFlag = flag;
     }
 }
