@@ -13,13 +13,14 @@ public class Enemy : MonoBehaviour
     public bool startFlag=false;
     public GameObject deadEffect;
     public Animator enemyDeath1Animator;
-    
+    private Combo comboManager;
     void Start()
     {
         Debug.Log("敵生成");
         // プレイヤーのTransformを取得
         player = GameObject.FindGameObjectWithTag("Player").transform;
         //enemy = GameObject.FindGameObjectWithTag("Enemy").transform;
+        comboManager = FindObjectOfType<Combo>();
     }
 
     void Update()
@@ -48,6 +49,7 @@ public class Enemy : MonoBehaviour
         //死亡Effect
         Instantiate(deadEffect, transform.position, Quaternion.identity);
         //animator.Play(animName);
+        comboManager.SetEnemyPos(transform.position);
         OnDeath?.Invoke(this);
         Destroy(gameObject);
     }
