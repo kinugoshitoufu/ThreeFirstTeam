@@ -85,6 +85,7 @@ public class Combo : MonoBehaviour
             }
             comboUI.SetActive(false);
             oldcombo = 0;
+            oldTensDigit = 0;
             return;
         }
 
@@ -144,36 +145,104 @@ public class Combo : MonoBehaviour
     }
 
     void SpawnEnemyText(Vector2 worldPos, int comboValue)
-{
-    // ワールド座標 → スクリーン座標
-    Vector2 screenPos =
-        Camera.main.WorldToScreenPoint(worldPos);
+    {
+        // ワールド座標 → スクリーン座標
+        Vector2 screenPos =
+            Camera.main.WorldToScreenPoint(worldPos);
 
-    // UI生成
-    TextMeshProUGUI text = Instantiate(
-        enemyTextPrefab,
-        targetCanvas.transform
-    );
+        // UI生成
+        TextMeshProUGUI text = Instantiate(
+            enemyTextPrefab,
+            targetCanvas.transform
+        );
 
-    RectTransform rect = text.rectTransform;
+        RectTransform rect = text.rectTransform;
 
-    RectTransform canvasRect =
-        targetCanvas.transform as RectTransform;
+        RectTransform canvasRect =
+            targetCanvas.transform as RectTransform;
 
-    // スクリーン座標 → Canvas座標
-    RectTransformUtility.ScreenPointToLocalPointInRectangle(
-        canvasRect,
-        screenPos,
-        targetCanvas.worldCamera,
-        out Vector2 localPos
-    );
+        // スクリーン座標 → Canvas座標
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvasRect,
+            screenPos,
+            targetCanvas.worldCamera,
+            out Vector2 localPos
+        );
 
-    rect.localPosition = localPos + Vector2.up * 100f;
+        // 初期位置（少し下）
+        Vector2 startPos = localPos + Vector2.down * 50f;
 
-    text.text = comboValue + "";
+        rect.localPosition = startPos;
 
-    Destroy(text.gameObject, 1.5f);
-}
+        // 初期透明度0
+        Color color = text.color;
+        color.a = 0f;
+        text.color = color;
+
+        text.text = comboValue.ToString();
+
+        StartCoroutine(EnemyTextAnimation(text, localPos));
+    }
+
+    IEnumerator EnemyTextAnimation(TextMeshProUGUI text, Vector2 targetPos)
+    {
+        RectTransform rect = text.rectTransform;
+
+        float appearTime = 0.25f;
+        float stayTime = 0.5f;
+        float disappearTime = 0.4f;
+
+        // ===== 出現 =====
+        float timer = 0f;
+
+        Vector2 startPos = targetPos + Vector2.down * 50f;
+
+        while (timer < appearTime)
+        {
+            timer += Time.deltaTime;
+
+            float t = timer / appearTime;
+            t = Mathf.SmoothStep(0f, 1f, t);
+
+            // 下→上
+            rect.localPosition =
+                Vector2.Lerp(startPos, targetPos, t);
+
+            // フェードイン
+            Color color = text.color;
+            color.a = Mathf.Lerp(0f, 1f, t);
+            text.color = color;
+
+            yield return null;
+        }
+
+        // 少し待機
+        yield return new WaitForSeconds(stayTime);
+
+        // ===== 消える =====
+        timer = 0f;
+
+        Vector2 endPos = targetPos + Vector2.up * 50f;
+
+        Color startColor = text.color;
+
+        while (timer < disappearTime)
+        {
+            timer += Time.deltaTime;
+
+            float t = timer / disappearTime;
+            t = Mathf.SmoothStep(0f, 1f, t);
+
+            // フェードアウト
+            Color color = startColor;
+            color.a = Mathf.Lerp(1f, 0f, t);
+            text.color = color;
+
+            yield return null;
+        }
+
+        Destroy(text.gameObject);
+    }
 
     // 左へ移動
     IEnumerator MoveToLeft(TextMeshProUGUI text)
