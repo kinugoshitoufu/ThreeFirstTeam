@@ -13,6 +13,7 @@ public class EnemySpawnOption
     [Header("確率")]
     public float weight = 1;
 }
+
 public enum AreaType
 {
     LeftTop,    //左上
@@ -30,9 +31,8 @@ public enum AreaType
 
 public class EnemySpawner2 : MonoBehaviour
 {
-    [SerializeField] 
-    Transform player;
-    private List<WaveData> waveList;
+    [SerializeField] Transform player;
+
     public List<EnemySpawnOption> spawnOptions;
 
     [Header("スポーン範囲")]
@@ -82,13 +82,6 @@ public class EnemySpawner2 : MonoBehaviour
                 $"当たった:{hit.name} 位置:{hit.transform.position}");
         }
         return hit == null;
-    }
-    WaveData GetRandomWave()
-    {
-        if (waveList.Count == 0)
-            return null;
-
-        return waveList[Random.Range(0, waveList.Count)];
     }
     //========================================================
     // プレイヤーがどのエリアにいるか
