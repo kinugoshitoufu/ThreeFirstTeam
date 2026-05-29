@@ -14,6 +14,7 @@ public class Combo : MonoBehaviour
     public Vector2 enemyPos;
     public Canvas targetCanvas;
     public Image[] ComboAura;
+    private int comboThreshold = 0;
 
 
     [Header("ˆÚ“®‘¬“x")]
@@ -109,7 +110,13 @@ public class Combo : MonoBehaviour
         {
             oldTensDigit = currentTensDigit;
 
-            SpawnEnemyText(enemyPos, combo);
+            comboThreshold++;
+
+            int result = comboThreshold * 10;
+
+            Debug.Log(result);
+
+            SpawnEnemyText(enemyPos, result);
         }
     }
 
