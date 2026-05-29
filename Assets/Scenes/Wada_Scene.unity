@@ -226,7 +226,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 9, y: 4}
+  m_AnchoredPosition: {x: 12.034587, y: 3.6429906}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &148539159
@@ -1029,11 +1029,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner2
   player: {fileID: 1926236288}
   spawnOptions:
-  - enemyPrefab: {fileID: 459942376683718103, guid: 815445face620214b89adeed80cb31aa, type: 3}
-    spawnCount: 5
+  - enemyPrefab: {fileID: 5819876588272463761, guid: 0321408d3f9e6214a823ae2aee1f1d40, type: 3}
+    spawnCount: 1
     weight: 100
-  - enemyPrefab: {fileID: 459942376683718103, guid: 48ed62e6d5a6c8940b9dafc132321f5b, type: 3}
-    spawnCount: 2
+  - enemyPrefab: {fileID: 5819876588272463761, guid: f3edbb274c774c346ab8e1f2de3b6559, type: 3}
+    spawnCount: 1
     weight: 100
   Maxrange: {x: 8, y: 2}
   maxEnemiesInScene: 10
@@ -2693,7 +2693,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8, y: 4}
+  m_AnchoredPosition: {x: 7.97653, y: 4.0234723}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2069658531
@@ -2885,6 +2885,63 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+--- !u!1001 &9149552215367063020
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4266905995999019546, guid: 0321408d3f9e6214a823ae2aee1f1d40, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.5075
+      objectReference: {fileID: 0}
+    - target: {fileID: 4266905995999019546, guid: 0321408d3f9e6214a823ae2aee1f1d40, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.48231
+      objectReference: {fileID: 0}
+    - target: {fileID: 4266905995999019546, guid: 0321408d3f9e6214a823ae2aee1f1d40, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4266905995999019546, guid: 0321408d3f9e6214a823ae2aee1f1d40, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4266905995999019546, guid: 0321408d3f9e6214a823ae2aee1f1d40, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4266905995999019546, guid: 0321408d3f9e6214a823ae2aee1f1d40, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4266905995999019546, guid: 0321408d3f9e6214a823ae2aee1f1d40, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4266905995999019546, guid: 0321408d3f9e6214a823ae2aee1f1d40, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4266905995999019546, guid: 0321408d3f9e6214a823ae2aee1f1d40, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4266905995999019546, guid: 0321408d3f9e6214a823ae2aee1f1d40, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5819876588272463761, guid: 0321408d3f9e6214a823ae2aee1f1d40, type: 3}
+      propertyPath: m_Name
+      value: PatternPrefab1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0321408d3f9e6214a823ae2aee1f1d40, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -2906,3 +2963,4 @@ SceneRoots:
   - {fileID: 1895621253}
   - {fileID: 3077202556609291121}
   - {fileID: 1433950382}
+  - {fileID: 9149552215367063020}

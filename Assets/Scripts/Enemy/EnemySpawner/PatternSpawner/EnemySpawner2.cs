@@ -13,7 +13,6 @@ public class EnemySpawnOption
     [Header("確率")]
     public float weight = 1;
 }
-
 public enum AreaType
 {
     LeftTop,    //左上
@@ -31,8 +30,9 @@ public enum AreaType
 
 public class EnemySpawner2 : MonoBehaviour
 {
-    [SerializeField] Transform player;
-
+    [SerializeField] 
+    Transform player;
+    private List<WaveData> waveList;
     public List<EnemySpawnOption> spawnOptions;
 
     [Header("スポーン範囲")]
@@ -83,6 +83,13 @@ public class EnemySpawner2 : MonoBehaviour
         }
         return hit == null;
     }
+    WaveData GetRandomWave()
+    {
+        if (waveList.Count == 0)
+            return null;
+
+        return waveList[Random.Range(0, waveList.Count)];
+    }
     //========================================================
     // プレイヤーがどのエリアにいるか
     //========================================================
@@ -129,6 +136,7 @@ public class EnemySpawner2 : MonoBehaviour
             return AreaType.Right;
         }
     }
+    /*
     AreaType GetSpawnArea()
     {
         AreaType playerArea = GetPlayerArea();
@@ -179,6 +187,7 @@ public class EnemySpawner2 : MonoBehaviour
 
         return AreaType.Center;
     }
+    */
     //========================================================
     // エリア内のランダム位置取得
     //========================================================
@@ -338,8 +347,7 @@ public class EnemySpawner2 : MonoBehaviour
         {
             float t = spawnCountInArea / 6f;
 
-            Vector3 middle =
-                Vector3.Lerp(start, end, 0.5f);
+            Vector3 middle = Vector3.Lerp(start, end, 0.5f);
 
             pos = Vector3.Lerp(start, middle, t);
         }
@@ -359,6 +367,23 @@ public class EnemySpawner2 : MonoBehaviour
         {
             spawnCountInArea = 0;
         }
+        //画面制限
+        Camera cam = Camera.main;
+
+        float halfHeight = cam.orthographicSize;
+        float halfWidth = halfHeight * cam.aspect;
+
+        float margin = 0.5f;
+
+        pos.x = Mathf.Clamp(
+            pos.x,
+            cam.transform.position.x - halfWidth + margin,
+            cam.transform.position.x + halfWidth - margin);
+
+        pos.y = Mathf.Clamp(
+            pos.y,
+            cam.transform.position.y - halfHeight + margin,
+            cam.transform.position.y + halfHeight - margin);
         Debug.Log($"Area:{area} Count:{spawnCountInArea} Pos:{pos}");
         return pos;
     }
