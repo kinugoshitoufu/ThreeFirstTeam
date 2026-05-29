@@ -104,43 +104,43 @@ public class PlayerScript : MonoBehaviour
         PlayerScale = transform.localScale;
         playerState = PlayerState.start;
         isMove = false;
-         instance = this;
+        instance = this;
         TempSpeed = movespeed;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift))
-        //{
-        //    if (Input.GetKeyDown(KeyCode.R))
-        //    {
-        //        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        //    }
-        //    if (Input.GetKeyDown(KeyCode.T))
-        //    {
-        //        combocount++;
-        //        combotimecount = 0.0f;
-        //    }
-        //    if (Input.GetKeyDown(KeyCode.Y))
-        //    {
-        //        control = 0;
-        //        Debug.Log("コントローラー操作に変更しました");
-        //    }
-        //    if (Input.GetKeyDown(KeyCode.U))
-        //    {
-        //        control = 1;
-        //        Debug.Log("キーボード操作に変更しました");
-        //    }
-        //    if (Input.GetKeyDown(KeyCode.I))
-        //    {
-        //        meshFlag = !meshFlag;
-        //    }
-        //    if (Input.GetKeyDown(KeyCode.O))
-        //    {
-        //        isMove = !isMove;
-        //    }
-        //}
+        if (Input.GetKey(KeyCode.LeftControl) && Input.GetKey(KeyCode.LeftShift))
+        {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            }
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                combocount++;
+                combotimecount = 0.0f;
+            }
+            if (Input.GetKeyDown(KeyCode.Y))
+            {
+                control = 0;
+                Debug.Log("コントローラー操作に変更しました");
+            }
+            if (Input.GetKeyDown(KeyCode.U))
+            {
+                control = 1;
+                Debug.Log("キーボード操作に変更しました");
+            }
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                meshFlag = !meshFlag;
+            }
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                isMove = !isMove;
+            }
+        }
 
         MoveAreaCheck();
         if (playerState == PlayerState.start)

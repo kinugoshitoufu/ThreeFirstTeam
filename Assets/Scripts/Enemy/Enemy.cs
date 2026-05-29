@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
     {
         if (collision.CompareTag("Player") && startFlag)
         {
-            
+            comboManager.SetEnemyPos(transform.position);
             Die();
         }
     }
@@ -49,7 +49,6 @@ public class Enemy : MonoBehaviour
         //死亡Effect
         Instantiate(deadEffect, transform.position, Quaternion.identity);
         //animator.Play(animName);
-        comboManager.SetEnemyPos(transform.position);
         OnDeath?.Invoke(this);
         Destroy(gameObject);
     }
