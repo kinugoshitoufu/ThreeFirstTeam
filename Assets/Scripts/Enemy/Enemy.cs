@@ -25,7 +25,8 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if (player != null&& isFlag&& startFlag&&FaverManeger.IsFaver)
+        Debug.Log(FaverManeger.IsFaver);
+        if (player != null&& isFlag&& startFlag&&!FaverManeger.IsFaver)
         {
             // プレイヤーの方向へ移動
             transform.position = Vector2.MoveTowards(
@@ -67,7 +68,6 @@ public class Enemy : MonoBehaviour
         startFlag = true;
         tag = "Enemy";
         enemy = GameObject.FindGameObjectWithTag("Enemy").transform;
-        Debug.Log(startFlag);
     }
     public static void IsMove(bool flag)
     {

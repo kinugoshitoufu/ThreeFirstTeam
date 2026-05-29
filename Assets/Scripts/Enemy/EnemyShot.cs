@@ -40,33 +40,36 @@ public class EnemyShot : Enemy
     
     void Shot()
     {
-        //Debug.Log("startFlag:" + startFlag);
-        //Debug.Log("isFlag:" + isFlag);
-        if (!isFlag&& !startFlag) return;
-        
-        Debug.Log(playerObj);
-        shotFrame += Time.deltaTime;
-        if (shotFrame > shotData.frame)
+        if (!FaverManeger.IsFaver)
         {
-            switch (shotData.type)
-            {
-                // プレイヤーを狙う
-                case ShotType.NORMAL:
-                    {
-                        if (playerObj == null) { break; }
-                        EnemyBullet bullet = (EnemyBullet)Instantiate(
-                            shotData.bullet,
-                            transform.position,
-                            Quaternion.identity
-                        );
-                        //bullet.SetMoveVec(playerObj.transform.position - transform.position);
-                        //bullet.SetMoveVec(dir);
+            //Debug.Log("startFlag:" + startFlag);
+            //Debug.Log("isFlag:" + isFlag);
+            if (!isFlag && !startFlag) return;
 
-                    }
-                    break;
+            Debug.Log(playerObj);
+            shotFrame += Time.deltaTime;
+            if (shotFrame > shotData.frame)
+            {
+                switch (shotData.type)
+                {
+                    // プレイヤーを狙う
+                    case ShotType.NORMAL:
+                        {
+                            if (playerObj == null) { break; }
+                            EnemyBullet bullet = (EnemyBullet)Instantiate(
+                                shotData.bullet,
+                                transform.position,
+                                Quaternion.identity
+                            );
+                            //bullet.SetMoveVec(playerObj.transform.position - transform.position);
+                            //bullet.SetMoveVec(dir);
+
+                        }
+                        break;
+                }
+                shotFrame = 0;
             }
-            shotFrame = 0;
-        }    
+        }
     }
     
     void Update()
