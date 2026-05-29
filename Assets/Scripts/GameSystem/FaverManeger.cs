@@ -8,8 +8,14 @@ public class FaverManeger : MonoBehaviour
     public float StartY = -213f;// ゲージ開始位置
     public float MaxY = 0f;// ゲージMAX位置
     public  int MaxCount = 15;// 最大カウント
-    private float FaverTime = 10f;//フィーバー時間
+    public float FaverTime = 10f;//フィーバー時間
+    private float MaxFaverTime;//フィーバー時間
     public static bool IsFaver=false;
+    
+    void Start()
+    {
+        MaxFaverTime = FaverTime;
+    }
 
     void Update()
     {
@@ -31,6 +37,7 @@ public class FaverManeger : MonoBehaviour
             if(FaverTime<0)
             {
                 // リセット
+                FaverTime = MaxFaverTime;
                 FaverCount = 0;
                 IsFaver = false;
             }

@@ -24,6 +24,7 @@ public class EnemyShot : Enemy
     float shotFrame = 0;          //フレーム
     public float lifeTimer = 0f;
     public Animator enemyDeath2Animator;
+    private Combo comboManagerShot;
     //private bool startFlag = false;
     void Start()
     {
@@ -34,6 +35,7 @@ public class EnemyShot : Enemy
         //        playerObj = GameObject.Find("Player1");
         //        break;
         //}
+        comboManagerShot = FindAnyObjectByType<Combo>();
     }
     
     void Shot()
@@ -81,6 +83,7 @@ public class EnemyShot : Enemy
     {
         if (collision.CompareTag("Player") && startFlag)
         {
+            comboManagerShot.SetEnemyPos(transform.position);
             Die();
         }
     }
