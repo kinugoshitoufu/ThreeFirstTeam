@@ -44,7 +44,7 @@ public class PlayerScript : MonoBehaviour
     public SEData[] audios;
     public TriangleMesh triangleMesh;
     public GameObject ResultPanel;
-    public FaverManeger Favermaneger;
+    public FeverManeger Favermaneger;
 
     //ShotEffect
     public GameObject ShotEffect;
@@ -418,11 +418,11 @@ public class PlayerScript : MonoBehaviour
             //移動量を算出する
             animator.SetBool("WalkAnim", true);
             vec *= movespeed * Time.deltaTime;
-            if (FaverManeger.IsFaver)
+            if (FeverManeger.IsFever)
             {
                 movespeed = FeverSpeed;
             }
-            else if(!FaverManeger.IsFaver)
+            else if(!FeverManeger.IsFever)
             {
                 movespeed = TempSpeed;
             }

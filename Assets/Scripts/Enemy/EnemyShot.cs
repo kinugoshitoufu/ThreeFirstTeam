@@ -40,7 +40,7 @@ public class EnemyShot : Enemy
     
     void Shot()
     {
-        if (!FaverManeger.IsFaver)
+        if (!FeverManeger.IsFever)
         {
             //Debug.Log("startFlag:" + startFlag);
             //Debug.Log("isFlag:" + isFlag);
