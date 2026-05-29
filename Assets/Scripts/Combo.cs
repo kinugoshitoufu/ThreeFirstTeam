@@ -1,18 +1,20 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Combo : MonoBehaviour
 {
     public TextMeshProUGUI comboTextPrefab;
     public TextMeshProUGUI enemyTextPrefab;
-
     public RectTransform spawnPoint; // スポーン位置
     public RectTransform centerPoint; // 停止位置
     public PlayerScript playerscript;
     public GameObject comboUI;
     public Vector2 enemyPos;
     public Canvas targetCanvas;
+    public Image[] ComboAura;
+
 
     [Header("移動速度")]
     public float moveTime = 0.25f;
@@ -33,6 +35,7 @@ public class Combo : MonoBehaviour
 
     private bool isPlaying;
 
+
     // 画面上にいるテキスト
     private TextMeshProUGUI currentLeftText;
 
@@ -40,11 +43,16 @@ public class Combo : MonoBehaviour
     {
         oldcombo = 0;
         comboUI.SetActive(false);
+        for (int i = 0; i < ComboAura.Length; i++)
+        {
+            ComboAura[i].enabled = false;
+        }
     }
 
     void Update()
     {
         ComboCount();
+        RankAura();
     }
 
     public void SetEnemyPos(Vector2 pos)
@@ -321,5 +329,64 @@ public class Combo : MonoBehaviour
         }
 
         Destroy(text.gameObject);
+    }
+
+    private void RankAura()
+    {
+        //E
+        if (combo <= 10&&Enemy.isdead)
+        {
+            ComboAura[4].enabled = true;
+            Enemy.isdead = false;
+            //他全部非表示
+            ComboAura[3].enabled = false;
+            ComboAura[2].enabled = false;
+            ComboAura[1].enabled = false;
+            ComboAura[0].enabled = false;
+        }
+        //D
+        else if (combo <= 20 && Enemy.isdead)
+        {
+            ComboAura[3].enabled = true;
+            Enemy.isdead = false;
+            //他全部非表示
+            ComboAura[4].enabled = false;
+            ComboAura[2].enabled = false;
+            ComboAura[1].enabled = false;
+            ComboAura[0].enabled = false;
+        }
+        //C
+        else if (combo <= 30 && Enemy.isdead)
+        {
+            ComboAura[2].enabled = true;
+            Enemy.isdead = false;
+            //他全部非表示
+            ComboAura[4].enabled = false;
+            ComboAura[3].enabled = false;
+            ComboAura[1].enabled = false;
+            ComboAura[0].enabled = false;
+        }
+        //B
+        else if (combo <= 40 && Enemy.isdead)
+        {
+            ComboAura[1].enabled = true;
+            Enemy.isdead = false;
+            //他全部非表示
+            ComboAura[4].enabled = false;
+            ComboAura[3].enabled = false;
+            ComboAura[2].enabled = false;
+            ComboAura[0].enabled = false;
+        }
+        //A
+        else if (combo <= 50 && Enemy.isdead)
+        {
+            ComboAura[0].enabled = true;//A
+            Enemy.isdead = false;
+            //他全部非表示
+            ComboAura[4].enabled = false;
+            ComboAura[3].enabled = false;
+            ComboAura[2].enabled = false;
+            ComboAura[1].enabled = false;
+        }
     }
 }

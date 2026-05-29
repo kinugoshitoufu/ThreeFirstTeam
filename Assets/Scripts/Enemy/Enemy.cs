@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
     private Transform enemy;
     public static bool isFlag=true;
     public bool startFlag=false;
+    public static bool isdead = false;
     public GameObject deadEffect;
     public Animator enemyDeath1Animator;
     private Combo comboManager;
@@ -21,12 +22,12 @@ public class Enemy : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         //enemy = GameObject.FindGameObjectWithTag("Enemy").transform;
         comboManager = FindObjectOfType<Combo>();
+        isdead = false;
     }
 
     void Update()
     {
-        Debug.Log(FaverManeger.IsFaver);
-        if (player != null&& isFlag&& startFlag&&!FaverManeger.IsFaver)
+        if (player != null&& isFlag&& startFlag&&!FeverManeger.IsFever)
         {
             // プレイヤーの方向へ移動
             transform.position = Vector2.MoveTowards(
@@ -51,10 +52,11 @@ public class Enemy : MonoBehaviour
         Debug.Log("敵消滅");
         //死亡Effect
         Instantiate(deadEffect, transform.position, Quaternion.identity);
+        isdead = true;
         //animator.Play(animName);
-        OnDeath?.Invoke(this);
         Destroy(gameObject);
     }
+
     //public void NDie()
     //{
     //    Debug.Log("敵消滅");
