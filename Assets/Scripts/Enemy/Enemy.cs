@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if (player != null&& isFlag&& startFlag&&!FaverManeger.IsFaver)
+        if (player != null&& isFlag&& startFlag&&FaverManeger.IsFaver)
         {
             // プレイヤーの方向へ移動
             transform.position = Vector2.MoveTowards(
@@ -35,6 +35,7 @@ public class Enemy : MonoBehaviour
             );
         }
     }
+
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player") && startFlag)
@@ -43,6 +44,7 @@ public class Enemy : MonoBehaviour
             Die();
         }
     }
+
     public void Die()
     {
         Debug.Log("敵消滅");
