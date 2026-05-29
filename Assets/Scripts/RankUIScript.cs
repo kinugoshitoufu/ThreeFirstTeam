@@ -9,10 +9,11 @@ public class RankUIScript : MonoBehaviour
     public RectTransform RankRect;
     public GameObject RankParticle;
     public new UnityEngine.Camera camera;
-    private bool ParticleFlag = false;
+    [SerializeField] private Sprite temp = null;
     void Start()
     {
         rankUI.SetActive(false);
+        temp = Rankimage.sprite;
     }
 
     // Update is called once per frame
@@ -24,53 +25,33 @@ public class RankUIScript : MonoBehaviour
             if (PlayerScript.instance.GetRank() == "A")
             {
                 Rankimage.sprite = numbers[4];
-                if (!ParticleFlag)
-                {
-                    SpawnRankParticle();
-                    ParticleFlag = true;
-                }
             }
             if (PlayerScript.instance.GetRank() == "B")
             {
                 Rankimage.sprite = numbers[3];
-                if (!ParticleFlag)
-                {
-                    SpawnRankParticle();
-                    ParticleFlag = true;
-                }
             }
             if (PlayerScript.instance.GetRank() == "C")
             {
                 Rankimage.sprite = numbers[2];
-                if (!ParticleFlag)
-                {
-                    SpawnRankParticle();
-                    ParticleFlag = true;
-                }
             }
             if (PlayerScript.instance.GetRank() == "D")
             {
                 Rankimage.sprite = numbers[1];
-                if (!ParticleFlag)
-                {
-                    SpawnRankParticle();
-                    ParticleFlag = true;
-                }
             }
             if (PlayerScript.instance.GetRank() == "E")
             {
                 Rankimage.sprite = numbers[0];
-                if (!ParticleFlag)
-                {
-                    SpawnRankParticle();
-                    ParticleFlag = true;
-                }
             }
         }
         else
         {
             rankUI.SetActive(false);
-            ParticleFlag = false;
+        }
+        if (temp != Rankimage.sprite)
+        {
+            Debug.Log("image to temp image");
+            SpawnRankParticle();
+            temp = Rankimage.sprite;
         }
     }
 

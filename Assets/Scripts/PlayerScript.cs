@@ -46,6 +46,12 @@ public class PlayerScript : MonoBehaviour
     public GameObject ResultPanel;
     public FaverManeger Favermaneger;
 
+    //ShotEffect
+    public GameObject ShotEffect;
+    public GameObject TrailShotEffect;
+    public float TrailEffectDelay = 0.15f;
+    private float TrailEffectDelayTimer;
+
     //操作によって変更
     private int control = 0;//操作方法の変更
 
@@ -73,6 +79,15 @@ public class PlayerScript : MonoBehaviour
     public EnemySpawner1 enemyspawner;
     public float fallSpeed = 0.0f;
     public bool isFalling = false;
+
+    //test
+    //[SerializeField] private float rotateSpeed = 180f; // 1秒あたりの回転角度
+    [SerializeField] private float steerForce = 10f;
+    [SerializeField] private float maxSpeed = 15f; // 速度上限
+    [SerializeField] private float steerDelay = 0.15f; // 突撃直後の入力無効時間（秒）
+
+    [SerializeField] private float steerTimer = 0f;
+    [SerializeField] private bool canSteer = false;
 
     //川本こうせいが追加した変数
     public GameObject startEnemy;
@@ -106,6 +121,9 @@ public class PlayerScript : MonoBehaviour
         isMove = false;
         instance = this;
         TempSpeed = movespeed;
+        //test
+        steerTimer = 0f;
+        canSteer = false;
     }
 
     // Update is called once per frame
@@ -193,8 +211,16 @@ public class PlayerScript : MonoBehaviour
         if (shotFlag)
         {
             shottimecount += Time.deltaTime;
+            TrailEffectDelayTimer += Time.deltaTime;
+            if (TrailEffectDelay <= TrailEffectDelayTimer)
+            {
+                Quaternion rot = transform.rotation;
+                Instantiate(TrailShotEffect, transform.position, transform.rotation);
+                TrailEffectDelayTimer = 0.0f;
+            }
             rb.gravityScale = 0.0f;
         }
+            
         if (shottime < shottimecount)
         {
             shotFlag = false;
@@ -265,6 +291,108 @@ public class PlayerScript : MonoBehaviour
             transform.position += Vector3.down * fallSpeed * Time.deltaTime;
             return;
         }
+    }
+
+    void FixedUpdate()
+    {
+        if (shotFlag)
+        {
+            /*
+            float input = 0f;
+
+            if (Input.GetKey(KeyCode.LeftArrow)) input = 1f;
+            if (Input.GetKey(KeyCode.RightArrow)) input = -1f;
+
+            if (input != 0f)
+            {
+                // 速度の向きを回転させる
+                float angle = input * rotateSpeed * Time.fixedDeltaTime;
+                rb.linearVelocity = Quaternion.Euler(0, 0, angle) * rb.linearVelocity;
+
+                // オブジェクトの向きも合わせる場合
+                transform.rotation = Quaternion.Euler(0, 0,
+                    Mathf.Atan2(rb.linearVelocity.y, rb.linearVelocity.x) * Mathf.Rad2Deg);
+            }
+
+            float input = Input.GetAxisRaw("Horizontal");
+
+            if (input != 0f)
+            {
+                // 現在の進行方向に対して垂直な方向に力を加える
+                Vector2 forward = rb.linearVelocity.normalized;
+                Vector2 perpendicular = new Vector2(-forward.y, forward.x);
+
+                rb.AddForce(perpendicular * input * -steerForce);
+
+                // 速度上限を設ける（加速しすぎ防止）
+                if (rb.linearVelocity.magnitude > maxSpeed)
+                    rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
+            }
+            // velocityの向きにオブジェクトを回転
+            if (rb.linearVelocity.sqrMagnitude > 0.01f)
+            {
+                float rotAngle = Mathf.Atan2(rb.linearVelocity.y, rb.linearVelocity.x) * Mathf.Rad2Deg - 90f;
+                transform.rotation = Quaternion.Euler(0f, 0f, rotAngle);
+            }
+            */
+
+            // ディレイのカウント
+            if (!canSteer)
+            {
+                steerTimer += Time.fixedDeltaTime;
+                if (steerTimer >= steerDelay)
+                    canSteer = true;
+            }
+            if (control == 0 && Input.GetKey("joystick button 2"))
+            {
+                Debug.Log("コントローラー突撃角度変化");
+                // 操舵
+                if (canSteer)
+                {
+                    float input = Input.GetAxisRaw("Horizontal");
+
+                    if (input != 0f)
+                    {
+                        Vector2 forward = rb.linearVelocity.normalized;
+                        Vector2 perpendicular = new Vector2(-forward.y, forward.x);
+
+                        rb.AddForce(perpendicular * input * -steerForce);
+
+                        if (rb.linearVelocity.magnitude > maxSpeed)
+                            rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
+                    }
+                }
+            }
+            if (control == 1 && Input.GetKey(KeyCode.Z))
+            {
+                Debug.Log("コントローラー突撃角度変化");
+                // 操舵
+                if (canSteer)
+                {
+                    float input = Input.GetAxisRaw("Horizontal");
+
+                    if (input != 0f)
+                    {
+                        Vector2 forward = rb.linearVelocity.normalized;
+                        Vector2 perpendicular = new Vector2(-forward.y, forward.x);
+
+                        rb.AddForce(perpendicular * input * -steerForce);
+
+                        if (rb.linearVelocity.magnitude > maxSpeed)
+                            rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
+                    }
+                }
+            }
+            
+
+            // 進行方向に見た目を回転させる
+            if (rb.linearVelocity.sqrMagnitude > 0.01f)
+            {
+                float angle = Mathf.Atan2(rb.linearVelocity.y, rb.linearVelocity.x) * Mathf.Rad2Deg - 90f;
+                transform.rotation = Quaternion.Euler(0f, 0f, angle);
+            }
+        }
+        
     }
 
     void Move()
@@ -361,12 +489,15 @@ public class PlayerScript : MonoBehaviour
 
     void shot()
     {
+        steerTimer = 0.0f;
+        canSteer = false;
         audioSource.PlayOneShot(audios[0].clip, audios[0].SEvolume);
         rb.linearVelocity *= 0.0f;
         rb.AddForce(Arrow.transform.up * Shotspeed, ForceMode2D.Impulse);
         shotFlag = true;
         transform.rotation = Arrow.transform.rotation;
         Arrow.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
+        Instantiate(ShotEffect,transform.position,Quaternion.identity);
         animator.SetBool("ShootingAnim", true);
         animator.Play("PlayerShot", 0, 0.0f);
         if (combocount >= combocountRank * 5)
@@ -420,16 +551,21 @@ public class PlayerScript : MonoBehaviour
         if (pos.y < -moveArea.y)
         {
             pos.y = -moveArea.y;
-            if (rb.linearVelocityY < 0)
+
+            if (!shotFlag)
             {
-                rb.linearVelocityY = 0.0f;
+                if (rb.linearVelocityY < 0)
+                {
+                    rb.linearVelocityY = 0.0f;
+                }
+                if (shotCount < 1)
+                {
+                    shotCount = 1;
+                }
+                shotboxflag = false;
             }
-            if (shotCount < 1)
-            {
-                shotCount = 1;
-            }
+            
             //animator.SetBool("FallAnim", false);
-            shotboxflag = false;
             //Debug.Log("これ");
             //vec.y = -vec.y;
             //vec *= 0.0f;
