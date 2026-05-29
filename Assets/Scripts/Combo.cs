@@ -1,7 +1,9 @@
 using System.Collections;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Rendering.BoolParameter;
 
 public class Combo : MonoBehaviour
 {
@@ -15,7 +17,8 @@ public class Combo : MonoBehaviour
     public Canvas targetCanvas;
     public Image[] ComboAura;
     private int comboThreshold = 0;
-
+    public float auratimer = 2f;
+    private Coroutine auraCoroutine;
 
     [Header("移動速度")]
     public float moveTime = 0.25f;
@@ -35,6 +38,15 @@ public class Combo : MonoBehaviour
     private int oldTensDigit = 0;
 
     private bool isPlaying;
+
+    [Header("表示時間")]
+    public float displayTime = 1f;
+
+    [Header("フェードイン速度")]
+    public float fadeInSpeed = 2f;
+
+    [Header("フェードアウト速度")]
+    public float fadeOutSpeed = 2f;
 
 
     // 画面上にいるテキスト
@@ -162,8 +174,7 @@ public class Combo : MonoBehaviour
     void SpawnEnemyText(Vector2 worldPos, int comboValue)
     {
         // ワールド座標 → スクリーン座標
-        Vector2 screenPos =
-            Camera.main.WorldToScreenPoint(worldPos);
+        Vector2 screenPos =Camera.main.WorldToScreenPoint(worldPos);
 
         // UI生成
         TextMeshProUGUI text = Instantiate(
@@ -173,8 +184,7 @@ public class Combo : MonoBehaviour
 
         RectTransform rect = text.rectTransform;
 
-        RectTransform canvasRect =
-            targetCanvas.transform as RectTransform;
+        RectTransform canvasRect = targetCanvas.transform as RectTransform;
 
         // スクリーン座標 → Canvas座標
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -277,8 +287,7 @@ public class Combo : MonoBehaviour
             t = Mathf.SmoothStep(0f, 1f, t);
 
             // 移動
-            rect.anchoredPosition =
-                Vector2.Lerp(startPos, targetPos, t);
+            rect.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
 
             // スケール
             float scale =
@@ -340,60 +349,85 @@ public class Combo : MonoBehaviour
 
     private void RankAura()
     {
-        //E
-        if (combo <= 10&&Enemy.isdead)
+        // E
+        if (combo <= 10 && Enemy.isdead)
         {
-            ComboAura[4].enabled = true;
-            Enemy.isdead = false;
-            //他全部非表示
-            ComboAura[3].enabled = false;
-            ComboAura[2].enabled = false;
-            ComboAura[1].enabled = false;
-            ComboAura[0].enabled = false;
+            ShowAura(4);
         }
-        //D
+        // D
         else if (combo <= 20 && Enemy.isdead)
         {
-            ComboAura[3].enabled = true;
-            Enemy.isdead = false;
-            //他全部非表示
-            ComboAura[4].enabled = false;
-            ComboAura[2].enabled = false;
-            ComboAura[1].enabled = false;
-            ComboAura[0].enabled = false;
+            ShowAura(3);
         }
-        //C
+        // C
         else if (combo <= 30 && Enemy.isdead)
         {
-            ComboAura[2].enabled = true;
-            Enemy.isdead = false;
-            //他全部非表示
-            ComboAura[4].enabled = false;
-            ComboAura[3].enabled = false;
-            ComboAura[1].enabled = false;
-            ComboAura[0].enabled = false;
+            ShowAura(2);
         }
-        //B
+        // B
         else if (combo <= 40 && Enemy.isdead)
         {
-            ComboAura[1].enabled = true;
-            Enemy.isdead = false;
-            //他全部非表示
-            ComboAura[4].enabled = false;
-            ComboAura[3].enabled = false;
-            ComboAura[2].enabled = false;
-            ComboAura[0].enabled = false;
+            ShowAura(1);
         }
-        //A
+        // A
         else if (combo <= 50 && Enemy.isdead)
         {
-            ComboAura[0].enabled = true;//A
-            Enemy.isdead = false;
-            //他全部非表示
-            ComboAura[4].enabled = false;
-            ComboAura[3].enabled = false;
-            ComboAura[2].enabled = false;
-            ComboAura[1].enabled = false;
+            ShowAura(0);
         }
+    }
+
+    void ShowAura(int index)
+    {
+        Enemy.isdead = false;
+
+        // 全部消す
+        for (int i = 0; i < ComboAura.Length; i++)
+        {
+            ComboAura[i].enabled = false;
+        }
+
+        // 対象だけ表示
+        ComboAura[index].enabled = true;
+
+        // Aura用Coroutineだけ止める
+        if (auraCoroutine != null)
+        {
+            StopCoroutine(auraCoroutine);
+        }
+
+        auraCoroutine =
+            StartCoroutine(FadeAura(ComboAura[index]));
+    }
+
+    IEnumerator FadeAura(Image aura)
+    {
+        Color color = aura.color;
+
+        // 最初は透明
+        color.a = 0f;
+        aura.color = color;
+
+        // フェードイン
+        while (color.a < 1f)
+        {
+            color.a += Time.deltaTime * fadeInSpeed;
+            aura.color = color;
+
+            yield return null;
+        }
+
+        // 表示維持
+        yield return new WaitForSeconds(displayTime);
+
+        // フェードアウト
+        while (color.a > 0f)
+        {
+            color.a -= Time.deltaTime * fadeOutSpeed;
+            aura.color = color;
+
+            yield return null;
+        }
+
+        aura.enabled = false;
     }
 }
