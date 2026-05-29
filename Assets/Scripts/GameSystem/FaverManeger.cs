@@ -6,8 +6,8 @@ public class FaverManeger : MonoBehaviour
     public int FaverCount = 0;
     public RectTransform GageImage;
     public float StartY = -213f;// ゲージ開始位置
-    public float MaxY = 0f;// ゲージMAX位置
-    public  int MaxCount = 15;// 最大カウント
+    public float MaxY = 0f;// ゲージMAXになった時の位置
+    public  int MaxCount = 15;// フィーバー状態になるコンボ数
     public float FaverTime = 10f;//フィーバー時間
     private float MaxFaverTime;//フィーバー時間
     public static bool IsFaver=false;
@@ -32,7 +32,7 @@ public class FaverManeger : MonoBehaviour
         if (FaverCount >= MaxCount)
         {
             IsFaver = true;
-            Debug.Log("フィーバー状態!!!!");
+            Debug.Log("フィーバー状態");
             FaverTime-= Time.deltaTime;
             if(FaverTime<0)
             {
