@@ -64,11 +64,23 @@ public class EnemySpawner2 : MonoBehaviour
     [Header("敵レイヤー")]
     public LayerMask enemyLayer;
 
+    //EnemySpawnOption option;
+    private int spawnCountInArea = 0;
+    private AreaType currentArea;
+
+    [Header("始点の距離調整")]
+    public float offset = 2f;
+
     //敵がその位置にいるかを確認
     bool CanSpawn(Vector3 pos)
     {
         Collider2D hit = Physics2D.OverlapCircle(pos,enemyCheckRadius,enemyLayer);
-    
+
+        if (hit != null)
+        {
+            Debug.Log(
+                $"当たった:{hit.name} 位置:{hit.transform.position}");
+        }
         return hit == null;
     }
     //========================================================
@@ -265,77 +277,101 @@ public class EnemySpawner2 : MonoBehaviour
         return pos;
     }
     */
-    Vector3 GetLineSpawnPosition(AreaType area)
+    Vector3 GetLineSpawnPosition()
     {
-        Vector3 start = Vector3.zero;
-        Vector3 middle = Vector3.zero;
-        Vector3 end = Vector3.zero;
+        AreaType area = GetPlayerArea();
+
+        Vector3 dir = Vector3.zero;
 
         switch (area)
         {
-            case AreaType.Left:
-
-                // 右から左へ
-                start = new Vector3(Maxrange.x, Maxrange.y, 0);
-                middle = new Vector3(Maxrange.x, 0, 0);
-                end = new Vector3(Maxrange.x, -Maxrange.y, 0);
-
-                break;
-
-            case AreaType.Right:
-
-                // 左から右へ
-                start = new Vector3(-Maxrange.x, Maxrange.y, 0);
-                middle = new Vector3(-Maxrange.x, 0, 0);
-                end = new Vector3(-Maxrange.x, -Maxrange.y, 0);
-
+            case AreaType.LeftTop:
+                dir = new Vector3(1, -1, 0).normalized;
                 break;
 
             case AreaType.Top:
+                dir = Vector3.down;
+                break;
 
-                // 下から上へ
-                start = new Vector3(-Maxrange.x, -Maxrange.y, 0);
-                middle = new Vector3(0, -Maxrange.y, 0);
-                end = new Vector3(Maxrange.x, -Maxrange.y, 0);
+            case AreaType.RightTop:
+                dir = new Vector3(-1, -1, 0).normalized;
+                break;
 
+            case AreaType.Left:
+                dir = Vector3.right;
+                break;
+
+            case AreaType.Center:
+
+                // 真ん中は右へ
+                dir = Vector3.right;
+                break;
+
+            case AreaType.Right:
+                dir = Vector3.left;
+                break;
+
+            case AreaType.LeftBottom:
+                dir = new Vector3(1, 1, 0).normalized;
                 break;
 
             case AreaType.Bottom:
+                dir = Vector3.up;
+                break;
 
-                // 上から下へ
-                start = new Vector3(-Maxrange.x, Maxrange.y, 0);
-                middle = new Vector3(0, Maxrange.y, 0);
-                end = new Vector3(Maxrange.x, Maxrange.y, 0);
-
+            case AreaType.RightBottom:
+                dir = new Vector3(-1, 1, 0).normalized;
                 break;
         }
 
+        // プレイヤーから少し離す
+        Vector3 start = player.position + dir * 2f;
+
+        // ライン長さ
+        float lineLength = 8f;
+
+        Vector3 end = start + dir * lineLength;
+
         Vector3 pos;
 
-        // 0～6
-        if (linespawnCount < 7)
+        if (spawnCountInArea < 7)
         {
-            float t = linespawnCount / 6f;
+            float t = spawnCountInArea / 6f;
+
+            Vector3 middle =
+                Vector3.Lerp(start, end, 0.5f);
 
             pos = Vector3.Lerp(start, middle, t);
         }
         else
         {
-            // 7～13
-            float t = (linespawnCount - 7) / 6f;
+            float t = (spawnCountInArea - 7) / 6f;
+
+            Vector3 middle =
+                Vector3.Lerp(start, end, 0.5f);
 
             pos = Vector3.Lerp(middle, end, t);
         }
 
-        linespawnCount++;
+        spawnCountInArea++;
 
-        if (linespawnCount >= 14)
+        if (spawnCountInArea >= 14)
         {
-            linespawnCount = 0;
+            spawnCountInArea = 0;
         }
-
-        return transform.position + pos;
+        Debug.Log($"Area:{area} Count:{spawnCountInArea} Pos:{pos}");
+        return pos;
     }
+
+    //void NextLinePoint()
+    //{
+    //    linespawnCount++;
+    //
+    //    if (linespawnCount >= 14)
+    //    {
+    //        linespawnCount = 0;
+    //    }
+    //}
     //========================================================
     // 出現数抽選
     //========================================================
@@ -421,39 +457,45 @@ public class EnemySpawner2 : MonoBehaviour
     //========================================================
     void Update()
     {
-        if (StartSpawnFlag)SpawnFirst();
-        AreaType currentArea = GetPlayerArea();
+        if (StartSpawnFlag)
+            SpawnFirst();
 
-        //エリア変わったらリセット
-        if (currentArea != beforeArea)
+        AreaType area = GetPlayerArea();
+
+        if (area != currentArea)
         {
-            linespawnCount = 0;
-            beforeArea = currentArea;
+            currentArea = area;
+            spawnCountInArea = 0;
         }
     }
 
     void SpawnFirst()
     {
-        Debug.Log("SpawnFirst");
-
-        if (!StartSpawnFlag)
+        if (!StartSpawnFlag)return;
+        EnemySpawnOption option = GetRandomOption();
+        if(option == null)
+        {
+            Debug.LogError("option が null");
             return;
-
+        }
+        Debug.Log($"敵:{option.enemyPrefab.name}");
+        Debug.Log($"SpawnCount = {option.spawnCount}");
         Debug.Log("スポーン開始");
 
-        EnemySpawnOption option = GetRandomOption();
-
-        AreaType area = GetSpawnArea();
+        //EnemySpawnOption option = spawnOptions[0];
+        AreaType area = GetPlayerArea();
 
         for (int i = 0; i < option.spawnCount; i++)
         {
-            Vector3 pos = GetLineSpawnPosition(area);
+            Debug.Log($"i = {i}");
+            Vector3 pos = GetLineSpawnPosition();
 
             GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
 
             Enemy enemy = obj.GetComponent<Enemy>();
 
             Register(enemy);
+            //NextLinePoint();
         }
 
         StartSpawnFlag = false;
@@ -486,6 +528,7 @@ public class EnemySpawner2 : MonoBehaviour
 
     IEnumerator SpawnAfterDelay(float delay)
     {
+        
         isSpawning = true;
 
         yield return new WaitForSeconds(delay);
@@ -504,16 +547,31 @@ public class EnemySpawner2 : MonoBehaviour
 
                 yield break;
             }
-
             EnemySpawnOption option = GetRandomOption();
 
-            AreaType area = GetSpawnArea();
+            if (option == null)
+            {
+                Debug.LogError("option が null");
+                continue;
+            }
 
-            Vector3 pos = GetLineSpawnPosition(area);
+            Vector3 pos = GetLineSpawnPosition();
+            if (!CanSpawn(pos))
+            {
+                Debug.Log("敵がいるのでスキップ");
+                //NextLinePoint();
+                continue;
+            }
+            GameObject obj = Instantiate(option.enemyPrefab, pos, Quaternion.identity);
 
+            Enemy enemy = obj.GetComponent<Enemy>();
+
+            Register(enemy);
+
+            yield return new WaitForSeconds(0.2f);
+            /*
             // 敵がいるなら別位置を探す
             int tryCount = 0;
-
             while (!CanSpawn(pos) && tryCount < 20)
             {
                 pos = GetLineSpawnPosition(area);
@@ -525,15 +583,8 @@ public class EnemySpawner2 : MonoBehaviour
             {
                 continue;
             }
-
-            GameObject obj =
-                Instantiate(option.enemyPrefab, pos, Quaternion.identity);
-
-            Enemy enemy = obj.GetComponent<Enemy>();
-
-            Register(enemy);
-
-            yield return new WaitForSeconds(0.2f);
+            */
+            //NextLinePoint();
         }
 
         isSpawning = false;
@@ -544,6 +595,7 @@ public class EnemySpawner2 : MonoBehaviour
 
             StartCoroutine(SpawnAfterDelay(newDelay));
         }
+        
     }
 
     //========================================================
