@@ -41,6 +41,7 @@ public class PlayerScript : MonoBehaviour
     public float DamageTime = 0.5f;
     public float TriangleFixX;
     public float TriangleFixY;
+    public int maxcombo = 0;
     public SEData[] audios;
     public TriangleMesh triangleMesh;
     public GameObject ResultPanel;
@@ -71,10 +72,12 @@ public class PlayerScript : MonoBehaviour
     private bool meshFlag = true;
     private float DamageTimeCount = 0.0f;
     private bool DamageFlag;
-    public int maxcombo = 0;
+    [SerializeField] private bool EnemyKillFlag = false;
     [SerializeField] private float shottimecount = 0.0f;
     [SerializeField] private float combotimecount = 0.0f;
     private Rigidbody2D rb;
+
+    //EnemySpawner
     public static bool isMove = false;
     public EnemySpawner1 enemyspawner;
     public float fallSpeed = 0.0f;
@@ -290,6 +293,10 @@ public class PlayerScript : MonoBehaviour
         {
             transform.position += Vector3.down * fallSpeed * Time.deltaTime;
             return;
+        }
+        if (EnemyKillFlag)
+        {
+            Debug.Log("EnemyKillFlag立ったｿﾞｫ");
         }
     }
 
@@ -687,7 +694,14 @@ public class PlayerScript : MonoBehaviour
     {
         return rank;
     }
-
+    public float GetTimeUp()
+    {
+        return timeup;
+    }
+    public bool GetEnemyKillFlag()
+    {
+        return EnemyKillFlag;
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Ground"))
@@ -733,6 +747,7 @@ public class PlayerScript : MonoBehaviour
             {
                 //  shaking();
                 //Destroy(collision.gameObject);
+                EnemyKillFlag = true;
                 Favermaneger.FaverCount++;
                 audioSource.PlayOneShot(audios[2].clip, audios[2].SEvolume);
                 combocount++;
@@ -742,6 +757,7 @@ public class PlayerScript : MonoBehaviour
                 Instantiate(particle, transform.position, Quaternion.identity);
                 gravity -= fallspeed / downfallspeed;
                 Timescript.limitTime += timeup;
+                TimerCountUpAnimScript.Instance.PlayAnimation("+" + timeup.ToString("F1"));
             }
             else
             {
@@ -768,6 +784,7 @@ public class PlayerScript : MonoBehaviour
                 if (shotFlag)
                 {
                     //  shaking();
+                    EnemyKillFlag = true;
                     Destroy(collision.gameObject);
                     audioSource.PlayOneShot(audios[2].clip, audios[2].SEvolume);
                     SoundManager2.instance.PlayBGM(0);
@@ -779,6 +796,7 @@ public class PlayerScript : MonoBehaviour
                     Instantiate(particle, transform.position, Quaternion.identity);
                     gravity -= fallspeed / downfallspeed;
                     Timescript.limitTime += timeup;
+                    TimerCountUpAnimScript.Instance.PlayAnimation("+" + timeup.ToString("F1"));
                 }
                 else
                 {
@@ -820,6 +838,14 @@ public class PlayerScript : MonoBehaviour
         if (collision.CompareTag("Ground"))
         {
             animator.SetBool("FallAnim", true);
+        }
+        if (collision.CompareTag("Enemy"))
+        {
+            EnemyKillFlag = false;
+        }
+        if (collision.CompareTag("StartEnemy"))
+        {
+            EnemyKillFlag = false;
         }
     }
 
