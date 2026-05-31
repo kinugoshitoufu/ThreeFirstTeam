@@ -159,7 +159,17 @@ public class PlayerScript : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.O))
             {
-                isMove = !isMove;
+                Debug.Log("timescale変化");
+                if (Time.timeScale == 1.0f)
+                {
+                    Time.timeScale = 0.0f;
+                    Debug.Log("timescale変化 = 0");
+                }
+                else if (Time.timeScale == 0.0f)
+                {
+                    Time.timeScale = 1.0f;
+                    Debug.Log("timescale変化 = 1");
+                }
             }
         }
 

@@ -32,6 +32,7 @@ public class SoundManager2 : MonoBehaviour
             seAudios[i].loop = false;
             seAudios[i].playOnAwake = false;
             seAudios[i].spatialBlend = 0f;
+            seAudios[i].ignoreListenerPause = true;
         }
         for (int i = 0; i < maxBgmAudio; i++)
         {
@@ -40,6 +41,7 @@ public class SoundManager2 : MonoBehaviour
             bgmAudios[i].loop = true;
             bgmAudios[i].playOnAwake = false;
             bgmAudios[i].spatialBlend = 0f;
+            bgmAudios[i].ignoreListenerPause = true;
         }
     }
 
