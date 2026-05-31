@@ -1364,9 +1364,9 @@ RectTransform:
   - {fileID: 453134622}
   - {fileID: 1050202424}
   - {fileID: 1540136548}
+  - {fileID: 1381135778}
   - {fileID: 390307033}
   - {fileID: 1442383177}
-  - {fileID: 1381135778}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1847,11 +1847,16 @@ MonoBehaviour:
   comboUI: {fileID: 917450460}
   enemyPos: {x: 0, y: 0}
   targetCanvas: {fileID: 623407621}
+  ComboAura: []
+  auratimer: 2
   moveTime: 0.25
   startScale: 0.5
   endScale: 2
   startAlpha: 0
   destroyTime: 0.3
+  displayTime: 1
+  fadeInSpeed: 2
+  fadeOutSpeed: 2
 --- !u!114 &1001300665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2779,7 +2784,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -20, y: -2198}
+  m_AnchoredPosition: {x: -20, y: -2201}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1513555679

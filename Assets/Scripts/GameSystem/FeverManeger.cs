@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FaverManeger : MonoBehaviour
+public class FeverManeger : MonoBehaviour
 {
     public int FaverCount = 0;
     public RectTransform GageImage;
@@ -10,7 +10,7 @@ public class FaverManeger : MonoBehaviour
     public  int MaxCount = 15;// フィーバー状態になるコンボ数
     public float FaverTime = 10f;//フィーバー時間
     private float MaxFaverTime;//フィーバー時間
-    public static bool IsFaver=false;
+    public static bool IsFever=false;
     
     void Start()
     {
@@ -31,7 +31,7 @@ public class FaverManeger : MonoBehaviour
         // フィーバー
         if (FaverCount >= MaxCount)
         {
-            IsFaver = true;
+            IsFever = true;
             Debug.Log("フィーバー状態");
             FaverTime-= Time.deltaTime;
             if(FaverTime<0)
@@ -39,7 +39,7 @@ public class FaverManeger : MonoBehaviour
                 // リセット
                 FaverTime = MaxFaverTime;
                 FaverCount = 0;
-                IsFaver = false;
+                IsFever = false;
             }
         }
     }

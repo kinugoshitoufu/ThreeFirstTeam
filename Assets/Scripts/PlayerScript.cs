@@ -652,6 +652,14 @@ public class PlayerScript : MonoBehaviour
     {
         return shotCount;
     }
+    public float GetShotTimeCount()
+    {
+        return shottimecount;
+    }
+    public float GetShotTime()
+    {
+        return shottime;
+    }
 
     public int GetComboCount()
     {
