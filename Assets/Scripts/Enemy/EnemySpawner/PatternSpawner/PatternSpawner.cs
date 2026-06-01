@@ -63,10 +63,10 @@ public class PatternSpawner : MonoBehaviour
         int patternCount = Mathf.Max(1, EnemyCounter.KillCount / 10 + 1);
         int totalEnemyCount = pattern.enemyCount * patternCount;
 
+        Debug.Log($"Enemy数:{enemies.Length} " + $"enemyCount:{pattern.enemyCount} " + $"patternCount:{patternCount} " + $"totalEnemyCount:{totalEnemyCount} " + $"maxEnemyCount:{maxEnemyCount}");
         if (enemies.Length >= maxEnemyCount)
         {
             Debug.Log("敵数上限のためスポーン中止");
-            Debug.Log($"Enemy数:{enemies.Length} " + $"enemyCount:{pattern.enemyCount} " + $"patternCount:{patternCount} " + $"totalEnemyCount:{totalEnemyCount} " + $"maxEnemyCount:{maxEnemyCount}");
             return;
         }
         for (int i = 0; i < patternCount; i++)

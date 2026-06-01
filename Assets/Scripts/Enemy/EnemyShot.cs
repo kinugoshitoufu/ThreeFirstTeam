@@ -72,14 +72,6 @@ public class EnemyShot : Enemy
     void Update()
     {
         Shot();
-        if(FeverManeger.IsFever)
-        {
-            Bullet.bulletspeed = 0f;
-        }
-        else if(!FeverManeger.IsFever)
-        {
-            Bullet.bulletspeed = Bullet.defaultSpeed;
-        }
 
         //lifeTimer += Time.deltaTime;
         //if (lifeTimer > 5f)

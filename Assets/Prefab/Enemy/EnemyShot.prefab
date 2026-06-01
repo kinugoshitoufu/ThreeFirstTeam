@@ -185,7 +185,7 @@ MonoBehaviour:
   speed: 3
   startFlag: 0
   deadEffect: {fileID: 5829252232034291361, guid: 229126c5c4b5c914caf63b769862960f, type: 3}
-  enemyDeath1Animator: {fileID: 0}
+  enemyDeath1Animator: {fileID: 7631487517270949821}
   shotData:
     frame: 3
     type: 1
