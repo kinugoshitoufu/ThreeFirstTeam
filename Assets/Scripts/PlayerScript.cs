@@ -45,6 +45,7 @@ public class PlayerScript : MonoBehaviour
     public SEData[] audios;
     public TriangleMesh triangleMesh;
     public GameObject ResultPanel;
+    public GameObject FeverEffect;
     public FeverManeger Favermaneger;
 
     //ShotEffect
@@ -82,7 +83,7 @@ public class PlayerScript : MonoBehaviour
 
     //EnemySpawner
     public static bool isMove = false;
-    public WaveManager enemyspawner;
+    //public WaveManager enemyspawner;
     public float fallSpeed = 0.0f;
     public bool isFalling = false;
 
@@ -333,6 +334,18 @@ public class PlayerScript : MonoBehaviour
         {
             transform.position += Vector3.down * fallSpeed * Time.deltaTime;
             return;
+        }
+        if (FeverManeger.IsFever)
+        {
+            GameObject obj = GameObject.FindGameObjectWithTag("FeverEffect");
+            if (obj == null)
+            {
+                Instantiate(FeverEffect,transform.position,Quaternion.identity);
+            }
+            else
+            {
+                obj.transform.position = transform.position;
+            }
         }
         if (EnemyKillFlag)
         {

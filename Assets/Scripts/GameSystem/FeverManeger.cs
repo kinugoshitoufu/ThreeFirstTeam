@@ -5,6 +5,7 @@ public class FeverManeger : MonoBehaviour
 {
     public int FaverCount = 0;
     public RectTransform GageImage;
+    public GameObject FeverImageObj;
     public float StartY = -213f;// ゲージ開始位置
     public float MaxY = 0f;// ゲージMAXになった時の位置
     public  int MaxCount = 15;// フィーバー状態になるコンボ数
@@ -15,6 +16,7 @@ public class FeverManeger : MonoBehaviour
     void Start()
     {
         MaxFaverTime = FaverTime;
+        FeverImageObj.SetActive(false);
     }
 
     void Update()
@@ -32,11 +34,13 @@ public class FeverManeger : MonoBehaviour
         if (FaverCount >= MaxCount)
         {
             IsFever = true;
+            FeverImageObj.SetActive(true);
             Debug.Log("フィーバー状態");
             FaverTime-= Time.deltaTime;
             if(FaverTime<0)
             {
                 // リセット
+                FeverImageObj.SetActive(false);
                 FaverTime = MaxFaverTime;
                 FaverCount = 0;
                 IsFever = false;
