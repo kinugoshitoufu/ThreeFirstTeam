@@ -17,6 +17,7 @@ public class FeverManeger : MonoBehaviour
     {
         MaxFaverTime = FaverTime;
         FeverImageObj.SetActive(false);
+        IsFever = false;
     }
 
     void Update()
