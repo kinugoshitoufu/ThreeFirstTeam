@@ -19,6 +19,7 @@ public class Combo : MonoBehaviour
     private int comboThreshold = 0;
     public float auratimer = 2f;
     private Coroutine auraCoroutine;
+    private bool PlayerShotFlag;
 
     [Header("移動速度")]
     public float moveTime = 0.25f;
@@ -349,28 +350,30 @@ public class Combo : MonoBehaviour
 
     private void RankAura()
     {
+        PlayerShotFlag=playerscript.GetShotFlag();
         // E
-        if (combo <= 10 && Enemy.isdead)
+        //プレイヤーが突撃状態かつ敵が死んだら
+        if (combo <= 10 && PlayerShotFlag&&Enemy.isdead)
         {
             ShowAura(4);
         }
         // D
-        else if (combo <= 20 && Enemy.isdead)
+        else if (combo <= 20 && PlayerShotFlag && Enemy.isdead)
         {
             ShowAura(3);
         }
         // C
-        else if (combo <= 30 && Enemy.isdead)
+        else if (combo <= 30 && PlayerShotFlag && Enemy.isdead)
         {
             ShowAura(2);
         }
         // B
-        else if (combo <= 40 && Enemy.isdead)
+        else if (combo <= 40 && PlayerShotFlag && Enemy.isdead)
         {
             ShowAura(1);
         }
         // A
-        else if (combo <= 50 && Enemy.isdead)
+        else if (combo <= 50 && PlayerShotFlag && Enemy.isdead)
         {
             ShowAura(0);
         }
