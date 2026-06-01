@@ -53,7 +53,7 @@ public class Enemy : MonoBehaviour
         //死亡Effect
         Instantiate(deadEffect, transform.position, Quaternion.identity);
         isdead = true;
-        //animator.Play(animName);
+        EnemyCounter.AddKill();
         Destroy(gameObject);
     }
 
