@@ -20,6 +20,10 @@ public class PatternSpawner : MonoBehaviour
 
     private bool isStarted = false;
 
+    void Awake()
+    {
+        EnemyCounter.KillCount = 0;
+    }
     void Update()
     {
         if (StartSpawnFlag && !isStarted)
