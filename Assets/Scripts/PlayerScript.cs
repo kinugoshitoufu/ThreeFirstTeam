@@ -483,7 +483,7 @@ public class PlayerScript : MonoBehaviour
         {
             //移動量を算出する
             animator.SetBool("WalkAnim", true);
-            vec *= movespeed *4*Time.deltaTime;
+            vec *= movespeed *2*Time.deltaTime;
         }
         else
         {
