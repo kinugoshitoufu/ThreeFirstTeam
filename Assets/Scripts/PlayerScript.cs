@@ -79,7 +79,7 @@ public class PlayerScript : MonoBehaviour
 
     //EnemySpawner
     public static bool isMove = false;
-    public EnemySpawner1 enemyspawner;
+    public WaveManager enemyspawner;
     public float fallSpeed = 0.0f;
     public bool isFalling = false;
 

@@ -1,65 +1,120 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class WaveManager : MonoBehaviour
 {
-    [SerializeField] List<Wave> waveList;       // ウェーブリスト
-    [SerializeField, Min(0)] int waveIndex = 0; // ウェーブ番号
+    [Header("Wave一覧")]
+    [SerializeField]
+    private List<WaveData> waveList;
 
-    List<Wave> cloneList = new List<Wave>();    // クローンリスト
-    int cloneIndex = 0;                         // クローン番号
-    bool listEnd = false;                       // 終了フラグ
+    [Header("スポーン範囲")]
+    [SerializeField]
+    private Vector2 spawnRange = new Vector2(8f, 4f);
 
-    void Start()
-    {
-        StartWave(waveIndex);
-    }
+    public static bool StartSpawnFlag = false;
+    private bool isStarted = false;
 
     void Update()
     {
-        // ウェーブの削除確認
-        for (int i = 0; i < cloneList.Count; ++i)
+        if (StartSpawnFlag && !isStarted)
         {
-            if (cloneList[i] && cloneList[i].IsDelete())
+            Debug.Log("Wave開始許可");
+            isStarted = true;
+
+            StartSpawnFlag = false;
+
+            StartCoroutine(StartWaveRoutine());
+        }
+    }
+    IEnumerator StartWaveRoutine()
+    {
+        foreach (WaveData wave in waveList)
+        {
+            yield return StartCoroutine(SpawnWave(wave));
+        }
+
+        Debug.Log("全Wave終了");
+    }
+
+    IEnumerator SpawnWave(WaveData wave)
+    {
+        Debug.Log($"Wave開始 : {wave.waveName}");
+
+        for (int i = 0; i < wave.spawnCount; i++)
+        {
+            EnemySpawnOption3 option = GetRandomOption(wave);
+
+            if (option != null)
             {
-                Destroy(cloneList[i].gameObject);
+                Vector3 spawnPos = GetRandomPosition();
+
+                Instantiate(
+                    option.patternPrefab,
+                    spawnPos,
+                    Quaternion.identity);
+            }
+
+            yield return new WaitForSeconds(wave.spawnInterval);
+        }
+
+        Debug.Log($"Wave終了 : {wave.waveName}");
+    }
+
+    EnemySpawnOption3 GetRandomOption(WaveData wave)
+    {
+        float totalWeight = 0;
+
+        foreach (var option in wave.spawnOptions)
+        {
+            totalWeight += option.weight;
+        }
+
+        float rand = Random.Range(0, totalWeight);
+
+        float current = 0;
+
+        foreach (var option in wave.spawnOptions)
+        {
+            current += option.weight;
+
+            if (rand <= current)
+            {
+                return option;
             }
         }
 
-        if (waveList.Count <= 0 || IsEnd()) return;
-
-        // ウェーブが終わった
-        if (cloneList[cloneIndex].IsEnd())
-        {
-            // 次のウェーブへ
-            NextWave();
-        }
+        return null;
     }
 
-    // ウェーブ開始
-    void StartWave(int _index)
+    Vector3 GetRandomPosition()
     {
-        cloneList.Add((Wave)Instantiate(waveList[_index]));
+        Camera cam = Camera.main;
+
+        float halfHeight = cam.orthographicSize;
+        float halfWidth = halfHeight * cam.aspect;
+
+        float margin = 0.5f;
+
+        float x = Random.Range(
+            cam.transform.position.x - halfWidth + margin,
+            cam.transform.position.x + halfWidth - margin);
+
+        float y = Random.Range(
+            cam.transform.position.y - halfHeight + margin,
+            cam.transform.position.y + halfHeight - margin);
+
+        return new Vector3(x, y, 0);
     }
 
-    // 次のウェーブへ
-    void NextWave()
+    public static void IsMove(bool flag)
     {
-        if (waveIndex < (waveList.Count - 1))
+        Debug.Log($"IsMove({flag})");
+        if (!StartSpawnFlag)
         {
-            ++waveIndex;
-            ++cloneIndex;
-            StartWave(waveIndex);
+            StartSpawnFlag = flag;
         }
-        else
-        {
-            listEnd = true;
-        }
-    }
-
-    // 全てのウェーブが終了したか
-    public bool IsEnd()
-    {
-        return listEnd;
+    
+        StartSpawnFlag = flag;
     }
 }

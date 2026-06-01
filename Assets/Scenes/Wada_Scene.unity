@@ -1020,7 +1020,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 899487254}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5630883e98619ab42baf21f9146af4e6, type: 3}
   m_Name: 
@@ -1545,7 +1545,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1301655262}
-  - component: {fileID: 1301655261}
   m_Layer: 0
   m_Name: Wave
   m_TagString: Untagged
@@ -1553,19 +1552,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1301655261
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1301655260}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cb4ee9ad0e44c84aa4843e3a5b6ef84, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Wave
-  objList: []
 --- !u!4 &1301655262
 Transform:
   m_ObjectHideFlags: 0
@@ -1730,7 +1716,7 @@ PrefabInstance:
     - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: enemyspawner
       value: 
-      objectReference: {fileID: 899487258}
+      objectReference: {fileID: 1668266732}
     - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: triangleMesh
       value: 
@@ -2328,6 +2314,68 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1652701296}
   m_CullTransparentMesh: 1
+--- !u!1 &1668266731
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1668266733}
+  - component: {fileID: 1668266732}
+  m_Layer: 0
+  m_Name: WaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1668266732
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668266731}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3beeaf076ce814e46890647a44d56929, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveManager
+  waveList:
+  - waveName: Wave1
+    spawnOptions:
+    - patternPrefab: {fileID: 5819876588272463761, guid: 0321408d3f9e6214a823ae2aee1f1d40, type: 3}
+      weight: 50
+    - patternPrefab: {fileID: 7528735620476322591, guid: bb1969418af0cfa40800ceb60e607937, type: 3}
+      weight: 50
+    spawnCount: 5
+    spawnInterval: 1
+  - waveName: Wave2
+    spawnOptions:
+    - patternPrefab: {fileID: 5819876588272463761, guid: f3edbb274c774c346ab8e1f2de3b6559, type: 3}
+      weight: 50
+    - patternPrefab: {fileID: 7528735620476322591, guid: e7eda40f25c378d409927d9de5e89ebc, type: 3}
+      weight: 50
+    spawnCount: 5
+    spawnInterval: 1
+  spawnRange: {x: 8, y: 4}
+--- !u!4 &1668266733
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1668266731}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.3786, y: -2.98905, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1683712792
 GameObject:
   m_ObjectHideFlags: 0
@@ -3028,6 +3076,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 391374040}
+  - {fileID: 1301655262}
+  - {fileID: 1668266733}
   - {fileID: 899487256}
   - {fileID: 582619669}
   - {fileID: 1442568549}
@@ -3046,4 +3096,3 @@ SceneRoots:
   - {fileID: 1433950382}
   - {fileID: 1759256314500235729}
   - {fileID: 1119944362}
-  - {fileID: 1301655262}

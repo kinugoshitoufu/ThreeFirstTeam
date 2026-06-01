@@ -64,6 +64,7 @@ public class StartEnemy : MonoBehaviour
         EnemySpawner1.IsMove(true);
         EnemySpawner2.IsMove(true);
         EnemySpawner3.IsMove(true);
+        WaveManager.IsMove(true);
         return;
     }
 }

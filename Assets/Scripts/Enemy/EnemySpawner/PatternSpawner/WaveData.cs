@@ -2,24 +2,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class WaveObj : MonoBehaviour
+public class WaveData
 {
-    enum END_TYPE
-    {
-        NONE = 0,
-        EXISTENCE,  // 存在していたらウェーブ終了にならない
-    }
+    [Header("Wave名")]
+    public string waveName;
 
-    [SerializeField] END_TYPE endType = END_TYPE.NONE;
+    [Header("出現パターン候補")]
+    public List<EnemySpawnOption3> spawnOptions;
 
-    // ウェーブを終了していいか
-    public bool IsEnd()
-    {
-        if (endType == END_TYPE.EXISTENCE)
-        {
-            if (gameObject) { return false; }
-        }
+    [Header("このWaveで出す回数")]
+    public int spawnCount = 5;
 
-        return true;
-    }
+    [Header("出現間隔")]
+    public float spawnInterval = 1.0f;
 }
