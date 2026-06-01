@@ -22,12 +22,14 @@ public class EnemyBullet : MonoBehaviour
 
     void Update()
     {
-        
-        transform.position += (Vector3)(moveVec * moveSpeed * Time.deltaTime);
-        bulletTimer += Time.deltaTime;
-        if(bulletTimer > bulletDethCount)
+        if (!FeverManeger.IsFever)
         {
-            Destroy(gameObject);
+            transform.position += (Vector3)(moveVec * moveSpeed * Time.deltaTime);
+            bulletTimer += Time.deltaTime;
+            if (bulletTimer > bulletDethCount)
+            {
+                Destroy(gameObject);
+            }
         }
     }
     

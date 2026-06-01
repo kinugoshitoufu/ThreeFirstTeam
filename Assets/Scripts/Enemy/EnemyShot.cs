@@ -46,7 +46,6 @@ public class EnemyShot : Enemy
             //Debug.Log("isFlag:" + isFlag);
             if (!isFlag && !startFlag) return;
 
-            Debug.Log(playerObj);
             shotFrame += Time.deltaTime;
             if (shotFrame > shotData.frame)
             {
@@ -55,15 +54,13 @@ public class EnemyShot : Enemy
                     // プレイヤーを狙う
                     case ShotType.NORMAL:
                         {
+                            Debug.Log("生成開始!!");
                             if (playerObj == null) { break; }
                             EnemyBullet bullet = (EnemyBullet)Instantiate(
                                 shotData.bullet,
                                 transform.position,
                                 Quaternion.identity
                             );
-                            //bullet.SetMoveVec(playerObj.transform.position - transform.position);
-                            //bullet.SetMoveVec(dir);
-
                         }
                         break;
                 }
@@ -75,7 +72,15 @@ public class EnemyShot : Enemy
     void Update()
     {
         Shot();
-        
+        if(FeverManeger.IsFever)
+        {
+            Bullet.bulletspeed = 0f;
+        }
+        else if(!FeverManeger.IsFever)
+        {
+            Bullet.bulletspeed = Bullet.defaultSpeed;
+        }
+
         //lifeTimer += Time.deltaTime;
         //if (lifeTimer > 5f)
         //{
