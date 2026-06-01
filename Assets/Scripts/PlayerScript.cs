@@ -24,7 +24,6 @@ public class PlayerScript : MonoBehaviour
     public float shottime = 3.0f;
     public float gravity = 1.0f;
     public int shotCount = 1;
-    public int shotMaxLimitCount = 20;
     public float combotime = 1.2f;
     public int scorecount = 200;
     public float timeup = 1.0f;
@@ -42,6 +41,8 @@ public class PlayerScript : MonoBehaviour
     public float TriangleFixY;
     public int HitStopFrame = 6;
     public int maxcombo = 0;
+    public float ComboShotTimeUp = 0.2f;
+    public float MoveSpeedMulti = 2.0f;
     public SEData[] audios;
     public TriangleMesh triangleMesh;
     public GameObject ResultPanel;
@@ -70,6 +71,9 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private int oncecombocount = 0;
     private bool shotboxflag = true;
     private bool HitStopFlag = true;
+    private float ShotTimeTemp;
+    private float PreviousShotTime;
+    private int PreviousComboCount = 0;
     private int score = 0;
     private bool shotFlag;
     private bool meshFlag = true;
@@ -92,6 +96,7 @@ public class PlayerScript : MonoBehaviour
     [SerializeField] private float steerForce = 10f;
     [SerializeField] private float maxSpeed = 15f; // 速度上限
     [SerializeField] private float steerDelay = 0.15f; // 突撃直後の入力無効時間（秒）
+    public float steerForceMulti = 1.5f;
 
     [SerializeField] private float steerTimer = 0f;
     [SerializeField] private bool canSteer = false;
@@ -128,6 +133,8 @@ public class PlayerScript : MonoBehaviour
         isMove = false;
         instance = this;
         TempSpeed = movespeed;
+        ShotTimeTemp = shottime;
+        PreviousShotTime = shottime;
         //test
         steerTimer = 0f;
         canSteer = false;
@@ -194,10 +201,6 @@ public class PlayerScript : MonoBehaviour
                 Move();
             }
         }
-        if (shotCount > shotMaxLimitCount)
-        {
-            shotCount = shotMaxLimitCount;
-        }
         if (meshFlag)
         {
             triangleMesh.vec2 = transform.position;
@@ -242,6 +245,7 @@ public class PlayerScript : MonoBehaviour
         else
         {
             oncecombocount = 0;
+            shottime = ShotTimeTemp;
         }
         if (oncecombocount == 0)
         {
@@ -253,12 +257,12 @@ public class PlayerScript : MonoBehaviour
             Time.timeScale = 0.0f;
             Debug.Log("The World");
         }
-        if (Time.timeScale == 0.0f)
+        if (Time.timeScale == 0.0f && ResultScript.instance.GetResultFlag() == false)
         {
             if (HitStopFrame == 0) return;
             HitStopFrame--;
         }
-        if (HitStopFrame <= 0)
+        if (HitStopFrame <= 0 && ResultScript.instance.GetResultFlag() == false)
         {
             Time.timeScale = 1.0f;
             HitStopFrame = HitStopFrameTemp;
@@ -417,7 +421,7 @@ public class PlayerScript : MonoBehaviour
                         
                         if(FeverManeger.IsFever)
                         {
-                            rb.AddForce(perpendicular * input * -steerForce*2);
+                            rb.AddForce(perpendicular * input * -steerForce * steerForceMulti);
                         }
                         else
                         {
@@ -483,7 +487,7 @@ public class PlayerScript : MonoBehaviour
         {
             //移動量を算出する
             animator.SetBool("WalkAnim", true);
-            vec *= movespeed *2*Time.deltaTime;
+            vec *= movespeed * MoveSpeedMulti * Time.deltaTime;
         }
         else
         {
@@ -560,6 +564,14 @@ public class PlayerScript : MonoBehaviour
         rb.linearVelocity *= 0.0f;
         rb.AddForce(Arrow.transform.up * Shotspeed, ForceMode2D.Impulse);
         shotFlag = true;
+        if (combocount > 0)
+        {
+            if (PreviousComboCount < combocount)
+            {
+                shottime += combocount * ComboShotTimeUp;
+                PreviousComboCount = combocount;
+            }
+        }
         transform.rotation = Arrow.transform.rotation;
         Arrow.transform.rotation = new Quaternion(0.0f, 0.0f, 0.0f, 0.0f);
         Instantiate(ShotEffect,transform.position,Quaternion.identity);
@@ -825,6 +837,7 @@ public class PlayerScript : MonoBehaviour
                 {
                     Timescript.limitTime -= timedown;
                     audioSource.PlayOneShot(audios[1].clip, audios[1].SEvolume);
+                    CameraShake.Instance.Shake(12, 0.4f);
                     onFlashScript.BeginBlink();
                     DamageFlag = true;
                 }

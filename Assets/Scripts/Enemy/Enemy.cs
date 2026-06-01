@@ -51,7 +51,10 @@ public class Enemy : MonoBehaviour
     {
         Debug.Log("敵消滅");
         //死亡Effect
-        Instantiate(deadEffect, transform.position, Quaternion.identity);
+        if (PlayerScript.instance.GetShotFlag() == true)
+        {
+            Instantiate(deadEffect, transform.position, Quaternion.identity); 
+        }
         isdead = true;
         EnemyCounter.AddKill();
         Destroy(gameObject);

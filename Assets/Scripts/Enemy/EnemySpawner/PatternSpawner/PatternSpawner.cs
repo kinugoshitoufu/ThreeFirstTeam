@@ -15,6 +15,8 @@ public class PatternSpawner : MonoBehaviour
     [Header("最大敵数")]
     [SerializeField]
     private int maxEnemyCount = 50;
+    [SerializeField]
+    private int maxPatternCount = 5;
 
     public static bool StartSpawnFlag = false;
 
@@ -41,12 +43,9 @@ public class PatternSpawner : MonoBehaviour
             yield return new WaitForSeconds(spawnInterval);
 
             GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            Debug.Log($"[SpawnLoop] 敵数: {enemies.Length} / {maxEnemyCount}");
 
-            // 敵が残っていたら待機
-            if (enemies.Length >= maxEnemyCount)continue;
-
-            // 最大数超過防止
-            if (enemies.Length >= maxEnemyCount)continue;
+            if (enemies.Length >= maxEnemyCount) continue;
 
             SpawnPattern();
         }
@@ -55,28 +54,30 @@ public class PatternSpawner : MonoBehaviour
     void SpawnPattern()
     {
         PatternData pattern = GetRandomPattern();
-        if (pattern == null)
-            return;
+        if (pattern == null) return;
 
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        
         int patternCount = Mathf.Max(1, EnemyCounter.KillCount / 10 + 1);
-        int totalEnemyCount = pattern.enemyCount * patternCount;
-
-        Debug.Log($"Enemy数:{enemies.Length} " + $"enemyCount:{pattern.enemyCount} " + $"patternCount:{patternCount} " + $"totalEnemyCount:{totalEnemyCount} " + $"maxEnemyCount:{maxEnemyCount}");
-        if (enemies.Length >= maxEnemyCount)
+        if (patternCount > maxPatternCount)
         {
-            Debug.Log("敵数上限のためスポーン中止");
-            return;
+            patternCount = maxPatternCount;
         }
+        Debug.Log($"[SpawnPattern] patternCount: {patternCount}");
+
         for (int i = 0; i < patternCount; i++)
         {
+            GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            int remainingSlots = maxEnemyCount - enemies.Length;
+
+            // ★ 2つの条件を統合
+            if (remainingSlots <= 0 || pattern.enemyCount > remainingSlots)
+            {
+                Debug.Log($"[SpawnPattern] スポーン中止: 敵数={enemies.Length}, 残りスロット={remainingSlots}, 必要={pattern.enemyCount}");
+                break;
+            }
+
             Vector3 pos = GetRandomPosition();
-        
-            Instantiate(pattern.patternPrefab,pos,Quaternion.identity);
+            Instantiate(pattern.patternPrefab, pos, Quaternion.identity);
         }
-        
-        Debug.Log($"撃破数:{EnemyCounter.KillCount} " + $"生成パターン数:{patternCount}");
     }
 
     PatternData GetRandomPattern()
@@ -130,4 +131,5 @@ public class PatternSpawner : MonoBehaviour
     {
         StartSpawnFlag = flag;
     }
+
 }

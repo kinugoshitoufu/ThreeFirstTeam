@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine;
 using System.Collections;
+using UnityEditor;
 public class ResultScript : MonoBehaviour
 {
     public static ResultScript instance;
@@ -20,6 +21,7 @@ public class ResultScript : MonoBehaviour
     public GameObject triangle;
     public Transform player;
     public bool isFalling = false;
+    private bool result = false;
     private void Awake()
     {
         instance = this;
@@ -39,6 +41,8 @@ public class ResultScript : MonoBehaviour
     
     public void ShowResult()
     {
+        result = true;
+
         GameObject resultObj = Instantiate(resultPrefab);
 
         timeText = resultObj.transform.Find("Canvas/Time").GetComponent<TextMeshProUGUI>();
@@ -77,5 +81,9 @@ public class ResultScript : MonoBehaviour
         resultTime = 0f;
         resultScore = 0;
         resultCombo = 0;
+    }
+    public bool GetResultFlag()
+    {
+        return result;
     }
 }

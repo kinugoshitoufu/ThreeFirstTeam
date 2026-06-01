@@ -36,7 +36,7 @@ public class FeverManeger : MonoBehaviour
         {
             IsFever = true;
             FeverImageObj.SetActive(true);
-            Debug.Log("フィーバー状態");
+            //Debug.Log("フィーバー状態");
             FaverTime-= Time.deltaTime;
             if(FaverTime<0)
             {
