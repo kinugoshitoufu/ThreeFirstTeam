@@ -20,6 +20,7 @@ public class Combo : MonoBehaviour
     public float auratimer = 2f;
     private Coroutine auraCoroutine;
     private bool PlayerShotFlag;
+    int result;
 
     [Header("移動速度")]
     public float moveTime = 0.25f;
@@ -108,6 +109,7 @@ public class Combo : MonoBehaviour
             comboUI.SetActive(false);
             oldcombo = 0;
             oldTensDigit = 0;
+            comboThreshold = 0;
             return;
         }
 
@@ -125,9 +127,7 @@ public class Combo : MonoBehaviour
 
             comboThreshold++;
 
-            int result = comboThreshold * 10;
-
-            Debug.Log(result);
+            result = comboThreshold * 10;
 
             SpawnEnemyText(enemyPos, result);
         }
@@ -286,9 +286,11 @@ public class Combo : MonoBehaviour
 
             float t = timer / moveTime;
             t = Mathf.SmoothStep(0f, 1f, t);
-
+            if (text == null || rect == null)
+                yield break;
             // 移動
             rect.anchoredPosition = Vector2.Lerp(startPos, targetPos, t);
+            
 
             // スケール
             float scale =
