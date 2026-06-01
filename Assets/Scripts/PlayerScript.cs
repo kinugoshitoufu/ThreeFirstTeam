@@ -414,8 +414,15 @@ public class PlayerScript : MonoBehaviour
                     {
                         Vector2 forward = rb.linearVelocity.normalized;
                         Vector2 perpendicular = new Vector2(-forward.y, forward.x);
-
-                        rb.AddForce(perpendicular * input * -steerForce);
+                        
+                        if(FeverManeger.IsFever)
+                        {
+                            rb.AddForce(perpendicular * input * -steerForce*2);
+                        }
+                        else
+                        {
+                            rb.AddForce(perpendicular * input * -steerForce);
+                        }
 
                         if (rb.linearVelocity.magnitude > maxSpeed)
                             rb.linearVelocity = rb.linearVelocity.normalized * maxSpeed;
