@@ -49,13 +49,13 @@ public class ResultScript : MonoBehaviour
         int TotalScore =
         (int)resultTime + resultScore + resultCombo;
 
-        timeText.text = "Life Time:\n" + resultTime.ToString("F0");
+        timeText.text = "Life Time:" + resultTime.ToString("F0");
 
-        scoreText.text = "Score:\n" + resultScore.ToString();
+        scoreText.text = "Score:" + resultScore.ToString();
 
-        comboText.text = "MaxCombo:\n" + resultCombo.ToString();
+        comboText.text = "MaxCombo:" + resultCombo.ToString();
 
-        totalText.text = "TotalScore\n" + TotalScore.ToString();
+        totalText.text = "TotalScore" + TotalScore.ToString();
 
         
         //TriangleMesh.instance.resultPanel = resultObj.transform.Find("Panel").GetComponent<SpriteRenderer>();

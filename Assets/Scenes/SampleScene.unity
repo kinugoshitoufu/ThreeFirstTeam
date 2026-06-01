@@ -2126,7 +2126,7 @@ MonoBehaviour:
   FeverImageObj: {fileID: 935313888}
   StartY: -213
   MaxY: 0
-  MaxCount: 15
+  MaxCount: 50
   FaverTime: 10
 --- !u!114 &1001300666
 MonoBehaviour:
@@ -4110,7 +4110,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6816878667211342892, guid: f155b6fa847f4a441885232fd0d85a21, type: 3}
   m_PrefabInstance: {fileID: 2099898687}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2003864368
+--- !u!114 &2003864370
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4119,29 +4119,117 @@ MonoBehaviour:
   m_GameObject: {fileID: 2003864365}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78ee75e4fc8a7fb43be6089355db4439, type: 3}
+  m_Script: {fileID: 11500000, guid: 290e1acee62c07046b38154db2bb5dff, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner2
-  player: {fileID: 1440645665}
-  spawnOptions:
-  - enemyPrefab: {fileID: 459942376683718103, guid: 815445face620214b89adeed80cb31aa, type: 3}
-    spawnCount: 1
+  m_EditorClassIdentifier: Assembly-CSharp::PatternSpawner
+  patterns:
+  - patternPrefab: {fileID: 5819876588272463761, guid: 0321408d3f9e6214a823ae2aee1f1d40, type: 3}
     weight: 100
-  - enemyPrefab: {fileID: 459942376683718103, guid: 48ed62e6d5a6c8940b9dafc132321f5b, type: 3}
-    spawnCount: 1
-    weight: 30
-  Maxrange: {x: 9, y: 9}
-  maxEnemiesInScene: 10
-  spawnCountOne: 70
-  spawnCountTwo: 20
-  spawnCountThree: 10
-  Maxdelay: 1
-  Mindelay: 0.1
-  enemyCheckRadius: 1
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  offset: 2
+    enemyCount: 6
+  - patternPrefab: {fileID: 5819876588272463761, guid: f3edbb274c774c346ab8e1f2de3b6559, type: 3}
+    weight: 100
+    enemyCount: 6
+  - patternPrefab: {fileID: 9150351826715494800, guid: 4e71fb9088607084599cfdeae82797d8, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 9150351826715494800, guid: 0e59deeda8af9ce4ba83b87e14dfbd35, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 9150351826715494800, guid: 0be9fd64499a20b46b8f7f1d21447543, type: 3}
+    weight: 100
+    enemyCount: 4
+  - patternPrefab: {fileID: 5446407057746404240, guid: d52803a0564fc47438449d5084124835, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 5446407057746404240, guid: 6a23fdb83fdfb27429a89d151e29a99a, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 5446407057746404240, guid: d234ccfed04023244b38dc3876ceb59f, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 556085003387916124, guid: fd798ed6d80fed04b8bc759f79bce65a, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 556085003387916124, guid: 0d264d8181d4c554fb303d3920c5693b, type: 3}
+    weight: 100
+    enemyCount: 2
+  - patternPrefab: {fileID: 556085003387916124, guid: edd68cb0cea057e40a383ab61b3af1a9, type: 3}
+    weight: 100
+    enemyCount: 2
+  - patternPrefab: {fileID: 7528735620476322591, guid: e7eda40f25c378d409927d9de5e89ebc, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 7528735620476322591, guid: a8d7187660131b24d8bf69d4453575f8, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 7528735620476322591, guid: bb1969418af0cfa40800ceb60e607937, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 7528735620476322591, guid: ed348c8bad7588b4f853eb52d69f1e93, type: 3}
+    weight: 100
+    enemyCount: 4
+  - patternPrefab: {fileID: 7828915381071286913, guid: 6598cd8e1c6d5764d821ee9ea5298d20, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 7828915381071286913, guid: 4fe90a11e174b4a429f902d72ad9b56a, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 7828915381071286913, guid: caf955dc03c46224ea504f3d4f2de399, type: 3}
+    weight: 100
+    enemyCount: 4
+  - patternPrefab: {fileID: 7828915381071286913, guid: 833ca465637f3584082fd50188d93645, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 6790257618662357982, guid: cab15d24f779d6f4ab4fcd7ec20d1b4c, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 6790257618662357982, guid: aee2ecd768262044db3cec83e215eb74, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 6790257618662357982, guid: 187c10606a41ee840b73471cfb2de85b, type: 3}
+    weight: 100
+    enemyCount: 5
+  - patternPrefab: {fileID: 9057305385574641464, guid: d880e8ce2d94d9443b2dd3e47a5e1de9, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 9057305385574641464, guid: 3795d25107789e94cb8b19e071f1055e, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 9057305385574641464, guid: 5eb1631c51180fe46ac895b4e0b3f4dc, type: 3}
+    weight: 100
+    enemyCount: 4
+  - patternPrefab: {fileID: 8976661220400532455, guid: de73dd6f9d48f964ca5f0617ccc93864, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 8976661220400532455, guid: 1cfce3b6a5bf4be4db88e7969b02b7e8, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 8976661220400532455, guid: 3c81ba518b3c90648820a57ad856d9dc, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 5770486955312668224, guid: a06c06aa7344fa647992304ee7d41f85, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 5770486955312668224, guid: c234481ea01b0b44192d395f20fa24b5, type: 3}
+    weight: 100
+    enemyCount: 2
+  - patternPrefab: {fileID: 5770486955312668224, guid: 48a0a28682cb56443944b8cdbcab91aa, type: 3}
+    weight: 100
+    enemyCount: 2
+  - patternPrefab: {fileID: 1527937034957459677, guid: 10de81d11d2f3f74f965d2d1e128fd47, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 1527937034957459677, guid: 8442f91c14c247f4f835cd7516e7a670, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 1527937034957459677, guid: 5f6698626fe48ae418899e9a5578876e, type: 3}
+    weight: 100
+    enemyCount: 3
+  - patternPrefab: {fileID: 1527937034957459677, guid: b87ff02db62ea4d4b9043de4c3709ef3, type: 3}
+    weight: 100
+    enemyCount: 4
+  spawnInterval: 3
+  maxEnemyCount: 10
 --- !u!1001 &2047540779
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4262,7 +4350,7 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6816878667211342892, guid: f155b6fa847f4a441885232fd0d85a21, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2003864368}
+      addedObject: {fileID: 2003864370}
   m_SourcePrefab: {fileID: 100100000, guid: f155b6fa847f4a441885232fd0d85a21, type: 3}
 --- !u!1001 &4750600855653603552
 PrefabInstance:
@@ -4416,7 +4504,7 @@ PrefabInstance:
     - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: FeverEffect
       value: 
-      objectReference: {fileID: 1331436068504101970, guid: c108afd44e0c11c4cba0cad842f93e23, type: 3}
+      objectReference: {fileID: 1331436068504101970, guid: 8b64ca8568d9db24b817c490dc3ee6e4, type: 3}
     - target: {fileID: 5391328131559086630, guid: f501373f90623f44b8560f6ceaa3f970, type: 3}
       propertyPath: Favermaneger
       value: 

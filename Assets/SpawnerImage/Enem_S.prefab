@@ -303,5 +303,5 @@ MonoBehaviour:
   spawnTime: 0.1
   speed: 3
   startFlag: 0
-  deadEffect: {fileID: 5640451101015276910, guid: 0b9b2d585d11f6247b90e38d36755d8f, type: 3}
-  enemyDeath1Animator: {fileID: 266807175171691131}
+  deadEffect: {fileID: 5829252232034291361, guid: 229126c5c4b5c914caf63b769862960f, type: 3}
+  enemyDeath1Animator: {fileID: 0}
