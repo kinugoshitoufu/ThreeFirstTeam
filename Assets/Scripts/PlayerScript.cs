@@ -36,11 +36,11 @@ public class PlayerScript : MonoBehaviour
     public int combocountRank = 10;
     public float timedown = 3.0f;
     public GameObject particle;
-    public int HitStopFlame = 3;
     public float ControllerDeadZone = 0.1f;
     public float DamageTime = 0.5f;
     public float TriangleFixX;
     public float TriangleFixY;
+    public int HitStopFrame = 6;
     public int maxcombo = 0;
     public SEData[] audios;
     public TriangleMesh triangleMesh;
@@ -66,10 +66,13 @@ public class PlayerScript : MonoBehaviour
     private Vector2 BoxSize;
     private Vector3 PlayerScale;
     private int combocount = 0;
+    [SerializeField] private int oncecombocount = 0;
     private bool shotboxflag = true;
+    private bool HitStopFlag = true;
     private int score = 0;
     private bool shotFlag;
     private bool meshFlag = true;
+    [SerializeField] private int HitStopFrameTemp;
     private float DamageTimeCount = 0.0f;
     private bool DamageFlag;
     [SerializeField] private bool EnemyKillFlag = false;
@@ -121,12 +124,14 @@ public class PlayerScript : MonoBehaviour
         BoxSize = box.size;
         PlayerScale = transform.localScale;
         playerState = PlayerState.start;
+        HitStopFrameTemp = HitStopFrame;
         isMove = false;
         instance = this;
         TempSpeed = movespeed;
         //test
         steerTimer = 0f;
         canSteer = false;
+        Debug.Log("aaaaaaaaaSTART");
     }
 
     // Update is called once per frame
@@ -223,6 +228,7 @@ public class PlayerScript : MonoBehaviour
         }
         if (shotFlag)
         {
+            
             shottimecount += Time.deltaTime;
             TrailEffectDelayTimer += Time.deltaTime;
             if (TrailEffectDelay <= TrailEffectDelayTimer)
@@ -233,7 +239,31 @@ public class PlayerScript : MonoBehaviour
             }
             rb.gravityScale = 0.0f;
         }
-            
+        else
+        {
+            oncecombocount = 0;
+        }
+        if (oncecombocount == 0)
+        {
+            HitStopFlag = true;
+        }
+        if (oncecombocount == 1 && HitStopFlag)
+        {
+            HitStopFlag = false;
+            Time.timeScale = 0.0f;
+            Debug.Log("The World");
+        }
+        if (Time.timeScale == 0.0f)
+        {
+            if (HitStopFrame == 0) return;
+            HitStopFrame--;
+        }
+        if (HitStopFrame <= 0)
+        {
+            Time.timeScale = 1.0f;
+            HitStopFrame = HitStopFrameTemp;
+            Debug.Log("Not The World");
+        }
         if (shottime < shottimecount)
         {
             shotFlag = false;
@@ -761,6 +791,7 @@ public class PlayerScript : MonoBehaviour
                 Favermaneger.FaverCount++;
                 audioSource.PlayOneShot(audios[2].clip, audios[2].SEvolume);
                 combocount++;
+                oncecombocount++;
                 shotCount++;
                 combotimecount = 0.0f;
                 score += scorecount * combocount;
@@ -800,6 +831,7 @@ public class PlayerScript : MonoBehaviour
                     SoundManager2.instance.PlayBGM(0);
                     FadeManager.instance.SetFadeFlag(true);
                     combocount++;
+                    oncecombocount++;
                     shotCount++;
                     combotimecount = 0.0f;
                     score += scorecount * combocount;
